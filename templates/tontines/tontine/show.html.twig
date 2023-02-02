@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tontine.name == null ? tontine.type.name ~ " | " ~ (tontine.createdAt | in_locale('ll')) : tontine.name }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ tontine.name == null ? tontine.type.name ~ " | " ~ (tontine.createdAt | in_locale('ll')): tontine.name }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<style>
+    ul{
+        list-style-type: none;
+    }
+</style>
+<div class="row">
+    <div class="col-md-8">
+        {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-primary mb-2'} ) }}
+        {{ create_link('app_backend_tontine_info', __('tontine.info'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-info mb-2'} ) }}
+        {{ create_link('app_backend_tontine_details', __('tontine.details'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-success mb-2'} ) }}
+        {{ create_link('app_backend_multi_won_selection', __('Plusieurs bénéficiaire'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-save mb-2'} ) }}
+    </div>
+    <div class="col-md-4 text-right">
+      {{ include(viewPath ~ '/_add_tontineur.html.twig') }}
+  </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+      <table class="table mb-2 table-bordered bg-show">
+        <tr>
+          <th >{{ __u('tontine') }}</th>
+          <th>{{ __u('members') }}</th>
+          <th>{{ __('unities') }}</th>
+          <th>{{ __u('half.parts') }}</th>
+          <th>{{ __('locked.unities') }}</th>
+          <th>{{ __('total.amount') }}</th>
+          <th>{{ __('benefit.amount') }}</th>
+        </tr>
+        <tr>
+          <td class="my-flex-between">
+            {{ create_link('app_backend_tontine_update_data', '<i class="fa fa-edit text-save"></i>', {_locale: locales.locale, id:tontine.id}, { style:"font-size: 1rem;", title: __("edit")} ) }}
+            {{ create_link('app_backend_tontine_details', '<i class="fa fa-eye text-save font-size-10"></i>', {_locale: locales.locale, id:tontine.id}, {class: '', title: __("show")} ) }}
+            {{ create_link('app_backend_tontine_info', '<i class="fa fa-money-bill  text-save"></i>', {_locale: locales.locale, id:tontine.id}, {class: '', title: __("tontine.info")} ) }}
+          </td>
+          <td>{{ tontine.dataCount }} {{ __('member') }}{{ tontine.dataCount > 1 ? 's' : '' }}</td>
+          <td>{{ tontine.realCount  }} {{ tontine.realCount > 1 ? __('unities') : __('unity') }}</td>
+          <td>{{ tontine.realDemiCount  }} {{ tontine.realDemiCount > 1 ? __('unities') : __('unity') }}</td>
+          <td>{{ tontine.totalLockedCount  }} {{ tontine.totalLockedCount > 1 ? __('unities') : __('unity') }}</td>
+          <td>{{ tontine.cotisation | money_format }}</td>
+          <td>{{ tontine.amount | money_format }}</td>
+        </tr>
+      </table>
+
+      <table class="table table-striped bg-save">
+        <thead class="bg-edit">
+          <tr>
+            <th>{{ __u('member') }}</th>
+            <th>{{ __u('cotisation') }}</th>
+            {% if tontine.type.minAchat != 0 %}
+            <th>{{ __u('unity.price') }}</th>
+            {% endif %}
+            <th>{{ __u('actions') }}</th>
+          </tr>
+        </thead>
+        <tbody class="">
+          {% for unity in unities %}
+          <tr>
+            <td>{{ unity.tontineurData.tontineur }}</td>
+            <td>{{ unity.amount | money_format }}</td>
+            {% if tontine.type.minAchat != 0 %}
+            <th>{{ unity.achat | money_format }}</th>
+            {% endif %}
+            <td>
+              {{ create_link('app_backend_unity_show', __u('show'), { id: unity.id, _locale: locales.locale }, {class: 'btn btn-info mb-2'} ) }}
+              {% if is_false(unity.isWon) and is_false(unity.isStopped) and is_true(tontine.addMember)  %}
+                {{ create_link('app_backend_unity_delete', __u('delete'), { id: unity.id, _locale: locales.locale }, {class: 'btn btn-danger mb-2'} ) }}
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div>
+  </div>
+  {% endblock %}
+

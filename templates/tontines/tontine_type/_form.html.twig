@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.name) }}
+            {{ form_row(form.cotisation) }}
+            {{ form_row(form.hasMultipleTontine) }}
+            {{ form_row(form.hasAvaliste) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_rest(form) }}
+        </div>
+    </div>
+    <button class="btn btn-primary">{{ __u(button_label|default('Save')) }}</button>
+{{ form_end(form) }}

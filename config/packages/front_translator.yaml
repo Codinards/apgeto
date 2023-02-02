@@ -1,0 +1,6 @@
+front_translator:
+  translation_file_path: "%kernel.project_dir%/translations"
+  languages:
+    - 'fr'
+    - 'en'
+    - 'es'

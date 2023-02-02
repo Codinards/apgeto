@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __u('user.edit') }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __u('user.edit') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    
+    <div class="row">
+        <div class="col-12 text-right">
+            {{ create_link('app_backend_user_index', __('user.all.index'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-info'} ) }}
+            {{ create_link('app_backend_user_show', __('profil'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-success'} ) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {{ include(viewPath ~ '/_form.html.twig', {button_label: 'Update'}) }} 
+        </div>
+    </div>
+    
+{% endblock %}

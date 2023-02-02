@@ -1,0 +1,170 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ __("dashboard") }}{% endblock %}
+
+{% block pageTitle %}
+    <h1 class="text-uppercase">{{ __("dashboard") }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-right">
+            <span class="my-dropdown btn bg-update">
+                <span class="dropbtn">{{ __u('old.states') }}</span>
+                <span class="dropdown-content bg-chocolate text-left">
+                    {% for one_year in years %}
+                    {{ create_link('app_backend_admin_index', one_year, { _locale: locales.locale, year: one_year}, {class: 'text-left', style: 'min-width:150px;'} ) }}
+                    {% endfor %}
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mt-5">
+            {% for key, item in data  %}
+                {% set name = item["title"] ?? key %}
+                {{  add_admin_item('<div class="card radius-6 text-center text-white bg-{{ color }}" style="height: 100%;">
+                    <div class="card-header bg-{{ cd-color }}">
+                        <h3>' ~ __u("account")  ~ ' ' ~ year ~ '</h3>
+                    </div>
+                    
+                    <div class="card-body">
+                        <p style="font-size: 1.2rem;">' ~ item["count"] ~ '</p> <hr>
+                        <p>' ~ __u((item["count"] > 1 ? (name) ~ "s" : name), ( stripos(key, "_balance") and item["base"] is not same as(null)) ? {"%balance%": int(item["base"]) | money_format} : {})  ~'</p>
+                    </div>
+                    <div class="card-footer text-left">
+                        <a href="' ~ item["path"] ~ '" class="text-primary">' ~ __u("show") ~ '</a>
+                    </div>
+                </div>')}}
+            {% endfor %}
+
+            {% for operation in operations %}
+                
+                {{ add_admin_item('<div class="card radius-6  bg-{{ color }}" style="height: 100%;">
+                    <div class="card-header bg-{{ cd-color }}">
+                        <h3 class="font-size-10">' ~ create_link("app_backend_operation_type_show", __t(operation.type.name) ~ " " ~ operation.year, {_locale: locales.locale, id:operation.type.id}, {class: "text-white"} ) ~ '</h3>
+                    </div>
+                    <div class="card-body">
+                            <table class="table text-white">
+                                <tr>
+                                    <th>' ~  __u("previous_balance") ~ '</th>
+                                    <td>' ~  operation.previousBalance | money_format ~ '</td>
+                                </tr>
+                                <tr>
+                                    <th>' ~  __u("inflows") ~ '</th>
+                                    <td>' ~  operation.inflows | money_format ~ '</td>
+                                </tr>
+                                <tr>
+                                    <th>' ~  __u("outflows") ~ '</th>
+                                    <td>' ~  operation.outflows | money_format ~ '</td>
+                                </tr>
+                                <tr class="bg-chocolate" >
+                                    <th>' ~  __u("balance") ~ '</th>
+                                    <td>' ~  (operation.balances + operation.previousBalance) | money_format ~ '</td>
+                                </tr>
+                                
+                            </table>
+                    </div>
+                    <div class="card-footer">
+                        ' ~ create_link("app_backend_operation_type_show", __u("show"), {_locale: locales.locale, id:operation.type.id}, {class: "btn text-primary"} ) ~ '
+                    </div>
+                </div>')}}
+            {% endfor %}
+
+            {#% for operation in states %#}
+                
+            {{ add_admin_item('<div class="card radius-6  bg-{{ color }}" style="height: 100%;">
+                <div class="card-header bg-{{ cd-color }}">
+                    <h3 class="font-size-10">' ~  __t('Account Operations') ~ " " ~ year ~ '</h3>
+                </div>
+                <div class="card-body">
+                        <table class="table text-white">
+                            <tr>
+                                <th>' ~  __u("previous_balance") ~ '</th>
+                                <td>' ~  states['previous'] | money_format ~ '</td>
+                            </tr>
+                            <tr>
+                                <th>' ~  __u("inflows") ~ '</th>
+                                <td>' ~  states['inflows'] | money_format ~ '</td>
+                            </tr>
+                            <tr>
+                                <th>' ~  __u("outflows") ~ '</th>
+                                <td>' ~  states['outflows'] | money_format ~ '</td>
+                            </tr>
+                            <tr class="bg-chocolate" >
+                                <th>' ~  __u("balance") ~ '</th>
+                                <td>' ~  states['balances'] | money_format ~ '</td>
+                            </tr>
+                            
+                        </table>
+                </div>
+                <div class="card-footer">
+                    ' ~ create_link("app_backend_account_index", __u("show"), {_locale: locales.locale}, {class: "btn text-primary"} ) ~ '
+                </div>
+            </div>')}}
+
+            {{ add_admin_item('<div class="card radius-6  bg-{{ color }}" style="height: 100%;">
+                <div class="card-header bg-{{ cd-color }}">
+                    <h3 class="font-size-10">' ~  __t('Debt Operations') ~ " " ~ year ~ '</h3>
+                </div>
+                <div class="card-body">
+                        <table class="table text-white">
+                            <tr>
+                                <th>' ~  __u("previous_balance") ~ '</th>
+                                <td>' ~  states['loan_previous'] | money_format ~ '</td>
+                            </tr>
+                            <tr>
+                                <th>' ~  __u("inflows") ~ '</th>
+                                <td>' ~  states['loan_inflows'] | money_format ~ '</td>
+                            </tr>
+                            <tr>
+                                <th>' ~  __u("outflows") ~ '</th>
+                                <td>' ~  states['loan_outflows'] | money_format ~ '</td>
+                            </tr>
+                            <tr class="bg-chocolate" >
+                                <th>' ~  __u("balance") ~ '</th>
+                                <td>' ~  states['loan_balances'] | money_format ~ '</td>
+                            </tr>
+                            
+                        </table>
+                </div>
+                <div class="card-footer">
+                    ' ~ create_link("app_backend_account_index", __u("show"), {_locale: locales.locale}, {class: "btn text-primary"} ) ~ '
+                </div>
+            </div>')}}
+            
+        {#% endfor %#}
+   
+            {% set assistanceRow = '' %}
+            {% for data in assistances.data %}
+            {% set assistanceRow = assistanceRow ~ '<tr><td>' ~ data.type  ~ '</td><td>' ~ data.count  ~ ' ' ~ (data.count > 1 ? "members" : "member")  ~ '</td></tr>' %}
+            {% else %}
+            {% set assistanceRow = assistanceRow ~ '<tr class="text-center"><td colspan="2">' ~ __('not.found.record')  ~ '</td></tr>' %}
+            {% endfor %}
+            {{  add_admin_item('<div class="card radius-6 text-white bg-{{ color }}" style="height:100%;">
+                <div class="card-header bg-{{ cd-color }}">
+                    <h3>' ~ __u("assistances")  ~ '</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table text-white">
+                        <thead>
+                            <tr>
+                                <th>' ~ __u("type")  ~ '</th>
+                                <th>' ~ __u("count")  ~ '</th>
+                            </tr>
+                        </thead>' ~ assistanceRow ~
+                    '</table>
+                </div>
+                <div class="card-footer">
+                    ' ~ create_link("app_backend_assistance_index", __u("show"), {_locale: locales.locale}, {class: "btn text-primary"} ) ~ '
+                </div>
+            </div>') }}
+
+            {#  view rendering #}
+            {{ render_admin_view() | raw }}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('tontinetype.index') }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __t('tontinetype.index') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    
+<div class="row mb-2">
+    <div class="col-8">
+        {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-info'} ) }} 
+    </div>
+    <div class="col-4 mb-2 text-right">
+        {{ create_link('app_backend_tontinetype_new', '<i class="fa fa-plus"></i> ' ~  __('tontinetype.new'), {_locale: locales.locale}, {class: 'btn btn-success'} ) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+    {% for items in types|batch(2) %}
+            <div class="row">          
+        {% for type in items %}
+        <div class="col-md-6" style="height: inherit;">
+            <div class=" card mb-4" style="height: 95%;">
+                <div class="card-header bg-edit">
+                    <h2> <span class="text-show"><span class="text-save">{{ __u('type') | upper }}</span> : {{ __U(type.name) }}</span></h2>
+                <hr>
+                <h5 class="card-title text-center">
+                    {% set count_tontine = count(type.tontines.toArray) %}
+                    {{  __u('tontine.count') }} : <span>{{ count_tontine }} {{  count_tontine > 1 ? __('tontines') : __('tontine') }}</span>
+                </h5> 
+            </div>
+                <div class="card-body bg-save text-white" style="height: 100%;">
+                    <table class="table">
+                        <tr>
+                            <th>{{ __u('name') }}</th>
+                            <td>{{ type.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('cotisation')  }}</th>
+                            <td>{{ type.cotisation | money_format()  }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('has.achat') }}</th>
+                            <td>{{ type.hasAchat ? __u('yes') : __u('no') }}</td>
+                        </tr>
+                        {% if type.hasAchat == true %}
+                        <tr>
+                            <th>{{ __('min.achat') }}</th>
+                            <td>{{ type.minAchat | money_format() }}</td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <th>{{ __('is.current') }}</th>
+                            <td>{{ type.isCurrent ? __u('yes') : __u('no') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('has.avaliste') }}</th>
+                            <td>{{ type.hasAvaliste ? __u('yes') : __u('no') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('amend') }}</th>
+                            <td>{{ type.amend | money_format  }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('min.amend') }}</th>
+                            <td>{{ type.minAmend | money_format }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('has_multiple_tontine') }}</th>
+                            <td>{{ type.hasMultipleTontine ? __u('yes') : __u('no') }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer text-center bg-grey">
+                    {% set in_array = not_in_array(type.id, currents) %}
+                    {% set valid = _or(type.hasMultipleTontine, in_array) %}
+                    {{ create_link('app_backend_tontinetype_update', '<i class="fa fa-edit"></i> ' ~  __('update.data'), {_locale: locales.locale, id:type.id}, {class: 'btn btn-edit mb-2', valid: valid} ) }}
+                    {{ create_link('app_backend_tontine_new', '<i class="fa fa-plus"></i> ' ~  __('tontine.new.action'), {_locale: locales.locale, type:type.id}, {class: 'btn btn-show mb-2', valid: valid} ) }}
+                </div>     
+            </div>
+            
+        </div>
+        {% if loop.index is divisible by(2) %}
+                </div><div class="row">
+        {% endif %}
+        {% endfor %}
+    </div>
+   
+        {% endfor %}
+</div>      
+</div>
+{% endblock %}

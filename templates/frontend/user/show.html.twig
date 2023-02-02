@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('fund.show') }}{% endblock %}
+
+{% block pageTitle %}
+     <h1>
+         {{ __t('fund.show') }} : <span class="text-success">{{ user.name | format_name }}</span>
+    </h1>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12 text-right">
+        {{ create_link('app_backend_account_index', __('account.index'), {'id': account.id, _locale: locales.locale}, {class: 'btn btn-primary'} ) }}
+        {{ create_link('app_backend_user_show', __('profil'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-show'} ) }}
+        {{ create_link('app_backend_debt_show', __('debt.show'), {'id': account.id, _locale: locales.locale}, {class: 'btn bg-indigo' } ) }}
+        {{ create_link('app_backend_fund_cashinflows', __('cash_in_flow'), {'id': account.id, _locale: locales.locale}, {class: 'btn btn-success'} ) }}
+        {{ create_link('app_backend_fund_cashoutflows', __('cash_out_flow'), {'id': account.id, _locale: locales.locale}, {class: 'btn btn-warning'} ) }}
+        <div class="my-dropdown" style="display: inline-block;">
+            <span class="dropbtn btn btn-primary" style="height: inherit;">{{ __u('old.states') }}</span>
+            <div class="dropdown-content">
+               {% for one_year in years %}
+               {{ create_link('app_backend_fund_show',one_year, {'id': user.account.id, _locale: locales.locale, year: one_year}, {class: 'text-left'} ) }}
+             {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+    <thead class="bg-secondary">
+        <tr>
+            <th>{{ __u('id') }}</th>
+            <th>{{ __u('wording') }}</th>
+            <th>{{ __u('cash_in_flows') }}</th>
+            <th>{{ __u('cash_out_flows') }}</th>
+            <th>{{ __u('cash_balances') }}</th>
+            <th>{{ __u('created_at') }}</th>
+            <th>{{ __u('observations') }}</th>
+            {#<th>actions</th>#}
+        </tr>
+    </thead>
+    <tbody>
+        
+    {% for fund in funds %}
+        {% if oldBalance and loop.index == 1 %}
+            <tr class="">
+                <td class="bg-show">0</td>
+                <td class="bg-save">{{ __('old.balance') }}</td>
+                <td class="bg-save text-right"></td>
+                <td class="bg-save text-right"></td>
+                <td class="bg-save text-right">{{ oldBalance.cashBalances | money_format }}</td>
+                <td class="bg-save">{{ oldBalance.createdAt | in_locale }}</td>
+                <td class="bg-save">{{ __('balance at') }} {{ oldBalance.createdAt | in_locale }}</td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td class="bg-show">{{ loop.index }}</td> 
+            <td class="bg-save">{{ fund.wording }}</td>
+            <td class="bg-success text-right">{{ fund.cashInFlows == 0 ? '' : fund.cashInFlows | money_format }}</td>
+            <td class="bg-success text-right">{{ fund.cashOutFlows == 0 ? '' : fund.cashOutFlows | money_format }}</td>
+            <td class="bg-edit text-right">{{ fund.cashBalances | money_format }}</td>
+            <td class="bg-update">{{ fund.createdAt | in_locale }}</td>
+            <td class="bg-save">{{ fund.observations ?? '' }}</td>
+            {#<td>
+                <a href="{{ path('fund_show', {'id': fund.id}) }}">e</a>
+                <a href="{{ path('fund_edit', {'id': fund.id}) }}">edit</a>
+            </td>#}
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="7" class="text-center">{{ __('not.record.found') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot class="bg-secondary">
+        {% if count != 0 %}
+            <tr class="">
+                <th colspan="2">Totals</th>
+                <th class="text-right">{{ totals.cashInFlows | money_format }}</th>
+                <th class="text-right">{{ totals.cashOutFlows | money_format }}</th>
+                <th class="text-right">{{ totals.cashBalances | money_format }}</th>
+                <th></th>
+                <th></th>
+            </tr>
+        {% endif %}
+        
+    </tfoot>
+</table>
+    </div>
+</div>
+
+{% endblock %}

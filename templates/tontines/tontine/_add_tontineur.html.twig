@@ -1,0 +1,16 @@
+{% if tontine.addMember == true and (app.user().hasAction('app_backend_tontine_stop_add_member') or create_link('app_backend_tontine_member_add', '', {}, {}, {boolean: true} )) %}
+    <span class="my-dropdown">
+      <button class="btn btn-warning dropbtn mb-2" style="font-size: 1rem;"><i class="fa fa-plus"></i> <i class="fa fa-trash"></i> {#{ __('parameter') }#}</button>
+      <span class="dropdown-content p-2 bg-save text-center" style="min-width: 250px;right:0px;">
+        {{ create_link('app_backend_tontine_member_add', __('tontine.add.member'), {_locale: locales.locale, id:tontine.id}, {class: 'border-bottom btn btn-info mb-2'}, {valid: tontine.addMember} ) }}
+        {{ create_form(path('app_backend_tontine_stop_add_member', {_locale: locales.locale, id:tontine.id}), __u('stop adding new member'), {
+          class: 'mb-2 ',
+          'style': 'display: inline-block;',
+          btn: 'danger', csrf_name: 'csrf_tontine',
+          confirm: __u('are you sure to stop adding new member on this tontine?'),
+          valid: app.user().hasAction('app_backend_tontine_stop_add_member')
+        }) }}
+       </span>
+    </span>
+{% endif %}
+

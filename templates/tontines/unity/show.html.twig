@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('unity.details') }}
+{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __t('unity.details') }}</h1>  
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row">
+     <div class="col-md-4">
+        {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-info'} ) }}
+    </div>
+    <div class="text-right col-md-8">
+        {{ create_link('app_backend_tontine_show', __('show'), {_locale: locales.locale, id:unity.tontine.id}, {class: 'btn btn-info'} ) }}
+        {{ create_link('app_backend_tontine_info', __('tontine.info'), {_locale: locales.locale, id:unity.tontine.id}, {class: 'btn btn-primary'} ) }}
+        {{ create_link('app_backend_tontine_details', __('tontine.details'), {_locale: locales.locale, id:unity.tontine.id}, {class: 'btn btn-success'} ) }}
+    </div>
+</div>
+<hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-save" style="display: flex;align-items:center;justify-content:space-around;">
+                    <h4 class="text-center">{{ __u('actions')}}</h4>
+
+                    {% if unity.tontine.isCurrent and unity.isWon == 0 %}
+
+                        {{ create_link('app_backend_unity_won', __('unity.won'), {_locale: locales.locale, id:unity.id}, {class: 'btn btn-success'}, {'valid': is_valid}  ) }}
+                        
+                        {% if unity.isStopped == true and create_link('app_backend_unity_unlock', '', {}, {}, {'valid': unity.tontine.isCurrent, 'boolean': true}) %}
+                        {{ create_form(path('app_backend_unity_unlock', {_locale: locales.locale, id:unity.id}), __u('unity.unlock'), {'style': 'display: inline-block', btn: 'warning', csrf_name: 'unity_unlock', confirm: __u('are you sure you want to unlock this unity?')}) }}
+                        {% endif %}
+
+                        {% if unity.isStopped == false and create_link('app_backend_unity_lock', '', {}, {}, {'valid': unity.tontine.isCurrent, 'boolean': true}) %}
+                            {{ create_form(path('app_backend_unity_lock', {_locale: locales.locale, id:unity.id}), __u('unity.lock'), {'style': 'display: inline-block', btn: 'danger', csrf_name: 'unity_lock', confirm: __u('are you sure you want to lock this unity?')}) }}
+                        {% endif %}
+                    {% else %}
+                    {{ create_link('app_backend_unity_update', __('edit'), {_locale: locales.locale, id:unity.id}, {class: 'btn btn-edit'}, {'valid': is_valid}  ) }}
+                    {% if unity.isStopped == false and create_link('app_backend_unity_cancel_benefit', '', {}, {}, {'valid': unity.tontine.isCurrent, 'boolean': true}) %}
+                    {{ create_form(path('app_backend_unity_cancel_benefit', {_locale: locales.locale, id:unity.id}), __u('unity.cancel.benefit'), {'style': 'display: inline-block', btn: 'danger', csrf_name: 'unity_cancel_benefit', confirm: __u('are you sure you want to cancel the benefit of this unity?')}) }}
+                    {% endif %}
+                    
+                    {% endif %}
+                </div>
+                <div class="card-body bg-edit text-white">
+                    {{ include( viewPath ~ '/details.html.twig', {class: 'text-white'}) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" style="width: 100%;">
+            {{ include( viewPath ~ '/_tontineur.html.twig', {class: 'text-white', footer:true, footer_class: 'bg-secondary'}) }}
+        </div>
+    </div>
+{% endblock %}

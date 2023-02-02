@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Suppression Reconduction Prêt {{ debt.user }}
+{% endblock %}
+
+{% block pageTitle %}
+    <h1>Suppression Reconduction Prêt {{ debt.user }}</h1>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="column">
+        <a  href="" class="btn btn-success">Retourner a la page précédente</a>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card bg-edit">
+            {{ form_start(form, {attr : {onSubmit:"return confirm('Veuillez confirmer que vous voulez supprimer cette réconduction')"}}) }}
+                <div class="card-header text-center">
+                    {# <h3 class="card-title">Reconduction Prêt</h3> #}
+                    <p class="text-chocolate">
+                        {% if debt.renewalAt is not null %}
+                        Dernière reconduction: <span class="text-purple">{{debt.renewalAt | in_locale("ll") }}</span><hr/>
+                        {% endif %}
+                        Solde prêt : <span class="text-purple">{{ debt.account.loanBalances | money_format }}</span>
+                        | Solde fond : <span class="text-purple">{{ debt.account.cashBalances | money_format }}</span>
+                    </p>
+                </div>
+                <div class="card-body bg-save">
+                    {{ form_widget(form) }}
+                    <h2>Voulez-vous supprimer cette reconduction de prêt?</h2>
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <div class="form-group text-right">
+                        <button type="submit" class="btn btn-primary">Supprimer</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

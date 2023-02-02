@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t(title |default('tontinetype.create')) }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __t(title |default('tontinetype.create')) }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    
+    <div class="row">
+        <div class="col-12 text-right">
+            {{ create_link('app_backend_tontinetype_index', __('tontinetype.index'), {_locale: locales.locale}, {class: 'btn btn-info'} ) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card p-4 m-4 bg-save">
+               {{ include(viewPath ~ '/_form.html.twig', {button_label: button_label ?? 'Save'}) }} 
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        
+        jQuery(function(){
+            let hasAchat = document.querySelector('.tontine_has_achat')
+            hasAchatAction = hasAchat.querySelector('input')
+            let minAchat = document.querySelector('.tontine_min_achat')
+            let hasAmend = document.querySelector('.tontine_has_amend')
+            let hasAmendAction = hasAmend.querySelector('input')
+            let minAmend = document.querySelector('.tontine_min_amend')
+            let amend = document.querySelector('.tontine_amend')
+            minAchat.style.display = ' none'
+            minAmend.style.display = ' none'
+            amend.style.display = ' none'
+
+            /** When the page is load for the first time */
+            if(hasAchatAction.checked){
+                minAchat.style.display = 'block';
+            }else{
+                minAchat.style.display = 'none'
+            }
+
+            if(hasAmendAction.checked){
+                minAmend.style.display = 'block'
+                amend.style.display = 'block'
+            }else{
+                minAmend.style.display = 'none'
+                amend.style.display = 'none'
+            }
+
+            /** Events listening */
+            hasAchatAction.addEventListener('change', function(e){
+                if(this.checked){
+                    minAchat.style.display = 'block'
+                }else{
+                    minAchat.style.display = 'none'
+                }
+            })
+            hasAmendAction.addEventListener('change', function(e){
+                if(this.checked){
+                    minAmend.style.display = 'block'
+                    amend.style.display = 'block'
+                }else{
+                    minAmend.style.display = 'none'
+                    amend.style.display = 'none'
+                }
+            })
+        })
+    </script>
+{% endblock javascripts %}

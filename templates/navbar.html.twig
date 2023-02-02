@@ -1,0 +1,64 @@
+{% if as_pdf == false %}
+<nav class="navbar fixed-top bg-dark" style="font-size: 0.8rem;">
+  {% if app.request.session.get('has_first_admin') %}
+  <ul class="nav align-left">
+    <li class="nav-item text-center" {#style="display: flex; flex-direction:row;align-items:center;justify-content:center;"#}>
+      <a href="{{ path('home',{_locale:locales.locale}) }}" class="nav-link">
+        <img src="{{ constants.logo }}" alt="Logo" width="40px" height="40px"/>
+      </a>
+    </li>
+    <li class="nav-item my-auto text-uppercase">
+      <a href="{{ path('home',{_locale:locales.locale}) }}" class="nav-link " style="color: chocolate;font-size:1rem;">{{ constants.sigle }}</a>
+    </li>
+  </ul>
+  <ul class="nav">
+    {% if is_auth() %}
+   {{ menu_routes(menu_routes ?? {}) }}
+    {% endif %}
+  </ul>
+  {% endif %}
+  <ul class="nav align-right">
+    {% if is_auth() %}
+ <li class="nav-item">
+ </li>
+  <div class="my-dropdown">
+    <span class="dropbtn text-chocolate" style="font-size: 1.5rem;">
+      {% set connected = app.user() %}
+      {% if connected.image %}
+      <img src="{{ connected.imageFilename }}" alt="{{ connected.pseudo }}" style="border-radius:40%;width:40px;height:40px;"/>
+      {% else %}
+        <i class="fa fa-user-circle"></i>
+      {% endif %}
+      
+    </span>
+    <div class="dropdown-content w-150 bg-chocolate " style="right: 0px;">
+      <span class="nav-link text-left"><span class="text-info">{{ __u('connected as') }}</span> {{ app.user.name }} </span>
+      {{ create_link('app_frontend_user_profil', __u('my_account'), {_locale: locales.locale, id: connected.id}, {class: 'nav-link border-top', style: 'font-size:14px;width:100%;'}) }}
+      {{ create_form(path('logout'), '<i class="fa fa-user-lock"></i> ' ~ __('user.loggedout'), {'btn': 'grey', class:'text-warning border-top text-left', btn_style: 'font-size:0.8rem;width:100%;'}) }}
+      
+    </div>
+  </div>
+    
+    </li>
+  
+  {% else %}
+    <li class="nav-item">
+      <a href="{{ path('login') }}" class="nav-link btn btn-primary">{{ __('user.loggedin') }}</a>
+    </li>
+  {% endif %}
+    <li class="nav-item ml-2">
+    <div class="my-dropdown">
+      {% set languages = locales.languages(app.request) %}
+      <div class=" dropbtn" >
+        <img src="/assets/flags/{{ app.request.locale ?? app.request.defaultLocale }}.svg" alt="" width="15px" height="15px"/> {{ languages[app.request.locale] ?? languages[app.request.defaultLocale] }}
+      </div>
+      <div class="dropdown-content bg-chocolate">
+        {% for key, language in languages %}
+        <a href="{{ path(locales.route, merge(locales.routeParams, {_locale: key})) }}" class="nav-link {{ key != 'en' ? 'border-top' : '' }}"><img src="/assets/flags/{{ key }}.svg" alt="" width="15px" height="15px"/> {{ language }}</a>
+      {% endfor %}
+      </div>
+    </div>
+  </li> 
+  </ul>
+</nav>
+{% endif %}

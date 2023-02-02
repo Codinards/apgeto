@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+{{  __t('unity.benefit') }}
+{% endblock %}
+
+{% block pageTitle %}
+<h1>{{  __t('unity.benefit') }}</h1>  
+{% endblock pageTitle %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <div class="text-right">
+            {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-edit'} ) }}
+            {{ create_link('app_backend_tontine_show', __('tontine'), {_locale: locales.locale, id:unity.tontine.id}, {class: 'btn btn-save'} ) }}
+            {{ create_link('app_backend_unity_show', __('show'), {_locale: locales.locale, id:unity.id}, {class: 'btn bg-chocolate'} ) }}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card bg-save mb-2">
+                <div class="card-header">
+                    <h3>Suppresion Nom Tontine {{ unity.tontineur}}</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>{{ __U('tontine') }}</th>
+                            <td>{{ unity.tontine.type }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __u('member')}}</th>
+                            <td>{{ unity.tontineur }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __u('amount')}}</th>
+                            <td>{{ unity.amount }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            {{ include(viewPath ~ '/_form.html.twig', {
+                button_label: 'supprimer',
+                btn_type: "danger",
+                onSubmit: "Voulez-vous vraiment supprimer ce nom de tontine?"
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ include(viewPath ~ '/_tontineur.html.twig', {footer: false, fund: true}) }}
+        </div>
+    </div>
+{% endblock %}

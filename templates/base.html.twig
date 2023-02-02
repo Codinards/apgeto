@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="{{ locales.locale }}">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="/assets/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.css"> 
+      <!--link rel="stylesheet" href="/assets/css/app.css"-->
+    {{
+      encore_entry_link_tags("app")
+    }}
+       <style>
+        .table td, .table th{
+          padding: 0.25rem;
+        }
+       </style>
+    {% block stylesheets %}{% endblock %}
+  </head>
+  <body class="mb-4">
+    
+    <!--a-->
+    <div id="main-page">
+      {% include "navbar.html.twig" %}
+      <div class="container-fluid mt-4" style="{{ as_pdf == false ? 'padding-top:60px' : "padding-top:20px" }};">
+        {% block pageTitle %}{% endblock %}
+        {% if as_pdf == false %}
+        <div class="bg-dark mt-4">
+          <hr />
+          <hr />
+        </div>
+        {% endif %}
+        {% include "_alert.html.twig" %} {% block body %}{% endblock %}
+
+      </div>
+    </div>
+    <!--a-->
+    <script id="catalogue_data" data-translation-data="{{ translation_catalogue }}" data-locale={{ locales.locale }}></script>
+    <script src="/assets/jquery/jquery.js" ></script>
+    <script src="/assets/popper.js/dist/popper.js"></script>
+    <script src="/assets/bootstrap/dist/js/bootstrap.js"></script>
+   
+    {{ encore_entry_script_tags('app') }}
+    
+    <!--script src="/assets/fontawesome/js/all.js"></script-->
+    {% block javascripts %}{% endblock %}
+    <script></script>
+  </body>
+</html>
+{{ url_manager.putUrl() }}

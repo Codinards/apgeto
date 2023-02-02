@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %} 
+
+{% block title %}
+{{ __t('unity.edition') }}
+{% endblock %}
+
+{% block pageTitle %}
+<h1>{{ __t('unity.edition') }}</h1>  
+
+{#<div class="text-right">
+  {{ create_link("app_backend_tontine_index", __("tontine.index"), { _locale: locales.locale }, { class: "btn btn-info" })}}
+  {{ create_link("app_backend_tontine_show", __("tontine"), { _locale: locales.locale, id: unity.tontine.id }, { class: "btn btn-primary" })}}
+  {{ create_link("app_backend_unity_show", __("show"), { _locale: locales.locale, id: unity.id }, { class: "btn btn-info" })}}
+</div>#}
+{% endblock pageTitle %} 
+{% block body %}
+<div class="row">
+    <div class="col-12">
+        <div class="text-right">
+            {{ create_link('app_backend_tontine_show', __('tontine'), {_locale: locales.locale, id:unity.tontine.id}, {class: 'btn btn-info'} ) }}
+            {{ create_link('app_backend_tontine_info', __('tontine.info'), {_locale: locales.locale, id:unity.tontine.id}, {class: 'btn btn-primary'} ) }}
+            {{ create_link('app_backend_tontine_details', __('tontine.details'), {_locale: locales.locale, id:unity.tontine.id}, {class: 'btn btn-show'} ) }}
+        {{ create_link('app_backend_unity_show', __('show'), {_locale: locales.locale, id:unity.id}, {class: 'btn btn-info'} ) }}
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        {{ include(viewPath ~ '/_form.html.twig', {button_label: 'update', onSubmit: null}) }}
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-edit">
+                <h4 class="text-center">{{ __u('details')}}</h4>
+            </div>
+            <div class="card-body bg-save">
+                {{ include( viewPath ~ '/details.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

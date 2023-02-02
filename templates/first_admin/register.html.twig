@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title | title }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ title | title }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row">
+    <div class="col-12 mx-auto">
+        {{ form_start(form) }}
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card bg-edit">
+                    <div class="card-header">
+                        <h2>{{ __t('first.admin.data') }}</h2>
+                    </div>
+                    <div class="card-body bg-save">
+                        {{ form_row(form.username) }}
+                        {{ form_row(form.pseudo) }}
+                        {{ form_row(form.password) }}
+                        {{ form_row(form.address) }}
+                        {{ form_row(form.telephone) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-edit">
+                    <div class="card-header">
+                        <h2>{{ __t('app.configuration.data') }}</h2>
+                    </div>
+                    <div class="card-body bg-save">
+                        {{ form_row(form.appName) }}
+                        {{ form_row(form.logo) }}
+                        {{ form_row(form.defaultLanguage) }}
+                        {{ form_row(form.moneyDevise) }}
+                        {{ form_row(form.unityMaxCount) }}
+                    </div>
+                </div> 
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-edit">
+                    <div class="card-header">
+                        <h2>{{ __t('app.configuration.data') }}</h2>
+                    </div>
+                    <div class="card-body bg-save">
+                        {{ form_row(form.baseFundAmountToLoan) }}
+                        {{ form_row(form.interestRateToLoan) }}
+                        {{ form_row(form.userCanGetMultipleLoan) }}
+                        {{ form_row(form.accountBaseAmount) }}
+                        {{ form_row(form.fundCanBeNegative) }}
+                        {#{ form_row(form.insurranceAmount) }#}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        {{ form_end(form) }}
+        
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __('assistance.delete') }} | {{ assistance.user(true).username }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1> {{ __('assistance.delete') }} | {{ assistance.user(true).username }}</h1>
+{% endblock %}
+
+{% block body %}
+    <div class="row mb-2">
+        <div class="col-12 text-right">
+            {{ create_link('app_backend_assistance_index', __u('assistance.index'), {}, {'class': 'btn btn-info'}) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+        {{ form_start(form) }}
+        <div class="card bg-save">
+            <div class="card-header bg-edit">
+                <div class="card-title">
+                    <h2 class="card-text">{{ __('assistance.delete') }} | {{ assistance.user(true).username }}</h2>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ form_widget(form, {attr : {onSubmit:"return confirm('Veuillez confirmer que vous voulez supprimer cette aide')"}}) }}
+                {{ confirm_delete('assistance') }}
+            </div>
+            <div class="card-footer text-center">
+                <div class="form-group">
+                    {{ create_link('app_backend_assistance_show', '<i class="fas fa-history"></i> ' ~ __u('cancel'), {id: assistance.id}, {'class': 'btn btn-primary'}) }}
+                    <button type="submit" class="btn btn-danger">{{ __u('delete') }} <i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    </div>
+{% endblock body %}

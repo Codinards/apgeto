@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserAction{% endblock %}
+
+{% block body %}
+    <h1>UserAction</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user_action.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ user_action.name }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ user_action.title }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('main_users_user_action_index') }}">back to list</a>
+
+    <a href="{{ path('main_users_user_action_edit', {'id': user_action.id}) }}">edit</a>
+
+    {{ include('main_users_user_action/_delete_form.html.twig') }}
+{% endblock %}

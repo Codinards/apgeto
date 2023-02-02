@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('tontinetype.create') }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __t('tontinetype.create') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    
+    <div class="row">
+        <div class="col-12 text-right">
+            {{ create_link('app_backend_tontinetype_index', __('tontinetype.index'), {_locale: locales.locale}, {class: 'btn btn-info'} ) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {{ include(viewPath ~ '/_form.html.twig') }}
+        </div>
+    </div>
+    
+{% endblock %}

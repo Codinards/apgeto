@@ -1,0 +1,41 @@
+<table class="table {{ class ?? '' }}">
+    <tr>
+        <th>{{ __U('tontine') }}</th>
+        <td>{{ unity.tontine.type }}</td>
+    </tr>
+    <tr>
+        <th>{{ __u('member')}}</th>
+        <td>{{ unity.tontineur }}</td>
+    </tr>
+    <tr>
+        <th>{{ __u('amount') }}</th>
+        <td>{{ unity.amount | money_format() }} </td>
+    </tr>
+    <tr>
+        <th>{{ __u('is_won') }}</th>
+        <td>{{ unity.isWon == 1 ? __u('yes') : __u('no') }} </td>
+    </tr>
+    <tr>
+        <th>{{ __u('half.name') }}</th>
+        <td>{{ unity.isDemiNom ? __u('yes')  : __u('no')}} </td>
+    </tr>
+   {% if unity.tontine.type.hasAvaliste == true %}
+        <tr>
+        <th>{{ __u('avaliste') }}</th>
+        <td>{{ unity.avaliste}} </td>
+    </tr>
+   {% endif %}
+    <tr>
+        <th>{{ __u('unity.price') }}</th>
+        <td>{{ unity.achat}} </td>
+    </tr>
+    {% if unity.isWon %}
+    <tr>
+        <th>{{ __u('date') }}</th>
+        <td>{{ unity.benefitAt | in_locale }} </td>
+    </tr>
+    <tr>
+        <th>{{ __u('observation') }}</th>
+        <td>{{ unity.observation != '' ? unity.observation : __u('no.observation')}}
+    {% endif %}
+</table>

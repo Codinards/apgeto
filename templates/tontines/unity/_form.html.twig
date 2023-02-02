@@ -1,0 +1,7 @@
+{% set form_attrs = isset(onSubmit) ? { onSubmit: js_confirm(onSubmit) } : {}  %}
+{{ form_start(form, {attr: form_attrs}) }}
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <button type="submit" class="btn btn-{{ btn_type ?? "primary" }} radius-15" >{{ __u(button_label ?? 'register') }}</button>
+    </div>
+{{ form_end(form) }}

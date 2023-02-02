@@ -1,0 +1,50 @@
+html {
+  font-size: 15px;
+}
+
+body {
+  background: -webkit-gradient(
+      linear,
+      left top,
+      right bottom,
+      from(rgba(150, 80, 80, 0.7)),
+      to(rgba(80, 80, 150, 0.7))
+      /* from(#af5e94),
+      to(#5949f2) */
+    )
+    fixed;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+.card {
+  background-color: #fff;
+}
+.card-body,
+ul {
+  background-color: rgb(246, 243, 255);
+  min-height: 0px;
+}
+.form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.list-item {
+  color: rgb(101, 101, 255);
+}
+.list-group-item {
+  background-color: inherit;
+  border: none;
+}
+.under-list-item {
+  font-size: 0.9rem;
+}

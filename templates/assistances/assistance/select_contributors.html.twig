@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ _u('Selection des contributeurs') }}
+{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ _t('Selection des contributeurs à ajouter') }}</h1>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-12 text-right">
+        {{ create_link('app_backend_assistance_index', __u('assistance.index'), {}, {'class': 'btn btn-info'}) }}
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <div class="card bg-save">
+            {{ form_start(form) }}
+            <div class="card-header bg-edit">
+                <h2>Selectionner les membres à ajouter</h2>
+            </div>
+            <div class="card-body">
+                
+                    <div class="row">
+                    {% for contributor in form.contributors %}
+                        <div class="col-md-4">
+                            {{ form_row(contributor) }}
+                        </div>
+                        {% if loop.index is divisible by(3) %}
+                            </div>
+                            <hr>
+                            <div class="row">
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                
+            </div>
+            <div class="card-footer bg-edit">
+                <div class="form-group mx-auto text-center">
+                    <button type="submit" class="btn btn-primary">Soumettre</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

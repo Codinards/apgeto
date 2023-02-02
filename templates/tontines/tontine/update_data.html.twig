@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('tontine.update.data') }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>
+        {{ __t('tontine.update.data') }}
+    </h1>
+    <div class="text-right">
+        {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-info'} ) }}
+        {{ create_link('app_backend_tontine_show', __('show'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-primary'} ) }}
+        
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="row" style="font-size: 0.7em;">
+        <div id="data-info-div" class="col-md-6 mx-auto">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="row">
+            <div class="col-6 text-right">
+                <button class="btn btn-primary" id="create-tontine-submit-button">{{ button_label|default(__u('update')) }}</button>
+            </div>
+        </div> 
+        {{ form_end(form) }}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+

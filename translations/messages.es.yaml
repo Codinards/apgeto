@@ -1,0 +1,362 @@
+first admin registration: configuración de la aplicación
+first.admin.data: datos del administrador
+app.configuration.data: datos de configuración
+app_name: nombre de la aplicación
+home page: pagina principal
+default_language: idioma de la aplicación
+money_devise: moneda usada
+base_amount_to_loan: sueldo de la cuenta para lograr un prestamo
+interest_rate_to_loan: tasa de interesis para prestamo
+user_can_get_multiple_loan: un usuario puede lograr varios prestamos al mismo tiempo
+account_base_amount: cantidad de base para integrar el fundo
+fund_can_be_negative: el sueldo de la cuenta puede estar negativa
+insurrance_amount: cantidad de base para integrar el seguro
+unity_max_count: número máximo de unidad por miembro
+other.data: otros datos de configuración
+user.loggedin.action: "connectarse"
+user.loggedin: "connectarse"
+user.loggedout: "desconnectarse"
+user.loggedout.action: desconnectarse
+role.edition: edición del rol
+user.index: "listas de los miembros"
+user.new: "añadir un nuevo miembro"
+user.new.action: "añadir un nuevo miembro"
+user.see.action: "ver un miembro"
+user.edit.action: "editar un miembro"
+user.image.edit.action: editar su imagen de perfil
+user.profile.see.action: ver su pagina de perfil
+user.action.see.action: "ver los permisos de los roles"
+user.action.add.action: "crear un nuevo rol con sus permisos"
+user.action.edit.action: "editar los permisos de un rol"
+user.action.delete.action: "cancelar los permisos de un rol"
+user.all.index: "lista de los miembros"
+user.all.see.action: "ver todos los miembros"
+user.all.action.index: "los roles de los miembros"
+user.all.action.see.action: "ver todas los roles de los miembros"
+user.role.edit.action: editar el rol de un miembro
+user.create: creación de un miembro
+user.lock: bloquear el miembro
+user.unlock: desbloquear el miembro
+user.edit: "editar el miembro"
+user.lock.action: bloquear un miembro
+user.unlock.action: desbloquear un miembro
+user.password.edit.action: editar la contraseña de un miembro
+admin.index.see.action: connectarse a la pagina de administración
+edition.password: edición de la contraseña
+not.found.record: "ningun dato encontrados"
+not.record.found: "ningun dato encontrados"
+operation.success: la operación has sido realizada con éxito
+operation.fail: la operación ha fallado
+operation.unauthorize: operación inautorizada
+administration: administración
+administrator: administrador
+action: acción
+edit: editar
+see: ver
+create: crear
+add: añadir
+created_at: fecha de creación
+fond: fond
+pret: prestamo
+profil: perfil
+member: miembro
+choice: elegir
+#user.all.action.see: "ver todos los miembros"
+actions: acciones
+amount: importe
+index: índice
+number: "número"
+create.new.role: create new role
+role.creation: role creation
+yes: si
+no: no
+show: "ver los detalles"
+see.home.action: abrir la pagina de inicio
+observation: observación
+observations: observaciones
+detail: detalle
+details: detalles
+languages: idiomas
+logout: desconectarse
+connected as: "connectado :"
+users: usuarios
+user: usuario
+account: cuenta
+fund: fundo
+funds: fundos
+name: nombre
+title: título
+username: "nombres y apellidos"
+pseudo: pseudo
+profile: perfil
+role: autorización
+roles: autorizaciones
+parrain: padrino
+telephone: teléfono
+address: dirección
+password: contraseña
+none: ninguno
+nona: ninguna
+members: miembros
+accounts: cuentas
+authorizations: autorizaciones
+by: por
+from_1: a partir de un
+from_1e: a partir de una
+new: nuevo(a)
+dashboard: panel de información
+year: año
+filter: filtrar
+delete: suprimir
+cancel: anular
+cancelling: cancelación
+parameter: parámetro
+ended: acabado
+ongoing: en desarollo
+waiting: pendiente
+functionalities: funcionalidades
+image.upload: subir su imagen
+member name need to get an password before changing role: "el miembro %name% necesita una contraseña antes de cambiar su rol"
+member name password has been successfully edited: 'la contrasena de %name% ha sido modificado con éxito'
+you are already connected as: "ya estas connectada como %name%"
+are you sure to want delete this: estas seguro(a) de querer suprimir este(a)
+are you sure to lock this member: estas seguro(a) de querer bloquear este miembro?
+are you sure to unlock this member: estas seguro(a) de querer desbloquear este miembro?
+if you want to delete, press: si lo quieres suprimir, impulsa
+if you do not want to delete, press: si no lo quieres suprimir, impulsa
+functionality.no.yet.developed: esta funcionalidad todavia no esta desarollada
+# form label
+
+user.actions: acciones correspondientes
+is.deletable: puede ser supprimido
+half.and.name: "y media"
+half.name: media unidad
+form: formulario
+
+# --------------------- Tontine ---------------------------------#
+
+type: tipo
+types: tipos
+tontinetype: "tipo de tontine"
+tontinetype.new.action: añadir un nuevo tipo de tontine
+tontineur.unity.add.action: añadir unidades de tontine a un miembro
+tontinetype.new: nuevo tipo tontine
+tontinetype.create: "creación : tipo de tontine"
+tontinetype.update: "edición : tipo de tontine"
+tontinetype.update.action: "editar los tipos de tontine"
+tontinetype.index: "índice : tipos de tontines"
+tontinetype.already.has.tontine: este tipo tontine tiene ya una tontine en curso
+tontinetype.index.see.action: ver la lista de los tipos de tontines
+has.multiple.tontine: permite más una tontine en curso al mismo tiempo
+has_multiple_tontine: permite más de una tontine
+tontinetype.tontine.current.exists: "el tipo de tontine %type% no permite más de una tontine corriente al mismo tiempo"
+tontine.index: "índice de las tontines"
+tontine.count: número de tontines
+tontine: tontine
+tontines: tontines
+tontine.name: nombre de la tontine
+tontine.new: "creación nueva tontine"
+tontine.new.action: "crear nueva tontine"
+tontine.stop.add.member.action: bloquear de añadir nuevo miembros a una tontine
+tontine.info: informaciones sobre la tontine
+tontine.winner.action: ver la página de los beneficiados de las tontinas
+tontine.details: detalles de la tontine
+tontine.info.action: ver las informaciones de las tontines
+tontine.index.see.action: "ver la lista de las tontines"
+tontine.add.member: añadir miembros
+tontineur.add.unity: añadir unidades
+add_unity.invalid.data: unos datos inválidos has sido passados en este enlace
+can not add new member in this tontine: ya no puedes añadir nuevos miembros a esta tontine
+tontineur.already.have.won.half_unity: este miembro ya tiene una media unidad beneficiada, no le puedes añadir otra media unidad
+totals.members: Total miembros
+number.cotisation: número de unidades
+half.part: media unidad
+half.parts: medias unidades
+part.numbers: número de unidades
+part: unidad
+parts: unidades
+unity.won: beneficiar
+unity.show: mostrar
+unity.lock: bloquear
+unity.unlock: desbloquear
+unity.benefit: beneficiar de una unidad
+unity.price: precio de comprar
+unity.details: detalles sobre una unidad
+date: fecha
+is_won: comprado
+benefit.parts: unidades beneficiadas
+unity: unidad
+unities: unidades
+locked.unities: unidades bloqueadas
+unity.benefit.successful: La venta de la unidad ha sido registrada con éxito
+no.observation: ninguna observación
+unity.already.won: lo siento! esta unidad ya has sido beneficiada
+tontine.not.current: lo siento! esta tontine esta ya cerrada
+unity.not.locked: lo siento! esta unidad no esta bloqueda
+unity.already.locked: lo siento! esta unidad esta ya bloqueada
+unity.lock.success: esta unidad ha sido bloqueda con éxito
+unity.lock.unsuccess: lo siento! esta unidad no ha podido ser bloqueada
+unity.unlock.success: esta unidad ha sido desbloqueda con éxito
+unity.unlock.unsuccess: lo siento! esta unidad no ha podido ser desbloqueada
+unity.update.checkbox: actualizar las informaciones
+unity.update.action: actualizar las informaciones de una unidad
+unity.cancel.benefit.action: cancelar la venta de una unidad
+unity.cancel.benefit: cancelar la venta
+unity.update.successful: la unidad ha sido actualizada con éxito
+are you sure you want to lock this unity?: ¿está seguro(a) de querer bloquear esta unidad?
+are you sure you want to unlock this unity?: ¿está seguro(a) de querer desbloquear esta unidad?
+are you sure to stop adding new member on this tontine?: ¿está seguro(a) de no querer añadir más nuevo miembros a esta tontine?
+are you sure you want to cancel the benefit of this unity?: ¿está seguro(a) de querer cancelar la venta de esta unidad?
+any unity specify for this tontineur: ninguna unidad ha sido especificado
+stop adding new member: no añadir más unidades
+total.amount: cantidad total
+benefit.amount: cantidad a beneficiar
+amount.to.benefit: cantidad a recibir por cada beneficiario
+total.parts: unidades totales
+cotisation.amount: total contribución
+cotisation: contribución
+min.amend: multa mínima por fallo
+amend: multa máxima por fallo
+has.amend: se page multa en caso de un fallo de contrución
+min.achat: precio minimal para comprar una unidad
+has.avaliste: necesita a una avaliste para beneficier de una unidad
+has.achat: las unidades se acquieren por compras
+is.current: es un tipo corriente
+unity.edition: edición de una unidad
+#benefit.amount: cantidad beneficiada
+benefit: beneficiar
+update: actualizar
+tontine.update.data.action: actualizar las informaciones de una tontine
+tontine.update.data: actualización de las informaciones de una tontine
+update.data: actualizar los datos
+an admin can not edit his own role: '%name% no puede editar su propio rol'
+an super admin can not lock or unlock himself: un administrador no se puede bloquear a si mismo
+
+#---------------------------------- FUND -----------------------------------------#
+
+my_account: mi cuenta
+cash_in_flows: ingresos de cuenta
+cash_in_flow: ingreso de cuenta
+cashinflows: ingresos de cuenta
+cashinflow: ingreso de cuenta
+cash_in_flow.amount: cantidad ingresada
+cashoutflows: salida de cuenta
+cashoutflow: salida de cuenta
+cash_out_flows: salidas de cuenta
+cash_out_flow: salida de cuenta
+cash_out_flow.amount: cantidad de retiro
+cash_balances: sueldos de cuento
+cash_balance: sueldo de cuento
+min.cash_balance: seuldo mínimo
+max.cash_balance: sueldo máximo
+loan_balance: sueldo de prestamo
+loan_in_flows: nuevo prestamo
+loan_in_flow: nuevo prestamo
+loan_in_flow.amount: cantidad prestada
+loan_out_flows: reembolsos
+loan_out_flow: reembolso
+loan_out_flow.amount: cantidad reembolsada
+wording: título
+general.observations: observación general
+account.index: índice de las cuentas
+debt: prestamo
+fund.show: estado del fundo
+debt.show: prestamos
+debt.delete: supresión del prestamo
+old.balance: sueldo anterior
+old.states: estados anteriores
+account.data: datos de cuenta
+balance at: sueldo al
+payback_at: fecha de reembolso
+reimbursement: reembolso
+debt.interests: intereses del prestamo
+avalised.debts: prestamos avalados
+this.member.cannot.loan: este miembro no puede prestar
+user.already.has.loan: este miembro tiene todavía una deuda de %balance%
+user.no.has.loan.base.fund: el sueldo de cuenta (%balance%) the este miembro es menor que el importe necesario para pretar (%withdrawal%)
+no.negative.fund: el sueldo de una cuenta no puede ser negativo
+fund.no.less.than: la cantidad de salida (%withdrawal%) es superior al sueldo de la cuenta (%balance%)
+user.no.has.current.debt: este miembro no tiene ninguna deuda pendiente
+loan.out.flows.more.than.balance: la cantidad de reembolso (%withdrawal%) es mayor que el importe de la deuda (%balance%)
+loan.in.flows.more.than.balance: la cantidad de prestamo (%withdrawal%) es mayor que el sueldo de la cuenta (%balance%)
+payback_at.must.great.than.created_at: la fecha de reembolso(%payback_at%) del prestamo no puede ser inferior or igual a su fechade creación(%created_at%)
+
+#---------------------------------------- Assistances ----------------------------------------------
+contributors: contribuyentes
+contributor: contribuyente
+assistance: auxilio
+assistances: auxilios
+assistance.new: "creacion %type%"
+assistance.delete: suppresión auxilio
+assistance.benefit: auxilios beneficiados
+assistance.index: índice de los auxilios
+assistance_type.index: índice de los tipos de auxilio
+assistance_type.new: nuevo tipo de auxilio
+assistance_type.edition: edición tipo de auxilio
+assistance.not.get.contributors: ningun contributor ha sido elejido para este auxilio (%type%)
+assistance.out.flows.more.than.balance: la cantidad del auxilio(%withdrawal%) es mayor que el sueldo de la cuenta(%balance%) de %user%
+contribution.type: tipo de contribución
+is_unity_amount: aportación por miembro
+is_contribution_amount: cantidad total
+account.index.action: ver la página índice de las cuentas
+assistance.delete.action: suprimir un auxilio
+assistance.index.action: ver la página índice de los auxilios
+assistance.new.action: crear un nuevo auxilio
+assistance.show.action: ver los detalles de un auxilio
+assistance.type.edit.action: editar los datos de un tipo de auxilio
+assistance.type.new.action: crear un nuevo tipo de auxilio
+debt.delete.action: suprimir una deuda
+debt.loaninflows.action: registrar la creación de una nueva deuda
+debt.loanoutflows.action: registrar los pagos de reembolso de una deuda
+assistance.type.index.action: ver la página índice de los tipos de auxilios
+debt.show.action: ver los detalles de una deuda
+debt.show.previous.action: ver los detalles de las deudas anteriores
+debt.update.action: editar las datos de creación de una deuda
+fund.cashinflows.action: registrar una entrada en la cuenta
+fund.cashoutflows.action: registrar una salida en la cuenta
+fund.show.action: ver los detalles de entradas y salidas en una cuenta
+tontine.details.action: ver los detalles de una tontine
+user.account.debt.index.action: ver los detalles de su cuenta de deuda
+user.account.index.action: ver los detalles de su cuenta personal
+user.account.debt.previous.action: ver los detalles de sus deudas anteriores
+
+
+register: registrar
+locked.member: miembro bloqueado
+locked.members: miembros bloqueados
+previous_balance: sueldo anterior
+balance: sueldo
+low_cash_balance: sueldo menor o igual a %balance%
+low_cash_balances: sueldos menor o igual a %balance%
+upper_cash_balance: sueldo mayor o igual a %balance%
+upper_cash_balances: sueldos mayor o igual a %balance%
+base_cash_balance: sueldo <= %balance%
+base_cash_balances: sueldos <= %balance%
+upper_base_cash_balance: sueldo >= %balance%
+upper_base_cash_balances: sueldos >= %balance%
+base_loan_balances: sueldo <= %balance%
+upper_base_loan_balances: sueldo >= %balance%
+has_debt: prestatario
+has_debts: prestatarios
+has_debts.index: indice de los prestatarios
+operation_type: tipos de operaciones
+operation_types: tipos de operaciones
+operation_type.index: índice de los tipos de operaciones
+operation_type.index.action: ver la página índice de los tipos de operaciones
+operation_type.new: crear un nuevo tipo de operaciones
+operation_type.new.action: crear un nuevo tipo de operaciones
+operation.index: índice de las operaciones
+operation.index.action: ver la página índice de las operaciones
+operation.new: crear una nueva operación
+operation.new.action: crear una nueva operación
+operation.type.creation: creación tipo de operación
+operation.type.edition: edición tipo de operación
+inflow: ingreso
+inflows: ingresos
+outflow: retiro
+outflows: retiros
+inflow operation: operación de ingreso
+outflow operation: operación de retiro
+user fund balance is less than operation inflow amount: 'el sueldo del fondo(%balance%) de %user% es inferior al monto de la operación(%inflow%)'
+Debt Operations: resumen prestamos
+Account Operations: resumen cuentas

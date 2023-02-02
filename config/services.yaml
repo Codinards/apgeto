@@ -1,0 +1,73 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  Njeaner\UserRoleBundle\:
+    resource: "../njeaner/UserRoleBundle/src/"
+
+  Njeaner\FrontTranslator\:
+    resource: "../njeaner/FrontTranslator/src/"
+
+  image_upload.handler:
+    class: Njeaner\ImageUpload\Handler\UploadHandler
+
+  image_upload.annotation_reader:
+    class: Njeaner\ImageUpload\Annotations\UploadAnnotationReader
+    arguments: ["@annotations.reader"]
+
+  image_upload.subscriber:
+    class: Njeaner\ImageUpload\Listener\ImageUploadSubscriber
+    arguments: ["@image_upload.annotation_reader", "@image_upload.handler"]
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+
+  App\:
+    resource: "../src/"
+    exclude:
+      - "../src/DependencyInjection/"
+      - "../src/Entity/"
+      - "../src/Kernel.php"
+      - "../src/Tests/"
+
+  # controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class
+  App\Controller\:
+    resource: "../src/Controller/"
+    tags: ["controller.service_arguments"]
+
+  # add more service definitions when explicit configuration is needed
+  # please note that last definitions always *replace* previous ones
+  App\Listeners\EntityListeners\UserListener:
+    tags:
+      - { name: "doctrine.event_listener", event: "prePersist", entity: 'App\Main\Users\User', connection: "default"}
+      - { name: "doctrine.event_listener", event: "postUpdate", entity: 'App\Main\Users\User', connection: "default"}
+      - { name: "doctrine.event_listener", event: "postPersist", entity: 'App\Main\Users\User', connection: "default"}
+
+  App\Listeners\EntityListeners\DebtListener:
+    tags:
+      - { name: "doctrine.event_listener", event: "postLoad", entity: 'App\Entity\Main\Funds\Debt', connection: "default"}
+      # - {name: "doctrine.event_listener", event: "postUpdate", entity: 'App\Main\Users\User', connection: "default"}
+      # - { name: "doctrine.event_listener", event: "postPersist", entity: 'App\Main\Users\User', connection: "default"}
+
+  App\Listeners\EntityListeners\FundListener:
+    tags:
+      - {name: "doctrine.event_listener", event: "postLoad", entity: 'App\Entity\Main\Funds\Fund', connection: "default"}
+      # - {name: "doctrine.event_listener", event: "prePersist", entity: 'App\Entity\Main\Funds\Fund', connection: "default"}
+      # - {name: "doctrine.event_listener", event: "preUpdate", entity: 'App\Entity\Main\Funds\Fund', connection: "default"}
+      # - { name: "doctrine.event_listener", event: "postDelete", entity: 'App\Entity\Main\Funds\Fund', connection: "default"}
+
+  App\EventSubscriber\RequestSubscriber\RedirectRequestSubscriber:
+    arguments:
+      $manager: "@doctrine.orm.default_entity_manager"
+      

@@ -1,0 +1,94 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('assistance_type.edition') }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ __t('assistance_type.edition') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12 text-right">
+            {{ create_link('app_backend_assistance_type_index', __u('assistance_type.index'), {}, {'class': 'btn btn-info'}) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {{ include( viewPath ~ '_form.html.twig') }}
+        </div>
+    </div>
+{% endblock body %}
+
+{#% block javascripts %}
+    <script>
+        class State {
+            amount_value = null;
+            contribution_value = null;
+        }
+        let state = new State;
+        const amount_parent = document.querySelector('.amount_parent_input')
+        const has_amount = document.querySelector('.has_amount_input')
+        const contribution_parent = document.querySelector('.contribution_parent_input')
+        const has_contribution = document.querySelector('.has_contribution_input')
+        amount_parent.style.display = 'none';
+        contribution_parent.style.display = 'none';
+        has_amount.addEventListener('change', function(e){
+            const children = this.querySelectorAll('input')
+            const amount_input = amount_parent.querySelector('input')
+            const contribution_radios = has_contribution.querySelectorAll('input')
+            for( const child of children){
+                if(child.checked){
+                    state.amount_value = child.value;
+                    break;
+                }
+            }
+            
+            if(state.amount_value == 1){ 
+                amount_parent.style.display = 'initial'
+                amount_input.setAttribute('required', 'required')
+                for( const elt of contribution_radios){
+                    elt.removeAttribute('required')
+                    elt.setAttribute('disabled', 'disabled')
+                }
+            }else{
+                amount_parent.style.display = 'none'
+                amount_input.removeAttribute('required')
+                amount_input.value = null
+                for( const elt of contribution_radios){
+                    elt.setAttribute('required', 'required')
+                    elt.removeAttribute('disabled')
+                }
+            }
+        })
+        has_contribution.addEventListener('change', function(e){
+            const children = this.querySelectorAll('input')
+            const contribution_input = contribution_parent.querySelector('input')
+            const amount_radios = has_amount.querySelectorAll('input')
+            for( const child of children){
+                if(child.checked){
+                    state.contribution_value = child.value;
+                    break;
+                }
+            }
+
+            if(state.contribution_value == 1){
+                contribution_parent.style.display = 'initial'
+                contribution_input.setAttribute('required', 'required')
+                for( const elt of amount_radios){
+                    elt.removeAttribute('required')
+                    elt.setAttribute('disabled', 'disabled')
+                }
+            }else{
+                contribution_parent.style.display = 'none'
+                contribution_input.removeAttribute('required')
+                contribution_input.value = null
+                for( const elt of amount_radios){
+                    elt.setAttribute('required', 'required')
+                    elt.removeAttribute('disabled')
+                }
+            }
+        })
+    </script>
+{% endblock javascripts %#}

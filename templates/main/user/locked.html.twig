@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __(title) }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __(title) }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    
+<div class="row mb-2">
+    <div class="col-12 text-right my-flex-between">
+        {{ create_link('app_backend_user_index', __('user.all.index'), { _locale: locales.locale}, {class: 'btn btn-info'} ) }}
+        {{ create_link('app_backend_user_new', __('user.new'), {_locale: locales.locale}, {class: 'btn btn-success'} ) }}
+        {#<a href="{{ path('user_new') }}" class="btn btn-success">Creer un nouveau membre</a>#}
+    </div>
+</div>
+    <table class="table table-striped">
+        <thead class="bg-edit">
+            <tr>
+                <th>{{ __('username') }}</th>
+                <th>{{ __('pseudo') }}</th>
+                <th>{{ __('role') }}</th>
+                <th>{{ __('locked_at') }}</th>
+                <th>{{ __('action') }}s</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.pseudo }}</td>
+                <td>{{ __u(user.role) }}</td>
+                <td>{{ user.lockedAt | in_locale('ll')  }}</td>
+                <td>
+                    {{ create_form(
+                        path('app_backend_user_lock', {'id': user.id, _locale: locales.locale, action: 'unlock'}),
+                        '<i class="fa fa-lock-open"></i> ' ~ __('unlock') ,
+                        {
+                            class: 'btn btn-save mb-2',
+                            style: 'display:inline-block;',
+                            btn_style: 'border-color: #b88517;',
+                            confirm: __u('are you sure to unlock this member'),
+                            csrf_name: 'user_unlock'
+                        }
+                    ) }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

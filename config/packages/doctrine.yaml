@@ -1,0 +1,77 @@
+doctrine:
+  dbal:
+    default_connection: default
+    connections:
+      default:
+        url: "%env(resolve:DATABASE_MAIN)%"
+        driver: "pdo_sqlite"
+        charset: utf8mb4
+      # tontine:
+      #   url: "%env(resolve:DATABASE_TONTINE)%"
+      #   driver: "pdo_sqlite"
+      #   charset: utf8mb4
+      # assistance:
+      #   url: "%env(resolve:DATABASE_ASSISTANCE)%"
+      #   driver: "pdo_sqlite"
+      #   charset: utf8mb4
+      # interest:
+      #   url: "%env(resolve:DATABASE_INTEREST)%"
+      #   driver: "pdo_sqlite"
+      #   charset: utf8mb4
+  orm:
+    default_entity_manager: default
+    entity_managers:
+      default:
+        connection: default
+        mappings:
+          main:
+            is_bundle: false
+            type: annotation
+            dir: "%kernel.project_dir%/src/Entity"
+            prefix: 'App\Entity'
+            alias: Main
+      # tontine:
+      #   connection: tontine
+      #   mappings:
+      #     main:
+      #       is_bundle: false
+      #       type: annotation
+      #       dir: "%kernel.project_dir%/src/Entity/Tontines"
+      #       prefix: 'App\Entity\Tontines'
+      #       alias: Tontine
+      # assistance: 
+      #   connection: assistance
+      #   mappings:
+      #     main:
+      #       is_bundle: false
+      #       type: annotation
+      #       dir: "%kernel.project_dir%/src/Entity/Assistances"
+      #       prefix: 'App\Entity\Assistances'
+      #       alias: Assistance
+      # interest:
+      #   connection: interest
+      #   mappings:
+      #     main:
+      #       is_bundle: false
+      #       type: annotation
+      #       dir: "%kernel.project_dir%/src/Entity/Interests"
+      #       prefix: 'App\Entity\Interests'
+      #       alias: Interest
+# doctrine:
+#   dbal:
+#     url: "%env(resolve:DATABASE_MAIN)%"
+
+#     # IMPORTANT: You MUST configure your server version,
+#     # either here or in the DATABASE_URL env var (see .env file)
+#     #server_version: '5.7'
+#   orm:
+#     auto_generate_proxy_classes: true
+#     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+#     auto_mapping: true
+#     mappings:
+#       App:
+#         is_bundle: false
+#         type: annotation
+#         dir: "%kernel.project_dir%/src/Entity"
+#         prefix: 'App\Entity'
+#         alias: App

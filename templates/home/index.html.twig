@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ constants.sigle }} | {{ functionalities ? __('functionalities') : __t('home page') }}
+{% endblock %}
+
+{% block pageTitle %}
+    <h1> {{ functionalities ? __('functionalities') : __t('home page') }} </h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 900px; width: 95%; font: 18px/1.5 sans-serif; }
+    h2, h3{
+        color: rgba(186, 186, 0, 0.9);
+    }
+    h3{
+        color: rgba(186, 186, 186, 0.9);
+    }
+</style>
+{% if functionalities %}
+
+<div class="row">
+    
+
+<div class="col-12">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            Ce site est encore en construction et les Fonctionnalites attendues sont:
+            <br><br>
+            {% set functionalities = devLevels["functionalities"] ?? devLevels["fonctionalités"] ?? devLevels["funcionalidades"] %}
+            <ul style="list-style: square;">
+                <li>
+                    <span class="font-weight-bold">
+                        Création et gestion des adhérants
+                    </span>
+                    <ul>
+                        <li>Affichage du listing des adhérants</li>
+                        <li>Ajout des adhérants</li>
+                        <li>Edition du profil des adhérants</li>
+                        <li>Edition du rôle d'un adhérant</li>
+                        <li>Edition des identifiants d'un adhérant (pseudo et mot de passe)</li>
+                        <li>Edition de l'image de profil d'un adhérant</li>
+                    </ul>
+                </li>
+                <br>
+                <li>
+                    <span class="font-weight-bold">
+                        Création et gestion des comptes adhérants
+                    </span>
+                    <ul>
+                        <li>Affichage du récapitulatif des comptes(fonds, assurances, prêts)</li>
+                        <li>Enregistrement des opérations d'entrée fond</li>
+                        <li>Enregistrement des opérations de sortie fond</li>
+                        <li>Enregistrement des nouveaux prêts</li>
+                        <li>Enregistrement des remboursements prêts</li>
+                        <li>Enregistrement des reconductions prêts</li>
+                        <li>Edition d'un opération d'entrée fond</li>
+                        <li>Edition d'un opération de sortie fond</li>
+                        <li>Edition d'un prêt</li>
+                        <li>Edition d'un remboursement prêt</li>
+                        <li>Edition d'une reconduction prêt</li>
+                        <li>Suppression d'un opération d'entrée fond</li>
+                        <li>Suppression d'un opération de sortie fond</li>
+                        <li>Suppression d'un prêt</li>
+                        <li>Suppression d'un remboursement prêt</li>
+                        <li>Suppression d'une reconduction prêt</li>
+                        <li>Enregistrement des remboursement prêts</li>
+                        <li>Affichage des états de fond d'un adhérant</li>
+                        <li>Affichage des états de prêt d'un adhérant</li>
+                        <li>Affichage des états de fond antérieur d'un adhérant</li>
+                        <li>Affichage des états de prêt antérieur d'un adhérant</li>
+                    </ul>
+                </li>
+                <br>
+                <li>
+                    <span class="font-weight-bold">
+                        Création et gestion des rôles et autorisations
+                    </span>
+                    <ul>
+                        <li>Affichage du listing des rôles</li>
+                        <li>Création d'un nouveau rôle</li>
+                        <li>Edition d'un rôle</li>
+                        <li>Edition des autorisations associées à un rôle</li>
+                        <li>Suppression d'un rôle</li>
+                    </ul>
+                </li>
+                <br>
+                <li>
+                    <span class="font-weight-bold">
+                        Création et gestion des types de tontines, tontines et cotisations
+                    </span>
+                    <ul>
+                        <li>Affichage du listing des types de tontine</li>
+                        <li>Création d'un type de tontine</li>
+                        <li>Edition d'un type de tontine</li>
+                        <li>Affichage du listing des tontines</li>
+                        <li>Création d'une tontine associée à un type</li>
+                        <li>Affichage des informations d'une tontine (cotisations, achats, relicats, etc.)</li>
+                        <li>Edition d'une tontine</li>
+                        <li>Suppression d'une tontine</li>
+                        <li>Ajout des cotisations à d'une tontine</li>
+                        <li>Retrait des cotisations à d'une tontine</li>
+                        <li>Enregistrement et annulation de l'achat, blocage  d'une cotisation</li>
+                        <li>Enregistrement des échecs de cotisations</li>
+                        <li>Affichage des échecs de cotisations (par date ou par adhérant)</li>
+                    </ul>
+                </li>
+                <br>
+                <li>
+                    <span class="font-weight-bold">
+                        Création et gestion des types de aides
+                    </span>
+                    <ul>
+                        <li>Création des types d'aide</li>
+                        <li>Affichage du listing des types d'aide</li>
+                        <li>Edition d'un type d'aide</li>
+                        <li>Octroi d'une aide à un adhérant</li>
+                        <li>Affichage de la liste des aides</li>
+                        <li>Filtrage de la liste des aides par types, par adhérant, par année ou par contributeur </li>
+                        <li>Ajout des contributeurs à une aide</li>
+                        <li>Suppression d'une aide</li>
+                    </ul>
+                </li>
+                <br>
+                <li>
+                    <span class="font-weight-bold">
+                        Gestion du tableau de bord et des opérations
+                    </span>
+                    <ul>
+                        <li>Affichage du tableau de bord</li>
+                        <li>Affichage du tableau de bord des années antérieurs</li>
+                        <li>Création d'une opération</li>
+                        <li>Affichage des états d'une opération</li>
+                        <li>Affichage du listing des opérations</li>
+                        <li>Enregistrement des entrées dans une opération</li>
+                        <li>Enregistrement des sorties dans une opération</li>
+                        <li>Edition des entrées et sorties d'une opération</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    <div class="bg-secondary"><hr><hr></div>
+            
+{# <div class="col-12 mt-3" id="react_app"  app-type="functionalities" dev-keys="{{ json_encode(devKeys) }}" data-info="{{ encode }}"> #}
+
+</div>
+</div>
+
+{% else %}
+        <div class="row">
+            <div class="col-12 text-right">
+                <a class="btn btn-info" href="{{ path('home', {functionalities: true}) }}">{{ __('functionalities') }}</a>
+                {# <a class="btn btn-info" href="{{ path('app_todo') }}">{{ __('functionalities') }}</a> #}
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center" style="font-size: 3rem;">{{ __t("Bienvenue dans l'application de l'ABAMA") }}</h1>
+                <div class="text-center" style="font-size: 1.5rem;">
+                    {{ __U("Une application pour la gestion de la tontine") }}
+                </div>
+            </div>
+        </div>
+    
+{% endif %}
+ 
+{% endblock %}
+

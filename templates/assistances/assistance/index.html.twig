@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {% if type %}
+        {{ type.name }}
+    {% else %}
+    {{ __t('assistance.index') }}
+    {% endif %}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>
+        {% if type %}
+            {{ type.name }}
+        {% else %}
+            {{ __t('assistance.index') }}
+        {% endif %}
+    </h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12 text-right">
+            {{ create_link('app_backend_assistance_type_index', __u('assistance_type.index'), {}, {'class': 'btn btn-info'}) }}
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-9">
+            <table class="table table-striped bg-save">
+                <thead class="bg-edit">
+                    <tr>
+                        <th>{{ __u('number') }}</th>
+                        <th>{{ __u('member') }}</th>
+                        <th>{{ __t("type d'aide") }}</th>
+                        <th>{{ __u('amount') }}</th>
+                        <th>{{ __u('date') }}</th>
+                        <th>{{ __u('actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assistance in assistances %}
+                    <tr>
+                        <th>{{ loop.index }}</th>
+                        <th>{{ assistance.user(true) }}</th>
+                        <th>{{ assistance.type }}</th>
+                        <th>{{ assistance.totalContributions | money_format }}</th>
+                        <th>{{ assistance.createdAt | in_locale('ll') }}</th>
+                        <th>
+                            {{ create_link('app_backend_assistance_show', __u('show'), {id: assistance.id}, {'class': 'btn btn-info'}) }}
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+        <div class="col-md-3" style="font-size: 0.8rem;">
+            {{ form_start(form) }}
+            <div class="card bg-edit">
+                <div class="card-header">
+                    <h3 class="text-white">
+                        <button type="submit" class="btn btn-info" style="min-width: 100px;">{{ __("filter") | upper }}</button>
+                    </h3>
+                </div>
+                <div class="card-body bg-save">
+                    
+                    {{ form_widget(form) }}
+                    <div class="form-group">
+                        
+                    </div>
+                    
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock body %}
