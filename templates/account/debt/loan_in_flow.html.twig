@@ -1,0 +1,198 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('loan_in_flow') }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ __t('loan_in_flow') }} | <span class="text-success">{{ user.name }}</span></h1>
+{% endblock pageTitle %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-12 text-left">
+        {{ create_link('app_backend_account_index', __('account.index'), {_locale: locales.locale}, {class: 'btn btn-primary'} ) }}
+        <span style="min-width:3%;display:inline-block;"></span>
+        {{ create_link('app_backend_fund_show', __('fund.show'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-show'} ) }}
+        {{ create_link('app_frontend_user_debt_index', __('debt.show'), { _locale: locales.locale, id: user.id}, {class: 'btn btn-edit'} ) }}
+        <span style="min-width:3%;display:inline-block;"></span>
+        {{ create_link('app_backend_user_show', __('profil'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-info'} ) }}
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-md-7">
+        {{ include(viewPath ~ '_form.html.twig', {title: __t('loan_in_flow')}) }}
+    </div>
+    <div class="col-md-5">
+        <div class=" bg-save">
+            <h2 class="text-edit">{{ __t('account.data') }}</h2>
+            <table class="table bg-edit">
+                <tr>
+                    <th>{{ __u('cash_balance') }}</th>
+                    <th>{{ account.cashBalances | money_format }}</th>
+                </tr>
+            </table>
+        </div>
+        {% if tontineurData %}
+            <hr>
+            <div class="bg-save">
+                <h2>{{ __u('tontines') }}</h2>
+                {% for item in tontineurData %}
+                <hr>
+                    <h3 class="text-update">{{ item.tontine.name ?? item.tontine.type }} </h3>
+                    <table class="table bg-edit">
+                        <tr>
+                            <th>{{ __u('total.parts') }}</th>
+                            <td>{{ item.count }} {{ item.count > 1 ? __('parts') : __('part') }} </td>
+                        </tr>
+                        <tr>
+                            <th>{{ __u('benefit.parts') }}</th>
+                            <td>{{ item.won }} {{ item.won > 1 ? __('parts') : __('part') }} </td>
+                        </tr>
+                        <tr>
+                            <th>{{ __u('half.part') }}</th>
+                            <td>{{ item.countDemiNom }} {{ item.countDemiNom > 1 ? __('parts') : __('part') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __u('benefit.amount') }}</th>
+                            <td>{{ item.tontine.amount | money_format() }}</td>
+                        </tr>
+                    </table>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% if avalisations %}
+        <hr>
+        <div class="bg-save">
+        <h2>{{ __t('avalised.debts') }}</h2>
+        <table class="table bg-edit">
+            <thead>
+                <tr>
+                    <th>{{ __u('member') }}</th>
+                    <th>{{ __u('loan_balance') }}</th>
+                    <th class="text-center">{{ __u('observations') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for avaliste in avalisations %}
+                    <tr>
+                        <td>{{ avaliste.account }}</td>
+                        <th class="text-right">{{ avaliste.account.loanBalances | money_format }}</th>
+                        <td>
+                            <ul>
+                            {% for key, observation in avaliste.resolveObservations %}
+                                {% if is_array(observation) %}
+                                <li class="{{ observation["avaliste"] == user.name ? 'text-warning' : ''  }}">{{ observation["avaliste"] }} {{ observation['observation'] }}</li>
+                                {% else %}
+                                <li class="{{ observation == user.name ? 'text-warning' : '' }}">{{ observation }}</li>
+                                {% endif %}
+                            {% endfor %}
+                            </ul>
+                        </td>
+                            
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+    
+{% endblock body %}
+
+{% block javascripts %}
+<script defer>
+
+    /** SECTION INTEREST */
+    const addAvalisteToCollection = (e) => {
+        console.log('clicked')
+        const collectionHolder = document.querySelector(
+          "." + e.currentTarget.dataset.collectionHolderClass
+        );
+        const addButton = e.currentTarget
+        const div = document.createElement("div");
+        if (collectionHolder.dataset.index < 5) {
+          const prototype = collectionHolder.dataset.prototype.replace(
+            /__name__/g,
+            collectionHolder.dataset.index
+          );
+      
+          div.classList.add("row", "bg-purple", "mb-2");
+          div.id = "avaliste_" + collectionHolder.dataset.index;
+      
+          const element = document.createElement("div");
+          element.innerHTML = prototype;
+          element.querySelectorAll(".form-group").forEach((elt, id) => {
+            const col = document.createElement("div");
+            cols = id == 0 ? 5 : 6;
+            col.classList.add("col-md-" + cols);
+            col.innerHTML = elt.outerHTML;
+            div.appendChild(col);
+          });
+          const btnDiv = document.createElement("div");
+          btnDiv.classList.add("col-md-1");
+          btnDiv.innerHTML =
+            '<button data-collection-holder-class="' + addButton.dataset.collectionHolderClass + '" class="btn bg-purple btn_remove_avaliste" id="btn_remove_avaliste_' +
+            collectionHolder.dataset.index +
+            '" data-index="' +
+            collectionHolder.dataset.index +
+            '"> <i class="fa fa-trash text-danger"></i></button>';
+          div.appendChild(btnDiv);
+          collectionHolder.appendChild(div);
+          document.querySelectorAll(".btn_remove_avaliste").forEach((elt) => {
+            if (elt.dataset.index == collectionHolder.dataset.index) {
+              elt.style.display = "inline";
+            } else {
+              elt.style.display = "none";
+            }
+      
+            elt.addEventListener("click", (e) => {
+              e.preventDefault();
+              collectionHolder.removeChild(document.querySelector("#avaliste_" + elt.dataset.index));
+              collectionHolder.dataset.index--
+              if (elt.dataset.index > 1) {
+                document.querySelector(
+                  "#btn_remove_avaliste_" + (elt.dataset.index - 1)
+                ).style.display = "inline";
+              }
+              toggleBtn(addButton, collectionHolder.dataset.index);
+            });
+
+          });
+        collectionHolder.dataset.index++;
+        toggleBtn(e.currentTarget, collectionHolder.dataset.index);
+        }
+      };
+      
+      function toggleBtn(BtnNode, index) {
+        if (index == 5) {
+          BtnNode.style.display = "none";
+        } else {
+          BtnNode.style.display = "inline";
+        }
+      }
+      
+      document
+        .querySelector("#btn_add_avaliste")
+        .addEventListener("click", addAvalisteToCollection);
+      
+      $(".debt_loan_in_flows").on("change", function () {
+        let interestElement = $(".debt_interests");
+        let interest = parseInt(
+          parseInt($(this).val(), 10) *
+            parseFloat(interestElement.attr("data-rate"), 10),
+          10
+        );
+        interestElement.attr(
+          "placeHolder",
+          interest + " " + interestElement.attr("data-devise")
+        );
+      });      
+</script>
+{% endblock javascripts %}

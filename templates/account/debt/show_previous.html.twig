@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('debt.show') }}{% endblock %}
+
+{% block pageTitle %}
+     <h1>
+         {{ __t('debt.show') }} {{ parent.createdAt | in_locale('ll') }} | <span class="text-success">{{ user.name | format_name }}</span>
+    </h1>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12 text-right">
+        {{ create_link('app_backend_account_index', __('account.index'), {'id': account.id, _locale: locales.locale}, {class: 'btn btn-primary'} ) }}
+        {{ create_link('app_frontend_user_profil', __('profil'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-show'} ) }}
+        {{ create_link('app_frontend_user_index', __('fund.show'), {_locale: locales.locale, id: user.id}, {class: 'btn btn-save'} ) }}
+        {{ create_link('app_frontend_user_debt_index', __('debt.show'), { _locale: locales.locale, id: user.id}, {class: 'btn btn-show'} ) }}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+    <thead class="bg-secondary">
+        <tr>
+            <th>{{ __u('id') }}</th>
+            <th>{{ __u('wording') }}</th>
+            <th>{{ __u('loan_in_flows') }}</th>
+            <th>{{ __u('interest') }}</th>
+            <th>{{ __u('loan_out_flows') }}</th>
+            <th>{{ __u('balances') }}</th>
+            <th>{{ __u('created_at') }}</th>
+            <th>{{ __u('observations') }}</th>
+            {#<th>actions</th>#}
+        </tr>
+    </thead>
+    <tbody>
+        
+    {% for debt in debts %}
+        {#% if oldBalance and loop.index == 1 %}
+            <tr class="">
+                <td class="bg-show">0</td>
+                <td class="bg-save">{{ __('old.balance') }}</td>
+                <td class="bg-save text-right"></td>
+                <td class="bg-save text-right"></td>
+                <td class="bg-save text-right">{{ oldBalance.cashBalances | money_format }}</td>
+                <td class="bg-save">{{ oldBalance.createdAt | in_locale }}</td>
+                <td class="bg-save">{{ __('balance at') }} {{ oldBalance.createdAt | in_locale }}</td>
+            </tr>
+        {% endif %#}
+        <tr>
+            <td class="bg-show">{{ loop.index }}</td> 
+            <td class="bg-save">{{ debt.wording }}</td>
+            <td class="bg-success text-right">{{ debt.loanInFlows == 0 ? '' : debt.loanInFlows | money_format }}</td>
+            <td class="bg-success text-right">{{ empty(debt.interests) == true ? '' : debt.interests | money_format }}</td>
+            <td class="bg-success text-right">{{ debt.loanOutFlows == 0 ? '' : debt.loanOutFlows | money_format }}</td>
+            <td class="bg-edit text-right">{{ debt.loanBalances | money_format }}</td>
+            <td class="bg-update">{{ debt.createdAt | in_locale }}</td>
+            <td class="bg-save">{{ debt.firstObservation}}</td>
+            {#<td>
+                <a href="{{ path('debt_show', {'id': debt.id}) }}">e</a>
+                <a href="{{ path('debt_edit', {'id': debt.id}) }}">edit</a>
+            </td>#}
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="7" class="text-center">{{ __('not.record.found') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot class="bg-secondary">
+        {% if count != 0 %}
+            <tr class="">
+                <th colspan="2">Totals</th>
+                <th class="text-right">{{ totals.loanInFlows | money_format }}</th>
+                <th class="text-right">{{ totals.interests | money_format }}</th>
+                <th class="text-right">{{ totals.loanOutFlows | money_format }}</th>
+                <th class="text-right">{{ totals.loanBalances | money_format }}</th>
+                <th></th>
+                <th></th>
+            </tr>
+        {% endif %}
+        
+    </tfoot>
+</table>
+    </div>
+</div>
+
+{% endblock %}

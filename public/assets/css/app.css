@@ -1,0 +1,338 @@
+/* Style The Dropdown Button */
+body {
+  font-family: Verdana, Times, "Times New Roman", Times, serif, Georgia, serif,
+    Tahoma, sans-serif;
+  font-size: 1rem;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right bottom,
+    from(rgba(150, 80, 80, 0.5)),
+    to(rgba(80, 80, 150, 0.5))
+    /* from(#af5e94),
+    to(#5949f2), */
+  )
+  fixed;
+}
+
+.dropbtn {
+  /*background-color: #4caf50;*/
+  color: white;
+  padding: 0.375rem 0.75rem;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  min-width: 125px;
+}
+
+.dropbtn:hover {
+  color: white;
+}
+
+.nav-link.dropbtn:hover {
+  background-color: #6c757d;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.my-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  /* min-width: 125px; */
+  width: max-content;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 0.375rem 0.75rem;
+  /*padding: 12px 16px;*/
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  box-shadow: 0px 1px 2px;
+}
+
+/* Show the dropdown menu on hover */
+.my-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.navbar > ul > li > a {
+  color: whitesmoke;
+}
+
+.navbar > ul > li > a {
+  color: whitesmoke;
+}
+
+.my-flex-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.my-flex-between {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: baseline;
+  flex-wrap: wrap; */
+}
+
+h1 {
+  color: #17a2b8;
+  color: rgba(186, 0, 68, 0.5);
+  text-align: center;
+  text-transform: capitalize;
+}
+.border-top {
+  border-top: 2 solid gray;
+}
+.border-bottom {
+  border-bottom: 2 solid gray;
+}
+
+h2,
+h3 {
+  text-align: center;
+}
+.btn-edit {
+  background-color: #343823;
+  color: white;
+}
+.btn-update {
+  background-color: #542853;
+  color: white;
+}
+.btn-show {
+  background-color: #67556b;
+  color: white;
+}
+.btn-save {
+  background-color: #b88517;
+  color: white;
+}
+
+.bg-edit {
+  background-color: #343823;
+  color: white;
+}
+/*#67556b*/
+.bg-show {
+  background-color: #67556b;
+  color: white;
+}
+.bg-save {
+  background-color: #b88517;
+  color: white;
+}
+.bg-grey {
+  background-color: #aaaaaa;
+}
+.bg-update {
+  background-color: #542853;
+  color: white;
+}
+.text-grey {
+  color: grey;
+}
+.text-update {
+  color: #542853;
+}
+.text-show {
+  color: #67556b;
+}
+.text-edit {
+  color: #343823;
+}
+.text-save {
+  color: #b88517;
+}
+.text-update {
+  color: #542853;
+}
+.text-white {
+  color: white;
+}
+.table {
+  font-size: 0.8em;
+}
+
+.text-blue {
+  color: #007bff;
+}
+.text-indigo {
+  color: #6610f2;
+}
+.text-purple {
+  color: #6f42c1;
+}
+.text-pink {
+  color: #e83e8c;
+}
+.text-red {
+  color: #dc3545;
+}
+.text-orange {
+  color: #fd7e14;
+}
+.text-yellow {
+  color: #ffc107;
+}
+.text-green {
+  color: #28a745;
+}
+.text-teal {
+  color: #20c997;
+}
+.text-cyan {
+  color: #17a2b8;
+}
+.text-white {
+  color: #fff;
+}
+.text-gray {
+  color: #6c757d;
+}
+.text-gray-dark {
+  color: #343a40;
+}
+.text-primary {
+  color: #007bff;
+}
+.text-secondary {
+  color: #6c757d;
+}
+.text-success {
+  color: #28a745;
+}
+.text-info {
+  color: #17a2b8;
+}
+.text-warning {
+  color: #ffc107;
+}
+.text-danger {
+  color: #dc3545;
+}
+.text-light {
+  color: #f8f9fa;
+}
+.text-dark {
+  color: #343a40;
+}
+
+.text-chocolate {
+  color: chocolate;
+}
+
+.bg-blue {
+  background-color: #007bff;
+}
+.bg-indigo {
+  background-color: #6710f2de;
+  color: white;
+}
+.bg-purple {
+  background-color: #6f42c1;
+  color: white;
+}
+.bg-pink {
+  background-color: #e83e8c;
+}
+.bg-red {
+  background-color: #dc3545;
+}
+.bg-orange {
+  background-color: #fd7e14;
+  color: white;
+}
+.bg-yellow {
+  background-color: #ffc107;
+}
+.bg-green {
+  background-color: #28a745;
+}
+.bg-teal {
+  background-color: #20c997;
+}
+.bg-cyan {
+  background-color: #17a2b8;
+}
+.bg-white {
+  background-color: #fff;
+}
+.bg-gray {
+  background-color: #6c757d;
+}
+.bg-gray-dark {
+  background-color: #343a40;
+}
+.bg-primary {
+  background-color: #007bff;
+}
+.bg-secondary {
+  background-color: #6c757d;
+}
+.bg-success {
+  background-color: #28a745;
+}
+.bg-info {
+  background-color: #17a2b8;
+}
+.bg-warning {
+  background-color: #ffc107;
+}
+.bg-danger {
+  background-color: #dc3545;
+}
+.bg-light {
+  background-color: #f8f9fa;
+}
+.bg-dark {
+  background-color: #343a40;
+}
+
+.bg-chocolate {
+  background-color: chocolate;
+}
+
+.block-overflow {
+  overflow-block: scroll;
+}
+
+.w-200 {
+  min-width: 200px;
+}
+
+.w-150 {
+  min-width: 150px;
+}
+
+.radius-6 {
+  border-radius: 6px;
+}
+
+.radius-10 {
+  border-radius: 10px;
+}
+
+.radius-15 {
+  border-radius: 15px;
+}
+
+.radius-ov {
+  border-radius: 15px 6px 20px 6px;
+}

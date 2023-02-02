@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+   Operation Sortie Multiple
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>Operation Sortie Multiple</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+
+<div class="row font-size-8">
+    <div class="col-md-12 text-right">
+        {{ create_link('app_backend_account_index', __('account.index'), {_locale: locales.locale}, {class: 'btn btn-primary'} ) }}
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+
+        {{ include(viewPath ~ '_form.html.twig') }}
+    </div>
+</div>
+    
+{% endblock body %}
+
+{% block javascripts %}
+<script src="/assets/js/several_inflow.js"></script>
+{% endblock javascripts %}

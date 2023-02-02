@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t(type.name) }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __t(type.name) }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row mb-2">
+    <div class="col-md-4">
+        {{ create_link('app_backend_operation_type_index', '<i class="fa fa-eye"></i> ' ~  __('operation_type.index'), {_locale: locales.locale}, {class: 'btn btn-edit'} ) }}
+    </div>
+    <div class="col-md-8 text-right my-flex-around">
+        <div>
+            {{ create_link('app_backend_operation_new', '<i class="fa fa-plus"></i> ' ~  __('inflow'), {_locale: locales.locale, type: type.id, action: 'in'}, {class: 'btn btn-save'} ) }}
+        {{ create_link('app_backend_operation_new_from_user', '<i class="fa fa-plus"></i> ' ~ __('from_1') ~ ' ' ~ __('member'), {_locale: locales.locale, type: type.id, action: 'in'}, {class: 'btn btn-save'} ) }}
+        </div>
+        <div>
+            {{ create_link('app_backend_operation_new', '<i class="fa fa-minus"></i> ' ~  __('outflow'), {_locale: locales.locale, type: type.id, action: 'out'}, {class: 'btn btn-show'} ) }}
+        </div>   
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table font-size-7">
+            <thead class="bg-edit">
+                <tr>
+                    <th>{{ __u('No: ') }}</th>
+                    <th>{{ __u('created_at') }}</th>
+                    <th>{{ __u('wording') }}</th>
+                    <th>{{ __u('inflows') }}</th>
+                    <th>{{ __u('outflows') }}</th>
+                    <th>{{ __u('balance') }}</th>
+                    <th>{{ __u('year') }}</th>
+                    <th>{{ __('observation') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% set i = 1 %}
+                {% for operation in operations %}
+                <tr>
+                    <td class="bg-show">{{ i }}</td>
+                    <td class="bg-save">{{ operation.createdAt | in_locale('ll') }}</td>
+                    <td class="bg-save my-flex-between">
+                    {% set canUpdate = create_link("app_backend_operation_update", operation.wording, {id: operation.id}, {boolean:true})  %}
+                    {% set canDelete = create_link("app_backend_operation_delete", operation.wording, {id: operation.id}, {boolean:true})  %}
+                    {% if canUpdate == true or canDelete == true  %}
+                        {% if canUpdate == true %}
+                        {{ create_link("app_backend_operation_update", operation.wording ~ '  <i class="fa fa-edit text-edit"></i>', {id: operation.id}, {class: "text-white", title: 'Editer les données'}) }}
+                        {% endif %}
+
+                        {% if canDelete == true %}
+                        {{ create_link("app_backend_operation_delete", '<i class="fa fa-trash text-danger"></i>', {id: operation.id}, {class: "text-white", title: 'Supprimer cette ligne'}) }}
+                        {% endif %}
+                    {% else %}
+                       {{ operation.wording }}
+                    {% endif %}
+                    </td>
+                    <td class="bg-update">{{ operation.inflows | money_format }}</td>
+                    <td class="bg-show">{{ operation.outflows | money_format }}</td>
+                    <td class="bg-save">{{ operation.balance | money_format }}</td>
+                    <td class="bg-chocolate text-white">{{ operation.year }}</td>
+                    <td class="font-size-7 bg-edit text-white">
+                        {{ operation.observation }}
+                        {% if operation.hasContributor %}
+                    {{ create_link('app_backend_user_show', operation.memberName[0], {'id': int(operation.memberName[1]), _locale: locales.locale}, {class: "text-white"} ) }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% set i = i + 1 %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

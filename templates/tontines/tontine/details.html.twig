@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tontine.type.name }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ tontine.type.name }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<style>
+    ul{
+        list-style-type: none;
+    }
+</style>
+<div class="row">
+    <div class="col-md-8">
+        {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-info mb-2'} ) }}
+        {{ create_link('app_backend_tontine_info', __('tontine.info'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-primary mb-2'} ) }}
+        {{ create_link('app_backend_tontine_show', __('show'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-success mb-2'} ) }}
+        {{ create_link('app_backend_multi_won_selection', __('Plusieurs bénéficiaire'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-save mb-2'} ) }}
+    </div>
+    <div class="col-md-4 text-right">
+        {{ include(viewPath ~ '/_add_tontineur.html.twig') }}
+    </div>
+</div>
+<hr>
+<div class="row">
+    {#<div class="col-md-3">
+        
+    </div>#}
+    <div class="col-md-10 mx-auto">
+        {% for key, unity in unities %}
+            <div class="col-md-12">
+                <div class="card mb-4  bg-edit">
+                    
+                <div class="card-header text-center bg-edit" style="display: flex; align-items: center; justify-content: space-around">
+                        <span><span class="text-info">{{ __u('member') }} :</span> <span class="text-save">{{ data[key].tontineur.name }}</span></span>
+                        <span><span class="text-info">{{__u('count')}} :</span><span class="text-success"> {{ data[key].count }}</span></span>
+                        {% if data[key].countDemiNom != 0 %}
+                            <span><span class="text-info">{{ __u('half.name') }} :</span><span class="text-success"> {{ data[key].countDemiNom }}</span></span>
+                        {% endif %}
+                        <span><span class="text-info">{{ __u('won') }} :</span><span class="text-success"> {{ data[key].won }}</span></span>
+                        <span><span class="text-info">{{ __u('locked') }} :</span><span class="text-success"> {{ data[key].lockedCount }}</span></span>
+                        <span><span class="text-info">{{ __u('amount') }} :</span><span class="text-success"> {{ data[key].amount | money_format() }}</span></span>
+                        
+                    </div>
+                    <div class="card-body bg-save">
+                        <table class="table text-center">
+                            <thead>
+                                <tr>
+                                    <th>{{ __u('index') }}</th>
+                                    <th>{{ __u("amount") }}</th>
+                                    <th>{{ __u('Actions') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        {% for item in unity %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ item.amount | money_format() }}</td>
+                                <td>
+                                {{ create_link('app_backend_unity_show', __('unity.show'), {_locale: locales.locale, id:item.id}, {class: 'btn btn-info'}) }}
+                                {% if item.isWon == 0 and item.isStopped == false %}
+                                    {% if tontine.isCurrent %}
+                                            {{ create_link('app_backend_unity_won', __('unity.won'), {_locale: locales.locale, id:item.id}, {class: 'btn btn-success'}, {'valid': is_valid}  ) }}
+                                    {% endif %}   
+                                {% endif %}
+                                {% if item.isStopped == true and create_link('app_backend_unity_unlock', '', {}, {}, {'valid': tontine.isCurrent, 'boolean': true}) %}
+                                {{ create_form(path('app_backend_unity_unlock', {_locale: locales.locale, id:item.id}), __u('unity.unlock'), {'style': 'display: inline-block', btn: 'warning', csrf_name: 'unity_unlock', confirm: __u('are you sure you want to unlock this unity?')}) }}
+                                {% endif %}
+                                {% if is_false(item.isWon) and is_false(item.isStopped) and is_true(tontine.addMember)  %}
+                                    {{ create_link('app_backend_unity_delete', __u('delete'), { id: item.id, _locale: locales.locale }, {class: 'btn btn-danger mb-2'} ) }}
+                                {% endif %}
+                                </td>
+                            </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                    </div>
+                    <div class="card-footer text-center">
+                        {{ create_link('app_backend_tontineur_unity_add', '<i class="fa fa-edit"></i> ' ~ __('tontineur.add.unity') , {_locale: locales.locale, id:unity[0].tontine.id, tontineur:unity[0].tontineur.id, data:unity[0].tontineurData.id}, {class: 'btn btn-success'}, {'valid': (is_valid and tontine.addMember)}  ) }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>    
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('user.action.edit')}}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __t('user.action.edit')}}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12 text-right">
+        {{ create_link('app_backend_user_action_index', __u('user.all.action.index'), {_locale: locales.locale}, {class: 'btn btn-info mb-3'}) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col mx-auto">
+        <div class="card">
+            <div class="card-header bg-edit">
+                <h3 text-center>{{ __t('role.edition') }} : <span class="text-show">{{ __U(role.title)}}</span> </h3>
+            </div>
+            <div class="card-body bg-save">
+                {{ include(viewPath ~ '/_form.html.twig', {'button_label': 'Update'}) }}
+            </div>
+        </div>
+        
+    </div>
+</div>
+    
+
+
+{% endblock %}

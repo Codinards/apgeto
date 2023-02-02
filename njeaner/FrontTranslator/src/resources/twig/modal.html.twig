@@ -1,0 +1,37 @@
+<style>
+    .front_dynamic_translation_container{
+        background-color: rgb(172, 114, 114);
+        border-radius: 5px;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        overflow: auto;
+        min-height: 50vh;
+        min-width: 50vw;
+    }
+
+    .front_dynamic_translation_form-control {
+        display: block;
+        width: 100%;
+        height: calc(1.5em + 0.75rem + 2px);
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+</style>
+
+<dialog class="front_dynamic_translation_container" id="front_dynamic_translation_container" open="">
+    <h2>{{ __('front_dynamic_translation') }}</h2>
+    <div class="front_dynamic_translation_form_container">
+        {{ start_form(form) }}
+
+        {{ close_form(form) }}
+    </div>
+  </dialog>

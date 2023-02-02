@@ -1,0 +1,23 @@
+body {
+  width: 21cm;
+  color: #222;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0cm;
+  margin: 0cm;
+}
+tr {
+  width: 100%;
+  font-size: 1.5em;
+  text-align: center;
+  background-color: rgba(50, 50, 50, 0.1);
+}
+h1 {
+  text-align: center;
+}
+
+th {
+  margin: 1cm 0cm 1cm 0cm;
+  padding: 1cm 0cm 1cm 0cm;
+  width: 5.25cm;
+  border: 0.2cm solid black;
+}

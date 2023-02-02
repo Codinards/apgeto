@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('tontine.new') }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>
+        {{ __t('tontine.new') }}
+    </h1>
+    <div class="text-right">
+        {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-info'} ) }}
+        {% if add == true %}
+        {{ create_link('app_backend_tontine_show', __('details'), {_locale: locales.locale, id:basetontine.id}, {class: 'btn btn-primary'} ) }}
+    {% endif %}
+        
+    </div>
+{% endblock %}
+{% block body %}
+    <div class="row" style="font-size: 0.7em;">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="text-info">{{ __t('type') }} : {{ type.name }}</h2>
+                    <hr>
+                </div>
+            </div>
+        {{ form_start(form) }}
+        {% if add == false %}
+            {{ type ? '' : form_row(form.type) }}
+            {{ form_row(form.amount) }}
+            {{ form_row(form.createdAt) }}
+        {% endif %}
+        
+        <div id="react_app" app-type="tontine" class="col-12 " data-name="{{ __('cotisation') }}" data-halfname="{{ __('half.name') }}" data-andhalf="{{ __('half.and.name') }}" data-tontines="{{ attributes_data }}">
+         {% for tontineurForm in form.tontineurData %}
+           <div class="row  bg-success m-2" id="parent-{{ loop.index }}">
+                 <div class="col-6">{{ form_row(tontineurForm.isSelected, {attr: {data_class: 'form-group-item-' ~ loop.index, class: 'selector-input', data_id: loop.index}}) }}</div>
+                 <div class="col-3 form-group-item">{{ form_row(tontineurForm.count, {attr: {class: 'form-group-item-' ~ loop.index }}) }}</div>
+                 <div class="col-3 form-group-item">{{ form_row(tontineurForm.demiNom, {attr: {class: 'form-group-item-' ~ loop.index}}) }}</div>
+                 {{ form_row(tontineurForm.name, {attr: {class: 'user-item-field' }}) }} {#form-group-item-' ~ loop.index ~ ' user-select-selector-' ~ loop.index#}
+            </div>
+            
+        {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-6 text-right">
+                <button class="btn btn-primary" id="create-tontine-submit-button">{{ button_label|default(__u('save')) }}</button>
+            </div>
+            <div class="col-6 text-right">
+                
+            </div>
+        </div> 
+{{ form_end(form) }}
+</div>
+        
+        <div class="col-md-4" style="background-color:chocolate;position: fixed;
+         right:0vw;bottom:0vh;height:70%;overflow:scroll;">
+            <div class="mb-2">
+                <button type="button" class="bg-success text-white">{{ __t('totals.members') }} 
+                    <span class="btn btn-info text-danger bg-warning" id="member_numbers">0</span>
+                </button>
+                <button class="bg-success">
+                    {{ __t('unities') }}
+                    <span class="btn btn-info text-danger bg-warning" id="count_numbers" >0</span>
+                    {#<a href="#create-tontine-submit-button" >{{ __u('validate') }}</a>#}
+                </button>
+                <br/>
+                <div class="alert alert-info" id="tontine_total_amount">0</div>
+            </div>
+            <table class="table table-striped text-white">
+                <thead class="bg-secondary">
+                    <tr>
+                        <th>{{ __u('member') }}</th>
+                        <th>{{ __u('number.cotisation') }}</th>
+                    </tr>
+                </thead>
+                <tbody id="tontineur-count-render" total-data="{{ total_data }}">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {#% if add == true %}
+        <div style="display: none;" id="tontine_data_info" data-info="{{ reduce_data(basetontine.tontineurData, 'tontinedata') }}"></div>
+    {% endif %#}
+
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .dynamic_tontineur_items{
+            margin: 0px;
+            padding: 10px;
+            border: 2px solid white;
+        }
+        li{
+            list-style: none;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/js/create_tontine.js">
+
+    </script>
+{% endblock %}
+

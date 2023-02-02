@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todolist</title>
+    <link rel="stylesheet" href="assets/fontawesome/css/all.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="assets/fontawesome/js/all.js" defer></script>
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="task-inputs">
+            <div class="task-input add-task">
+                <span><i class="fa fa-pen"></i></span>
+                <input type="text" name="task" id="task" placeholder="Add a new task">
+            </div>
+            <div class="task-input category-input">
+                <div class="task-input">
+                    <span><i class="fa fa-pen"></i></span>
+                    <input type="text" name="add_category"  autocomplete="true" id="add_category" placeholder="Add task category">
+                </div>
+                <div class="task-input">
+                    <select name="category" id="category" placeholder="Select a category">
+                    </select>
+                </div>
+        </div>
+        </div>
+
+        <div class="controls">
+            <div class="filters">
+                <span id="all" class="active">All</span>
+                <span id="pending">Pending</span>
+                <span id="completed">Completed</span>
+            </div>
+            <button class="clear-btn">Clear All</button>
+        </div>
+        <ul class="task-box">
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title | title  }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ title | title }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row mb-2">
+    <div class="col-8">
+        {{ create_link('app_backend_operation_type_index', __('operation.index'), {_locale: locales.locale}, {class: 'btn btn-info'} ) }} 
+    </div>
+</div>
+<hr>
+ <div class="row">
+    <div class="col-md-8 mx-auto">
+        {{ form_start(form, {attr : {onSubmit:"return confirm('Veuillez confirmer que vous voulez supprimer cette opération')"}}) }}
+        <div class="card">
+            <div class="card-header bg-edit text-center">
+                <h2 class="card-title">{{ title | title }}</h2>
+                {{ __u('form') }}
+            </div>
+            <div class="card-body">
+                {{ form_widget(form) }}
+               
+                <h2 class="text-save">Voulez-vous vraiment supprimer cette opération</h2>
+                <table class="table">
+                    <tr>
+                        <th>{{ __u("wording") }}</th>
+                        <td>{{ operation.wording }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ __u("type") }}</th>
+                        <td>{{ operation.isInflow ? "Opération d'entrée"  : "opération de sortie" }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ __u("amount") }}</th>
+                        <td>{{ (operation.isInflow ? operation.inflows  : operation.outflows) | money_format }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ __u("created_at") }}</th>
+                        <td>{{ operation.createdAt | in_locale }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ __u("créée par") }}</th>
+                        <td>{{ operation.admin }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">{{ __('save') }}</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}

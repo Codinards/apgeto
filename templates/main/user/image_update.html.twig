@@ -1,0 +1,56 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('image.upload') }} | {{ user.username }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ __t('image.upload') }} : <span class="text-success">{{ user.username }}</span></h1>
+{% endblock pageTitle %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            {{ form_start(form) }}
+            <div class="card">
+                <div class="card-header">
+                    {{ __t('image.upload') }}
+                </div>
+                <div class="card-body">
+                    {{ form_row(form.imageFile, {label: false}) }}
+                   
+                    <div class="text-center">
+                        <img id="selected_image" src="{{ user.imageFilename }}" alt="{{ user.image? "Your image": "Upload your image" }}" style="border-radius:40%;width:100px;height:100px;"/><br>
+                        <span id="image_info" class="text-info">{{ user.image }}</span>
+                    </div>
+                    
+                    <div class="form-group mt-2">
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('save') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock body %}
+
+{% block javascripts %}
+    <script>
+        const input = document.querySelector('#user_image_imageFile')
+        const spanInfo = document.querySelector('#image_info')
+        const preview = document.querySelector('#selected_image')
+
+        input.addEventListener('change', function(e){
+            e.preventDefault();
+            console.log(e.target.files[0])
+            let file = e.target.files[0];
+            spanInfo.innerHTML = file.name
+            preview.src = URL.createObjectURL(file)
+            input.placeholder = file.name
+        })
+
+    </script>
+{% endblock javascripts %}

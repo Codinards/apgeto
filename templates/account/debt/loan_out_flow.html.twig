@@ -1,0 +1,85 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('loan_out_flow') }} | {{ user.name }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ __t('loan_out_flow') }} | <span class="text-success">{{ user.name }}</span></h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12 text-left">
+        {{ create_link('app_backend_account_index', __('account.index'), {_locale: locales.locale}, {class: 'btn btn-primary'} ) }}
+        <span style="min-width:3%;display:inline-block;"></span>
+        {{ create_link('app_backend_fund_show', __('fund.show'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-show'} ) }}
+        {{ create_link('app_frontend_user_debt_index', __('debt.show'), { _locale: locales.locale, id: user.id}, {class: 'btn btn-edit'} ) }}
+        <span style="min-width:3%;display:inline-block;"></span>
+        {{ create_link('app_backend_user_show', __('profil'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-info'} ) }}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="form-group">
+            <button class="btn btn-primary">{{ __u(button_label|default('Save')) }}</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+    <div class="col-md-4 bg-save">
+        <h2>{{ __('informations') }}</h2>
+        <table class="table bg-edit" style="height: auto;">
+            <tr>
+                <th>{{ __('loan_in_flow.amount') }}</th>
+                <th>{{ account.currentDebt.loanInFlows | money_format }}</th>
+            </tr>
+            <tr>
+                <th>{{ __u('loan_balance') }}</th>
+                <td>{{ account.loanBalances | money_format }}</td>
+            </tr>
+            <tr>
+                <th>{{ __u('date') }}</th>
+                <td>{{ account.currentDebt.createdAt | in_locale }}</td>
+            </tr>
+            <tr>
+                <th>{{ __u('avalistes') }}</th>
+                <td>
+                    <ul >
+                    {% for avaliste in account.currentDebt.avalistes %}
+                        <li class="border-bottom ">{{ avaliste.user }}</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>{{ __('observations') }}</th>
+                <td>
+                    <ul>
+                        {% if empty(account.currentDebt.observations) != true %}
+                        <li class="border-bottom ">
+                           {{ account.currentDebt.observations }}
+                        </li>
+                        {% endif %}
+                        {% for avaliste in account.currentDebt.avalistes %}
+                            <li class="border-bottom {{ avaliste.user.name == user.name ? 'text-warning' : '' }}">
+                                {{ avaliste.user.name }}{% if avaliste.observation != null %}: {{ avaliste.observation }} {% endif %}
+                            </li>
+                        {% endfor %}
+                        {# {% for key, observation in account.currentDebt.resolveObservations %}
+                            {% if emp(observation) %}
+                            <li class="{{ observation["avaliste"] == user.name ? 'text-warning' : ''  }}">{{ observation["avaliste"] }} {{ observation['observation'] }}</li>
+                            {% else %}
+                            <li class="{{ observation == user.name ? 'text-warning' : '' }}">{{ observation }}</li>
+                            {% endif %}
+                        {% endfor %} #}
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+    
+{% endblock body %}

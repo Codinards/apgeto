@@ -1,0 +1,84 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('assistance_type.index') }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ __t('assistance_type.index') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    <div class="row mb-2">
+        <div class="col-12 text-right">
+            {{ create_link('app_backend_assistance_type_new', __u('assistance_type.new'), {}, {'class': 'btn btn-success'}) }}
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            {% for items in types|batch(2) %}
+            <div class="row">          
+        {% for type in items %}
+        <div class="col-md-6" style="height: inherit;">
+            <div class="card mb-4" style="height: 95%;">
+            <div class="card-header bg-edit text-center" style="font-family: Cambria, Georgia, Cochin, Times, 'Times New Roman', serif;font-size:1.2rem;">
+                 {{ type.name }}
+            </div>
+                <div class="card-body bg-save text-white" style="height: 100%;">
+                    <table class="table">
+                        <tr>
+                            <th>{{ __u('name') }}</th>
+                            <td>{{ type.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ __u('amount') }}
+                                {% if type.isAmount %}
+                                {% if type.isAmount == true %}
+                                {{ __('by') }} {{ __('member') }}
+                                {% else %}
+                                {{ __('facultative') }}
+                                {% endif %}
+                            {% else %}
+                                {{ __('total') }}
+                            {% endif %}
+                            </th>
+                            <td>{{ type.amount | money_format }}</td>
+                        </tr>
+                        {#<tr>
+                            <th>{{ __u('observations') }}</th>
+                            <td>
+                            {% if type.isAmount %}
+                                {% if type.isAmount == true %}
+                                {{ __('is_unity_amount') }}
+                                {% else %}
+                                {{ __('is_contribution_amount') }}
+                                {% endif %}
+                            {% else %}
+                                {{ __('is_facultative_contribution') }}
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ __u('total.count') }}</th>
+                            <td>{{ type.assistances.count }}</td>
+                        </tr>#}
+                    </table>
+                </div>
+                <div class="card-footer text-center bg-grey">
+                    {{ create_link('app_backend_assistance_index', __u('show'), {type:type.id}, {'class': 'btn btn-success'}) }}
+                    {{ create_link('app_backend_assistance_type_edit', __u('update.data'), {id:type.id}, {'class': 'btn btn-show'}) }}
+                    
+                </div>     
+            </div>
+            {% if loop.index is divisible by(2) %}
+                </div><div class="col-md-6">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock body %}

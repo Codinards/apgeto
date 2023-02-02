@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('operation_type.see') }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __t('operation_type.see') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row mb-2">
+    <div class="col-md-8">
+        {{ create_link('app_backend_operation_type_index', '<i class="fa fa-eye"></i> ' ~  __('operation_type.index'), {_locale: locales.locale}, {class: 'btn btn-edit'} ) }}
+    </div>
+    <div class="col-md-4 text-right"> 
+        {{ create_link('app_backend_operation_type_new', '<i class="fa fa-plus"></i> ' ~  __('create'), {_locale: locales.locale}, {class: 'btn btn-success'} ) }}
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    
+</div>
+{% endblock %}

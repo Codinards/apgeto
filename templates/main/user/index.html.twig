@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __(title) }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __(title) }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    
+<div class="row mb-2">
+    <div class="col-12 text-right">
+        {{ create_link('app_backend_user_new', __('user.new'), {_locale: locales.locale}, {class: 'btn btn-success'} ) }}
+    </div>
+</div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>{{ __('username') }}</th>
+                <th>{{ __('pseudo') }}</th>
+                <th>{{ __('role') }}</th>
+                <th>{{ __('created_at') }}</th>
+                <th>{{ __('action') }}s</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        {% for user in users %}
+            <tr {{ user.locked ? 'class="bg-warning"' : '' }}>
+                <td>{{ user.name }}</td>
+                <td>{{ user.pseudo }}</td>
+                <td>{{ __u(user.role) }}</td>
+                <td>{{ user.createdAt | in_locale  }}</td>
+                <td>
+                    {{ create_link('app_backend_user_show', __('profil'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-primary'} ) }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

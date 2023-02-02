@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __("Profil ") }}{{ user.username }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __("Profil ") }}{{ user.username }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row m-2">
+    <div class="col-12">
+        {% set locked = user.locked %}
+        {{ create_link('app_backend_user_index', __('user.all.index'), {'id': user.id, _locale locales.locale}, {class: 'btn btn-info'} ) }}
+        {{ create_link('app_backend_user_edit', __('user.edit'), {'id': user.id, _locale locales.locale}, {class: 'btn btn-edit'} ) }}
+        {{ create_link('app_backend_user_lock', __('user.' ~ (locked ? 'unlock' : 'lock') ), {'id': user.id, _locale locales.locale, action: (locked ? 'unlock' : 'lock')}, {class: 'btn btn-edit'} ) }}
+        {{ create_link('app_backend_user_role_edit', __u('user.role.edit'), {'id': user.id, _locale locales.locale}, {class: 'btn btn-show'}) }}
+        {{ create_link('app_backend_user_password_edit', __u('user.password.edit'), {'id': user.id, _locale locales.locale}, {class: 'btn btn-save'}) }}
+        
+        {#<a href="{{ path('user_fond_show', {id:user.id}) }}" class="btn btn-save">Details Fonds</a>
+        <a href="{{ path('user_pret_show', {id:user.id}) }}" class="btn btn-success">Details Prets</a>
+        <a href="{{ path('user_edit', {'id': user.id}) }}" class=" btn btn-edit">Editer profil</a>
+        <a href="{{ path('admin_new', {'id': user.id}) }}" class=" btn btn-primary">Modifier son Role</a>
+        <a href="{{ path('user_password', {'id': user.id}) }}" class=" btn btn-show">Modifier mot de passe</a>#}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <table class="table table-striped">
+            <tbody>
+                        <tr>
+                            <th>{{ _u("Identifiant") }}</th>
+                            <td>{{ user.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u("Noms") }}</th>
+                            <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u('Role') }}</th>
+                            <td>{{ __u(user.role) }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u("Pseudo") }}</th>
+                            <td>{{ user.pseudo }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u("Adresse") }}</th>
+                            <td>{{ user.address }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u('Telephone') }}</th>
+                            <td>{{ user.telephone | number_format(0, ',', ' ') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u('Parrain') }}</th>
+                            <td>{{ user.parrain }}</td>
+                        </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <tbody>
+                        <tr>
+                            <th>{{ _u("locked") }}</th>
+                            <td>{{ _u(user.locked ? 'Yes' : 'No') }}</td>
+                        </tr>
+                        {% if user.locked %}
+                            <tr>
+                                <th>{{ _U("locked_at") }}</th>
+                                <td>{{ user.lockedAt ? user.lockedAt| in_locale : '' }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <th>{{ _u("created_at") }}</th>
+                            <td>{{ user.createdAt ? user.createdAt| in_locale : '' }}</td>
+                        </tr>
+            </tbody>
+        </table>
+    </div>
+</div>    
+
+
+    {#{ include('user/_delete_form.html.twig') }#}
+{% endblock %}

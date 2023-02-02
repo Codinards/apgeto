@@ -1,0 +1,81 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ assistance.type | title }} | {{ assistance.user(true) | title }}
+{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ assistance.type | title }} | {{ assistance.user(true) | title }}</h1>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12 text-right">
+            {{ create_link('app_backend_assistance_index', __u('assistance.index'), {}, {'class': 'btn btn-info'}) }}
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-10 mx-auto">
+            <div class="card bg-edit">
+                <div class="card-header" style="display: flex;align-items:center;justify-content:space-around;">
+                    <h2>{{ assistance.user.username }} </h2>
+                    <span>
+                         {{ create_link('app_backend_assistance_add_contributor', '<i class="fa fa-plus text-white"> ajout Contributeur</i>', {id: assistance.id}, {class: 'btn btn-info mr-2', title: __("Ajouter un contributeur à cet aide")}) }}
+                        {{ create_link('app_backend_assistance_delete', '<i class="fa fa-trash text-white"> Supprimer</i>', {id: assistance.id}, {class: 'btn btn-danger ml-2', title: __("Supprimer cet aide")}) }}
+                    </span>
+                    
+                </div>
+                <div class="card-body bg-save">
+                    <table class="table" style="font-size: 1rem;">
+                        <tr>
+                            <th>{{ __('member') }}</th>
+                            <td>{{ assistance.user.username | name_format }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('montant cotisé') }}</th>
+                            <td>{{ assistance.totalContributions | money_format }}</td>
+                        </tr>
+                        {% if assistance.type.amountType == 2 %}
+                        <tr>
+                            <th>{{ __('montant réçu') }}</th>
+                            <td>{{ assistance.type.amount | money_format }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('relicat') }}</th>
+                            <td>{{ (assistance.totalContributions - assistance.type.amount) | money_format }}</td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <th>{{ __('created_at') }}</th>
+                            <td>{{ assistance.createdAt | in_locale('ll') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('administrator') }}</th>
+                            <td>{{ assistance.admin.username | name_format }}</td>
+                        </tr>
+                        <tr>
+                            {#<th>{{ __('contributors') }}</th>#}
+                            <td colspan="2" class="">
+                                <table class="table bg-show" >
+                                <tr>
+                                    <th colspan="2" class="bg-edit text-center card-subtitle" style="font-size: 1.3rem;">{{ __('contributors') }}</th>
+                                </tr>
+                                    <tr class="bg-edit text-save">
+                                        <th>{{ __('contributor') }}</th>
+                                        <th>{{ __('contribution') }}</th>
+                                    </tr>
+                                    {% for contributor in assistance.contributors %}
+                                        <tr>
+                                            <td>{{ contributor.user.username | format_name }}</td>
+                                            <td>{{ contributor.amount | money_format }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

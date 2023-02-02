@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('cash_out_flow') }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ __t('cash_out_flow') }} | <span class="text-success">{{ user.name }}</span></h1>
+{% endblock pageTitle %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+    <h3 class="text-center m-1"><span class="alert alert-info">Solde Fond: {{ user.account.cashBalances | money_format }}</span></h3>
+        {{ include(viewPath ~ '_form.html.twig', {button_label : "Sauvergarder"}) }}
+    </div>
+</div>
+    
+{% endblock body %}

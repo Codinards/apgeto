@@ -1,0 +1,363 @@
+first admin registration: application activation
+first.admin.data: first admin data
+app.configuration.data: application first configuration
+app_name: application name
+home page: home page
+default_language: application default language
+money_devise: application money devise
+base_amount_to_loan: user base amount to loan
+interest_rate_to_loan: interest rate to loan
+user_can_get_multiple_loan: user can get multiple loan at the same time
+account_base_amount: base amount to enter in fund
+fund_can_be_negative: fun can be negative
+insurrance_amount: base amount of insurrance
+unity_max_count: user max unity number for a tontine
+other.data: other configuration data
+user.loggedin.action: "log in"
+user.loggedout.action: log out
+user.loggedin: "log in"
+role.edition: role edition
+user.loggedout: log out
+user.index: "index of membres"
+user.new: "create new user"
+user.new.action: "create new user"
+user.see.action: "show an user"
+user.image.edit.action: edit his profile image
+user.profile.see.action: see his profile page
+user.edit.action: "edit an user"
+user.action.see.action: "show an user action"
+user.action.add.action: "create new user action"
+user.action.edit.action: "edit an user action"
+user.action.delete.action: "delete an user action"
+user.all.index: "users index"
+user.all.see: "show all user"
+user.all.see.action: "show all user"
+user.all.action.index: "users actions"
+user.all.action.see.action: "show all user actions"
+user.role.edit.action: edit user role
+user.password.edit.action: edit user password
+user.create: user creation
+user.unlock.action: unlock member
+user.lock.action: lock member
+user.lock: lock member
+user.unlock: unlock member
+user.edit: edit member
+admin.index.see.action: connect to administration
+edition.password: password edition
+not.found.record: "No record found"
+not.record.found: "Ningun dato encontrados"
+operation.success: the operation has been successfully done
+operation.fail: operation failed
+operation.unauthorize: operation unauthorize
+action: action
+created_at: creation date
+fund: fund
+edit: edit
+see: see
+create: create
+add: add
+pret: pret
+profil: profil
+can: can
+show: show details
+root: super admin
+back to list: "indice de los elements"
+#user.all.action.see: "ver todos los miembros"
+create.new.role: crear un permiso
+role.creation: creacion de un permiso
+see.home.action: see home page
+number: number
+index: index
+amount: amount
+nona: none
+logout: logout
+languages: languages
+observation: observation
+observations: observations
+detail: detail
+details: details
+connected as: 'connected :'
+users: users
+name: name
+title: title
+username: "username"
+pseudo: pseudo
+profile: profile
+role: role
+roles: roles
+user: user
+account: account
+telephone: telephone
+address: address
+password: password
+parrain: sponsor father
+members: members
+accounts: accounts
+administrations: administrations
+administrator: administrator
+authorizations: authorizations
+dashboard: dashboard
+by: by
+from_1: from a
+from_1e: from a
+from_an: from an
+new: new
+year: year
+filter: filter
+delete: delete
+cancel: cancel
+cancelling: cancelling
+parameter: parameter
+ended: ended
+ongoing: ongoing
+waiting: waiting
+functionalities: functionalities
+member name need to get an password before changing role: member %name% need to get an password before changing role
+member name password has been successfully edited: member %name% password has been successfully edited
+you are already connected as: "you are already connected as %name%"
+are you sure to want delete this: are you sure to want delete this
+are you sure to lock this member: are you sure to want lock this member?
+are you sure to unlock this member: are you sure to want unlock this member?
+if you want to delete, press: if you want to delete, press
+if you do not want to delete, press: if you do not want to delete, press
+functionality.no.yet.developed: this functionality is no yet developed
+image.upload: Upload your image
+# form label
+
+user.actions: autorized actions
+is.deletable: can be delete
+half.and.name: and half
+half.name: half unity
+form: form
+actions: actions
+
+# --------------------- Tontine ---------------------------------#
+
+type: type
+types: types
+tontinetype: "tontine type"
+tontinetype.new.action: add new tontine type
+tontineur.unity.add.action: add tontine unities to a member
+tontinetype.new: new tontine type
+tontinetype.create: new tontine type creation
+tontinetype.update: tontine type update
+tontinetype.index: tontine type index
+tontinetype.already.has.tontine: this tontine type already has current tontine(s)
+tontinetype.index.see.action: see tontine types index
+has.multiple.tontine: accept multiple current tontines at the same time
+has_multiple_tontine: accept multiple tontine
+tontinetype.tontine.current.exists: "tontine type %type% does not accept more than one current tontine"
+tontine.index: "tontines index"
+tontine.count: tontines number
+tontine: tontine
+tontines: tontines
+tontine.new: "new tontine creation"
+tontine.name: tontine name
+tontine.new.action: "create a new tontine"
+tontine.info: tontine informations
+tontine.winner.action: tontines winners pages
+tontine.details: tontine details
+tontine.info.action: show tontine information
+tontine.index.see.action: "see tontines index"
+tontine.stop.add.member.action: "stop to add new member in a tontine"
+tontine.add.member: add new members
+tontineur.add.unity: add unities
+add_unity.invalid.data: invalid data has been passed in this link
+can not add new member in this tontine: can not add new member in this tontine
+tontineur.already.have.won.half_unity: this member has already won his half unity, you can add him an other half unity
+totals.members: Total members
+number.cotisation: number of unities
+half.part: half unity
+half.parts: half unities
+part.numbers: number of unities
+unity.won: benefit
+unity.show: show
+unity.lock: desable
+unity.unlock: unable
+unity.benefit: unity benefit
+unity.price: unity benefit cost
+unity.details: unity informations
+locked.unities: locked unities
+tontine.see.action: see a tontine information
+tontine.member.add.action: add new member into a tontine
+unity.see.action: see unity information
+unity.won.action: register a unity benefit action
+unity.lock.action: lock an unity
+unity.unlock.action: unlock an unity
+date: date
+is_won: is won
+benefit.parts: bought unities
+unity.benefit.successful: the unity with successfully update
+no.observation: no observation
+unity.already.won: sorry! this unity is already won
+tontine.not.current: sorry! this tontine is already closed
+unity.not.locked: sorry! this unity is not locked
+unity.already.locked: sorry! this unity is already locked
+unity.lock.success: this unity is successfully locked
+unity.update.checkbox: update informations
+unity.update.action: update an unity data
+unity.cancel.benefit.action: cancel the purchase of an unity
+unity.cancel.benefit: cancel the purchase
+unity.update.successful: unity has been successfully updated
+unity.lock.unsuccess: sorry! this unity is not successfully locked
+unity.unlock.success: this unity is successfully unlocked
+unity.unlock.unsuccess: sorry! this unity is not successfully unlocked
+are you sure you want to lock this unity?: are you sure you want to lock this unity?
+are you sure you want to unlock this unity?: are you sure you want to unlock this unity?
+are you sure to stop adding new member on this tontine?: are you sure to stop adding new member on this tontine?
+are you sure you want to cancel the benefit of this unity?: are you sure you want to cancel the benefit of this unity?
+any unity specify for this tontineur: any unity specify for this tontineur
+stop adding new member: stop adding more unities
+total.amount: total amount
+benfit.amount: benefit amount
+total.parts: total unities
+cotisation.amount: cotisation amount
+cotisation: subscription
+min.amend: minimal penalties
+amend: penalties
+has.amend: get penalty
+min.achat: unity minimal benefit cost
+has.avaliste: need a avaliste to benefit
+has.achat: an unity has a benefit cost
+is.current: is a current valid type
+unity.edition: unity edition
+benefit.amount: benefit amount
+amount.to.benefit: amount to benefit by each member
+benefit: benefit
+update: update
+tontine.update.data.action: update tontine informations
+tontine.update.data: update tontine informations
+update.data: update data
+an admin can not edit his own role: '%name% can not edit his own role'
+an super admin can not lock or unlock himself: an administrator can not lock or unlock himself
+
+#---------------------------------- FUND -----------------------------------------#
+
+my_account: my account
+cash_in_flows: fund entries
+cash_in_flow: fund entry
+cashinflows: fund entries
+cashinflow: fund entry
+cash_in_flow.amount: entry amount
+cashoutflows: fund withdrawals
+cashoutflow: fund withdrawal
+cash_out_flows: fund withdrawals
+cash_out_flow: fund withdrawal
+cash_out_flow.amount: withdrawal amount
+cash_balances: cash balances
+cash_balance: cash balance
+loan_balance: loan balance
+min.cash_balance: minimum balance
+max.cash_balance: maximum balance
+loan_in_flows: new loan
+loan_in_flow: new loan
+loan_in_flow.amount: loan amount
+loan_out_flows: reimbursements
+loan_out_flow: reimbursement
+loan_out_flow.amount: reimbursement amount
+wording: wording
+general.observations: general observation
+account.index: accounts index
+fund.show: fund state
+debt.show: debts state
+debt: debt
+debt.delete: debt delete
+old.balance: previous balance
+old.states: previous states
+account.data: account data
+balance at: balance at
+payback_at: reimbursement date
+reimbursement: reimbursement
+debt.interests: debt interests
+avalised.debts: endorsed debts
+this.member.cannot.loan: this member can not loan
+user.already.has.loan: this member already has a debt with a balance amount of %balance%
+user.no.has.loan.base.fund: the fund cash balance(%balance%) of this member is less than %withdrawal%
+no.negative.fund: the fund cash balance can not be negative
+fund.no.less.than: withdrawal amount(%withdrawal%) is greater than balance amount(%balance%)
+user.no.has.current.debt: this member no has a current debt
+loan.out.flows.more.than.balance: withdrawal loan amount(%withdrawal%) is greater than loan balance amount(%balance%)
+loan.in.flows.more.than.balance: debt amount(%withdrawal%) is greater than loan balance amount(%balance%)
+payback_at.must.great.than.created_at: debt reimbursement date(%payback_at%) can not be less or iqual than debt creation date(%created_at%)
+
+
+#---------------------------------------- Assistances ----------------------------------------------
+
+
+contributors: ratepayers
+contributor: ratepayer
+assistance: assistance
+assistances: assistances
+assistance.new: 'new %type%'
+assistance.delete: assistance delete
+assistance.benefit: benefited assistances
+assistance.index: assistances index
+assistance_type.index: assistances type index
+assistance_type.new: new assistance type
+assistance_type.edition: assistance type edition
+assistance.not.get.contributors: there are any contributor for this assistance(%type%)
+assistance.out.flows.more.than.balance: assistance amount(%withdrawal%) is greater than account balance amount(%balance%) of %user%
+contribution.type: type of contribution
+is_unity_amount: contribution by member
+is_contribution_amount: total contribution
+account.index.action: see account index page
+assistance.delete.action: delete an assistance
+assistance.index.action: see assistance index page
+assistance.new.action: create an new assistance
+assistance.show.action: see an assistance details page
+assistance.type.edit.action: edit an assistance type
+assistance.type.index.action: see assistance type index page
+assistance.type.new.action: create a new assistance type
+debt.delete.action: delete an debt
+debt.loaninflows.action: register a new debt
+debt.loanoutflows.action: register a debt payment
+debt.show.action: see a debt details page
+debt.show.previous.action: see previous debt details pages
+debt.update.action: update a debt data
+fund.cashinflows.action: register a fund cash in flow
+fund.cashoutflows.action: register a fund cash out flow
+fund.show.action: see a fund data page
+tontine.details.action: see tontine details page
+user.account.debt.index.action: see his own debt data page
+user.account.index.action: see his own account details page
+user.account.debt.previous.action: see his own previous debt details pages
+
+register: register
+locked.member: locked member
+locked.members: locked members
+previous_balance: previous balance
+balance: balance
+low_cash_balance: 'account least or equal to %balance%'
+low_cash_balances: 'accounts least or equal to %balance%'
+upper_cash_balance: account greater or equal to %balance%
+upper_cash_balances: accounts greater or equal to %balance%
+base_cash_balance: account least or equal to %balance%
+base_cash_balances: accounts least or equal to %balance%
+upper_base_cash_balance: account greater or equal to %balance%
+upper_base_cash_balances: accounts greater or equal to %balance%
+base_loan_balances: account least or equal to %balance%
+upper_base_loan_balances: account greater or equal to %balance%
+has_debt: borrower
+has_debts: borrowers
+has_debts.index: index of borrowers
+operation_type: operations type
+operation_types: operations types
+operation_type.index: operations types index
+operation_type.index.action: see operations types index page
+operation_type.new: create new operation type
+operation_type.new.action: create new operation type
+operation.index: operations index
+operation.index.action: see operations index page
+operation.new: create new operation
+operation.new.action: create new operation
+operation.type.creation: operation type creation
+operation.type.edition: operation type edition
+inflow: inflow
+inflows: inflows
+outflow: outflow
+outflows: outflows
+inflow operation: inflow operation
+outflow operation: outflow operation
+user fund balance is less than operation inflow amount: '%user% fund balance(%balance%) is less than operation inflow amount(%inflow%)'
+Debt Operations: debt state
+Account Operations: account state

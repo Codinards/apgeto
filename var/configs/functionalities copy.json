@@ -1,0 +1,111 @@
+{
+  "functionalities": [
+    "users creation and management",
+    "users accounts creation and management",
+    "tontines creations and management",
+    "assistances creation and management",
+    "administrator creation and management",
+    "loan interests management",
+    "dynamic role and role actions creation and management",
+    "dynamic module management (enable, disable)",
+    "printing of several state informations"
+  ],
+  "ended": {
+    "users": {
+      "user": {
+        "1": "user.loggedin",
+        "2": "user.loggedout",
+        "3": "see.home",
+        "4": "user.all.see",
+        "5": "user.new",
+        "7": "user.edit",
+        "8": "user.role.edit",
+        "9": "user.password.edit",
+        "10": "user.lock",
+        "11": "user.unlock",
+        "12": "user.image.upload",
+        "13": "user.profil.see",
+        "14": "application.first.configuration",
+        "15": "user.see"
+      },
+      "roles": [
+        "user.action.add",
+        "user.action.see",
+        "user.all.action.see",
+        "user.action.edit",
+        "user.action.delete"
+      ]
+    },
+    "accounts": {
+      "account": ["user.account.index", "account.index"],
+      "fund": ["fund.show", "fund.cashinflows", "fund.cashoutflows"],
+      "debt": [
+        "user.account.debt.index",
+        "user.account.debt.previous",
+        "debt.show",
+        "debt.previous",
+        "debt.show.previous",
+        "debt.loaninflows",
+        "debt.loanoutflows",
+        "debt.update",
+        "debt.delete"
+      ]
+    },
+    "tontines": {
+      "types": [
+        "tontinetype.index.see",
+        "tontinetype.new",
+        "tontinetype.update"
+      ],
+      "tontines": [
+        "tontine.index.see",
+        "tontine.see",
+        "tontine.info",
+        "tontine.winners",
+        "tontine.new",
+        "tontine.update.data",
+        "tontine.member.add",
+        "tontineur.unity.add",
+        "tontine.stop.add.member"
+      ],
+      "unities": [
+        "unity.see",
+        "unity.won",
+        "unity.update",
+        "unity.cancel.benefit",
+        "unity.lock",
+        "unity.unlock"
+      ]
+    },
+    "assistances": {
+      "types": [
+        "assistance.type.index",
+        "assistance.type.new",
+        "assistance.type.edit"
+      ],
+      "assistances": [
+        "assistance.index",
+        "assistance.new",
+        "assistance.show",
+        "assistance.delete"
+      ]
+    }
+  },
+  "ongoing": {
+    "users": { "user": [], "roles": [] },
+    "accounts": { "account": [], "fund": [], "debt": [] },
+    "tontines": { "types": [], "tontines": [], "unities": [] },
+    "assistances": { "types": [], "assistances": [] }
+  },
+  "waiting": {
+    "users": { "user": [], "roles": [] },
+    "accounts": {
+      "account": ["account.year.index", "account.month.index"],
+      "fund": [],
+      "debt": [],
+      "interest": []
+    },
+    "tontines": { "types": [], "tontines": [], "unities": [] },
+    "assistances": { "types": [], "assistances": [] }
+  }
+}

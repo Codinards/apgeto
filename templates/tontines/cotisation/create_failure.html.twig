@@ -1,0 +1,133 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Enregistrement des Echecs du Jour
+{% endblock %}
+
+{% block pageTitle %}
+    <h1>Enregistrement des Echecs du Jour</h1>
+
+  <div class="row mb-4">
+    <div class="col-8"></div>
+    <div class="col-4 text-right" style="position: fixed; z-index:10;right:0px;">
+         <form action="" id="tontiner_search_form" style="display: inline-block;">
+            <div class="form-group">
+                <label for="tontiner">recherche un membre : <input type="text" name="tontiner" id="tontiner" class="form-control"></label>
+            </div>
+        </form>
+        <div id="member-result" members="{{ json_encode(members) }}">
+
+        </div>   
+    </div>
+</div>  
+{% endblock %}
+
+{% block body %}
+
+
+<div class="row">
+    <div class="col-6">
+
+    </div>
+    <div class="col-6 text-right">
+
+            {# <span class="my-dropdown">
+                <span class="dropbtn btn bg-save">chercher un membre</span>
+                <span class="dropdown-content">
+                    {% for member in membres %}
+                        <a href="#{{ member }}" class="border-top text-left">{{ member }}</a>
+                    {% endfor %}
+                </span>
+            </span>    #}
+    </div>
+</div>
+<hr>
+    <div class="row">
+        <div class="col-12">
+            {{ form_start(form) }}
+            {{ form_row(form.date) }}
+            {% for item in form.items %}
+                <div class="card mb-2 bg-save" id="{{ item.vars.data.name }}">
+                    <div class="card-header bg-edit">
+                    <div class="row">
+                        <div class="col-1">
+                        {{ loop.index }}
+                        </div>
+                        <div class="col-11 card-title text-center">
+                        {{ item.vars.data.name }}
+                        </div>
+                    </div>
+
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="row">
+                        {% for tontineur in item.data %}
+                            <div class="col-md-{{ currentCount == 1 ? 12 : (currentCount == 2 ? 6 : 4) }}">
+                                <div class="bg-update m-1">
+                                    <div class="col-12 text-center text-save">
+                                        {{ tontineur.vars.data.name }}<hr>
+                                    </div>                                        
+
+                                    <div class="col-12 my-flex-around">
+                                    {% for key, unity in tontineur.unities %}
+                                    {# {{ dump(unity) }} #}
+                                        {{ form_row(unity.isChecked, {label: 'cotisation ' ~ (key > 0 ? key : '')}) }}
+                                    {% endfor %}                                          
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="position:fixed; bottom:5px;right:20px;">Enregistrer</button>
+                </div>
+            {{ form_end(form) }}
+    </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let resultDiv = document.getElementById('member-result')
+        let data = JSON.parse(resultDiv.getAttribute('members'))
+        resultDiv.removeAttribute('members')
+        
+        const renderView = function (htmlElement, data)
+        {
+            let ul = document.createElement('ul')
+            ul.classList.add('text-left')
+            ul.classList.add('bg-secondary')
+            for(let i = 0; i < data.length; i++){
+                let li = document.createElement('li')
+                let link = document.createElement('a')
+                link.href = `#${data[i]}`
+                link.classList.add('text-success')
+                link.appendChild(document.createTextNode(data[i]))
+                li.appendChild(link)
+                ul.appendChild(li)
+            }
+
+            htmlElement.innerHTML = '';
+
+            htmlElement.appendChild(ul)
+        }
+        renderView(resultDiv, [])
+
+        document.getElementById('tontiner').addEventListener('input', function(e){
+            let input = e.target.value;
+            input = input.toLowerCase()
+            renderView(resultDiv, data.filter(function(item){
+                item = item.toLowerCase()
+                return item.indexOf(input) === 0 && input !== ''
+            }))
+        })
+
+
+    </script>
+{% endblock %}

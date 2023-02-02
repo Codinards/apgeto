@@ -1,0 +1,119 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('assistance_type.new') }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ __t('assistance_type.new') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12 text-right">
+            {{ create_link('app_backend_assistance_type_index', __u('assistance_type.index'), {}, {'class': 'btn btn-info'}) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {{ include( viewPath ~ '_form.html.twig', {button_label: 'update'}) }}
+        </div>
+    </div>
+{% endblock body %}
+
+{#% block javascripts %}
+    <script>
+        class State {
+            amount_value = null;
+            contribution_value = null;
+            old_amount = null;
+            old_contribution = null;
+        }
+        toggleFormGroup = (label, input, show = false) => {
+            if(show){
+                label.style.display = 'initial';
+                input.type = 'number';
+            }else{
+                label.style.display = 'none';
+                input.type = 'hidden';
+            }
+        }
+        let state = new State;
+        const amount_parent = document.querySelector('.amount_parent_input')
+        const has_amount = document.querySelector('.has_amount_input')
+        const amount_label = amount_parent.querySelector('label')
+        const amount_input = amount_parent.querySelector('input')
+
+        const contribution_parent = document.querySelector('.contribution_parent_input')
+        const has_contribution = document.querySelector('.has_contribution_input')
+        const contribution_label = contribution_parent.querySelector('label')
+        const contribution_input = contribution_parent.querySelector('input')
+
+        state.old_amount = amount_input.value;
+        state.old_contribution = contribution_input.value
+
+        toggleFormGroup(amount_label, amount_input)
+        toggleFormGroup(contribution_label, contribution_input)
+
+        has_amount.addEventListener('change', function(e){
+            const children = this.querySelectorAll('input')
+            
+            const contribution_radios = has_contribution.querySelectorAll('input')
+            for( const child of children){
+                if(child.checked){
+                    state.amount_value = child.value;
+                    break;
+                }
+            }
+            
+            if(state.amount_value == 1){ 
+                //amount_parent.style.display = 'initial'
+                toggleFormGroup(amount_label, amount_input, true)
+                amount_input.setAttribute('required', 'required')
+                for( const elt of contribution_radios){
+                    elt.setAttribute('disabled', 'disabled')
+                    elt.removeAttribute('required')
+                }
+            }else{
+                //amount_parent.style.display = 'none'
+                toggleFormGroup(amount_label, amount_input)
+                amount_input.removeAttribute('required')
+                amount_input.value = null; // state.old_amount;
+                for( const elt of contribution_radios){
+                    elt.removeAttribute('disabled')
+                    elt.setAttribute('required', 'required')
+                }
+            }
+        })
+        has_contribution.addEventListener('change', function(e){
+            const children = this.querySelectorAll('input')
+            
+            const amount_radios = has_amount.querySelectorAll('input')
+            for( const child of children){
+                if(child.checked){
+                    state.contribution_value = child.value;
+                    break;
+                }
+            }
+
+            if(state.contribution_value == 1){
+                //contribution_parent.style.display = 'initial'
+                toggleFormGroup(contribution_label, contribution_input, true)
+                contribution_input.setAttribute('required', 'required')
+                for( const elt of amount_radios){
+                    elt.setAttribute('disabled', 'disabled')
+                    elt.removeAttribute('required')
+                }
+            }else{
+                //contribution_parent.style.display = 'none'
+                toggleFormGroup(contribution_label, contribution_input)
+                contribution_input.removeAttribute('required')
+                contribution_input.value = null; //state.old_contribution
+                for( const elt of amount_radios){
+                    elt.removeAttribute('disabled')
+                    elt.setAttribute('required', 'required')
+                }
+            }
+        })
+    </script>
+{% endblock javascripts %#}

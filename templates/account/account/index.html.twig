@@ -1,0 +1,255 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ title ?? __t('account.index') }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ title ?? __t('account.index') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+{% set totalAssurance = 0 %}
+{% set assurance = 0 %}
+{% set totalCashInFlows = 0 %}
+{% set totalCashOutFlows = 0 %}
+{% set totalCashBalances = 0 %}
+{% set totalLoanInflows = 0 %}
+{% set totalLoanOutflows = 0 %}
+{% set totalLoanBalances = 0 %}
+ <div class="row" style="position: relative">
+    <div class="col-12 text-right">
+    <button id="multi_inflow_btn" class="btn bg-purple mb-2">Multiple entrée</button>
+    <button id="multi_outflow_btn" class="btn bg-chocolate mb-2">Multiple sortie</button>
+    <span style="min-width:3%;display:inline-block;"></span>
+    {{ create_link('app_backend_user_new', __('user.new'), {_locale: locales.locale, redirect: true}, {class: 'btn btn-success'} ) }}
+    <div class="row">
+        <div class="col-md-8">
+            <form method="get" action="{{ path("app_backend_fund_multi_cashinflows", {count:2}) }}" style="display:none;position:absolue;top:5px;left:5px;opacity:0.8;z-index:10;background-color:rgba(50,100,50,0.5);" id="multi_inflow_form" class="pl-2 pb-2">
+            <hr/>
+                <label for="multi_inflow_count" class="text-edit" style="font-weight:bolder;">Entrer le nombre d'entrée à faire</label>
+                <input type="number" name="count" id="multi_inflow_count" class="form_control"/>
+                <button type="submit" class="btn bg-save"> Valider</button>
+            </form>
+            <form method="get" action="{{ path("app_backend_fund_multi_cashoutflows", {count:2}) }}" style="display:none;position:absolue;top:5px;left:5px;opacity:0.8;z-index:10;background-color:rgba(100,50,50,0.5);" id="multi_outflow_form" class="pl-2 pb-2">
+            <hr/>
+                <label for="multi_outflow_count" class="text-edit" style="font-weight:bolder;">Entrer le nombre de sortie à faire</label>
+                <input type="number" name="count" id="multi_outflow_count" class="form_control"/>
+                <button type="submit" class="btn bg-save"> Valider</button>
+            </form>        
+        </div>
+    </div>
+
+    </div>
+ </div>
+ <hr/>
+    <div class="row font-size-7">
+        <div class="col-md-12">
+            <table class="table table-striped block-overflow" style="font-size: 0.8em;">
+                <thead>
+                    <tr class="bg-edit text-white">
+                        <th>{{ __u('N0:') }}</th>
+                        <th>{{ __u("name") }}</th>
+                        <th>{{ __u('cash_in_flows') }}</th>
+                        <th>{{ __u('cash_out_flows') }}</th>
+                        <th>{{ __u('assurrance') }}</th>
+                        <th>{{ __u('cash_balance') }}</th>
+                        <th>{{ __u('debt') }}</th>
+                        <th>{{ __u('reimbursement') }}</th>
+                        <th>{{ __u('loan_balance') }}</th>
+                        <th>{{ __u('actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for account in accounts %}
+                    <tr>
+                        <td class="bg-update">{{ loop.index }}</td>
+                        <td class="w-200-px bg-save text-white" style="font-size: 1.5em;">
+                    {{ create_link('app_backend_user_show', (account.user.name | format_name ), {'id': account.user.id, _locale: locales.locale}, {class:'text-white'} ) }}
+                        </td>
+                        <td class="bg-success text-right w-150-px text-white">
+                            {% auth 'app_backend_fund_cashinflows' %}
+                            {{ create_link('app_backend_fund_cashinflows', account.cashInFlows | money_format, {'id': account.id, _locale: locales.locale}, {class: 'text-white', style: 'font-weight: bold;text-decoration: none;'} ) }}
+                            {% else %} 
+                                {{ account.cashInFlows | money_format }}
+                            {% endauth %}
+                            {% set totalCashInFlows = totalCashInFlows + account.cashInFlows %}
+                        </td>
+                        <td class="bg-show text-right w-150-px text-white">
+                            {% auth 'app_backend_fund_cashinflows' %}
+                                {{ create_link('app_backend_fund_cashoutflows', account.cashOutFlows | money_format, {'id': account.id, _locale: locales.locale}, {class: 'text-white', style: 'font-weight: bold;text-decoration: none;'} ) }}
+                            {% else %} 
+                                {{ account.cashOutFlows | money_format }}
+                            {% endauth %}
+                            {% set totalCashOutFlows = totalCashOutFlows + account.cashOutFlows %}
+                        </td>
+                        <td>
+                            {% set assurance = account.cashBalances <= appConstants.assuranceAmount ? (account.cashBalances <= 0 ? 0 : account.cashBalances ): appConstants.assuranceAmount  %}
+                            {% set totalAssurance = totalAssurance + assurance %}
+                            {{ assurance | money_format }}
+                        </td>
+                        <td class=" {{ account.cashBalances <= 0 ? "bg-danger"  : ( account.cashBalances <= appConstants.baseAssuranceAmount ? "bg-warning" : "bg-edit") }} text-right w-150-px text-white">
+                            {% auth 'app_backend_fund_cashinflows' %}
+                            {{ create_link('app_backend_fund_show', (account.cashBalances >= appConstants.assuranceAmount ? (account.cashBalances - assurance) : (account.cashBalances < 0 ? account.cashBalances : 0)) | money_format, {'id': account.id, _locale: locales.locale}, {class: 'text-white', style: 'font-weight: bold;text-decoration: none;'} ) }}
+                            {% else %} 
+                                {{ (account.cashBalances >= appConstants.assuranceAmount ? (account.cashBalances - assurance) : (account.cashBalances < 0 ? account.cashBalances : 0)) | money_format }}
+                            {% endauth %}
+                            {% set totalCashBalances = totalCashBalances + account.cashBalances %}
+                        </td>
+                        <td class="bg-success text-right w-150-px text-white">
+                            {% if account.hasLoan() == false and  account.canLoan(false) %}
+                                {% auth 'app_backend_debt_loaninflows' %}
+                                    {{ create_link('app_backend_debt_loaninflows', account.loanInFlows | money_format, {'id': account.id, _locale: locales.locale}, {class: 'text-white', style: 'font-weight: bold;text-decoration: none;'} ) }}
+                                {% else %}
+                                    {{ account.loanInFlows | money_format }}
+                                {% endauth %}
+                            {% elseif account.currentDebt != null and account.currentDebt.isRenewable  %}
+                                {% auth 'app_backend_debt_renewal_new' %}
+                                {{ create_link('app_backend_debt_renewal_new', account.loanInFlows | money_format, {id: account.currentDebt.id, _locale: locales.locale}, {class: 'text-white', style: 'font-weight: bold;text-decoration: none;', title: account.currentDebt.renewalDate | in_locale} ) }} 
+                                {% else %}
+                                    {{ account.loanInFlows | money_format }}
+                                {% endauth %}
+                            {% else %}
+                                {{ account.loanInFlows | money_format }}
+                            {% endif %}
+                            {% set totalLoanInflows = totalLoanInflows + account.loanInFlows %}
+                        </td>
+                        <td class="bg-show text-right w-150-px text-white">
+                            {% if account.hasLoan() %}
+                                {% auth 'app_backend_debt_loanoutflows' %}
+                                    {{ create_link('app_backend_debt_loanoutflows', account.loanOutFlows | money_format, {'id': account.id, _locale: locales.locale}, {class: 'text-white', style: 'font-weight: bold;text-decoration: none;'} ) }}
+                                {% else %}
+                                    {{ account.loanOutFlows | money_format }}
+                                {% endauth %}
+                            {% else %}
+                                {{ account.loanOutFlows | money_format }}
+                            {% endif %}
+                            {% set totalLoanOutflows = totalLoanOutflows + account.loanOutFlows %}
+                        </td>
+                        <td class="bg-edit text-right w-150-px text-white" title="{{ account.currentDebt != null and account.currentDebt.isRenewable ? account.currentDebt.renewalDate | in_locale }}">
+                        {% auth 'app_backend_debt_show' %}
+                            {{ create_link('app_backend_debt_show', account.loanBalances | money_format, {'id': account.id, _locale: locales.locale}, {class: 'text-white', style: 'font-weight: bold;text-decoration: none;'} ) }}
+                        {% else %}
+                            {{ account.loanBalances | money_format }}
+                        {% endauth %}
+                        {% set totalLoanBalances = totalLoanBalances + account.loanBalances  %}
+                        </td>
+                        <td class="w-150-px text-white bg-save" title="Mon Title">
+                        <span class="my-dropdown">
+                            <span class="dropbtn btn btn-show" style="font-size:1em;">{{ __("details") }}</span>
+                            <span class="dropdown-content bg-edit" style="min-width:130px;">
+                                {{ create_link('app_backend_fund_show', __('fund.show'), {'id': account.user.id, _locale: locales.locale}, {class: "border-top text-white", style:"font-size: 1.3em;"} ) }}
+                                {{ create_link('app_backend_debt_show', __('debt.show'), {'id': account.user.id, _locale: locales.locale}, {class: "border-top text-white", style:"font-size: 1.3em;"} ) }}
+                            </span>
+                        </span>
+                        </td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+            {% if totalCashInFlows != 0 or totalCashOutFlows != 0 or totalCashBalances != 0 or totalLoanInflows != 0 or totalLoanOutflows != 0 or totalLoanBalances != 0 %}
+            <tfoot>
+                <tr class="bg-secondary text-white" style="font-weight: bold;">
+                    <td>{{ __u('Totals') }}</td>
+                    <td></td>
+                    <td class="text-right ">{{ totalCashInFlows | money_format }}</td>
+                    <td class="text-right ">{{ totalCashOutFlows | money_format }}</td>
+                    <td class="text-right ">{{ totalAssurance | money_format }}</td>
+                    <td class="text-right ">{{ (totalCashBalances - totalAssurance )| money_format }}</td>
+                    <td class="text-right ">{{ totalLoanInflows | money_format }}</td>
+                    <td class="text-right ">{{ totalLoanOutflows | money_format }}</td>
+                    <td class="text-right ">{{ totalLoanBalances | money_format }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+            {% endif %}
+
+            </table>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block javascripts %}
+    <script>
+        
+        class Data{
+            data
+
+            setData = data => this.data = data
+        }
+
+        let path = '/api/accounts/10'
+        let Dataer = new Data();
+
+        function fetchData(path, manager){
+            return fetch(path)
+                    .then(response => response.json())
+                    .then(data => manager.setData(data))
+                    .catch(response => response.data)
+        }
+        fetchData(path, Dataer)
+        console.log(Dataer)
+
+        const inflowBtn = document.querySelector("#multi_inflow_btn")
+        const inflowForm = document.querySelector("#multi_inflow_form")
+        const outflowBtn = document.querySelector("#multi_outflow_btn")
+        const outflowForm = document.querySelector("#multi_outflow_form")
+        const inflowInput = document.querySelector("#multi_inflow_count")
+        const outflowInput = document.querySelector("#multi_outflow_count")
+        let inflowSelected = false;
+        let outflowSelected = false;
+
+        inflowInput.addEventListener("input", (e) => {
+            e.preventDefault();
+            let action = inflowForm.action
+            inflowForm.action = action.substr(0, action.indexOf("multi")) + "multi-" + e.target.value + "-inflow";
+        })
+
+        outflowInput.addEventListener("input", (e) => {
+            e.preventDefault();
+            let action = outflowForm.action
+            outflowForm.action = action.substr(0, action.indexOf("multi")) + "multi-" + e.target.value + "-outflow";
+        })
+        
+        inflowBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            if(!outflowSelected){
+                
+                inflowSelected = !inflowSelected;
+                if(inflowSelected){
+                    inflowForm.style.display = "block",
+                    inflowBtn.innerHTML = "Retirer le formulaire"
+                }else{
+                    inflowForm.style.display = "none",
+                    inflowBtn.innerHTML = "Multiple entree"
+                }
+            }else{
+                outflowForm.style.display = "none";
+                outflowBtn.innerHTML = "Multiple Sortie"
+                outflowSelected = false;
+            }
+        })           
+        
+
+   
+         outflowBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            if(!inflowSelected){
+                outflowSelected = !outflowSelected;
+                if(outflowSelected){
+                    outflowForm.style.display = "block",
+                    outflowBtn.innerHTML = "Retirer le formulaire"
+                }else{
+                    outflowForm.style.display = "none",
+                    outflowBtn.innerHTML = "Multiple Sortie"
+                }
+            }else{
+                inflowForm.style.display = "none";
+                inflowBtn.innerHTML = "Multiple entree";
+                inflowSelected = false;
+            }     
+        })       
+    
+
+    </script>
+{% endblock javascripts %}

@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('delete') }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ __t('delete') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        {{ form_start(form, {attr: {onSubmit: "return confirm('Veuillez confirmer votre choix une dernière fois')"}}) }}
+            {{ form_widget(form) }}
+            <div class="card bg-edit">
+                <div class="card-header text-center">
+                    Voulez-vous vraiment supprimer cette opération de fond?
+                </div>
+                <div class="card-body bg-save">
+                    <table class="table">
+                        <tr>
+                            <th>Membre</th>
+                            <td>{{fund.user.name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Libelé</th>
+                            <td>{{fund.wording}}</td>
+                        </tr>
+                        <tr>
+                            <th>Montant</th>
+                            <td>{{(fund.cashInFlows ?: fund.cashOutFlows) | money_format}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{__u("createdAt")}}</th>
+                            <td>{{fund.createdAt | in_locale}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-danger">{{ __u(button_label|default('delete')) }}</button>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+    
+{% endblock body %}

@@ -1,0 +1,4 @@
+action_authorization:
+  controller_path: "%kernel.project_dir%/migrations"
+  role_entity: App\Entity\Main\Users\Role
+  user_action_entity: \App\Entity\Main\Users\UserAction

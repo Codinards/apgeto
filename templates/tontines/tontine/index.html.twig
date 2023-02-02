@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('tontine.index') }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __t('tontine.index') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row mb-2">
+    <div class="col-8">
+    {{ create_link('app_backend_tontinetype_index', __('tontinetype.index'), {_locale: locales.locale}, {class: 'btn btn-info'} ) }}
+    </div>
+    <div class="col-4 text-right">
+        {% if types != null and create_link('app_backend_tontine_new', '', {}, {boolean: true} ) %}
+        <span class="my-dropdown" style="font-size: 1rem;">
+            <button class="dropbtn btn btn-save">{{ __u('tontine.new') }}</button>
+            <span class="dropdown-content" style="min-width: 250px;">
+                {% for type in types %}
+                    {{ create_link('app_backend_tontine_new', __('new') ~ ' ' ~ __(type.name), {_locale: locales.locale, type:type.id}, {class: 'btn btn-save border-top', style: 'font-size: 1rem;'} ) }}  
+                {% endfor %} 
+        </span>
+        </span>
+        {% endif %}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+
+    {% for items in tontines|batch(2) %}
+            <div class="row">          
+        {% for tontine in items %}
+        <div class="col-md-6" style="height: inherit;">
+            <div class="card mb-4" style="height: 95%;{{ tontine.isCurrent == false ? 'opacity:0.7;' : '' }}">
+                <div class="card-header {{ tontine.isCurrent ? 'bg-edit' : 'bg-chocolate' }} ">
+                    <h2> 
+                    {# <span class="">{{  }} #}
+                    {{ create_link('app_backend_tontine_show', __U(tontine.type.name), {_locale: locales.locale, id:tontine.id}, {class: 'text-white'} ) }}
+                    </span></h2>
+                <hr>
+                <h5 class="card-title text-center {{ tontine.isCurrent ? "text-success" : "text-white" }}">
+                    {{ tontine.isCurrent ? "Tontine Encours" : "Ancienne Tontine" }}
+                </h5> 
+            </div>
+                <div class="card-body {{ tontine.isCurrent ? 'bg-save' : 'bg-chocolate' }} text-white" style="height: 100%;">
+                    <table class="table">
+                        <tr>
+                            <th>{{ __u('name') }}</th>
+                            <td>{{ tontine.type.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __u('created_at') }}</th>
+                            <td>{{ tontine.createdAt | in_locale('ll') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('cotisation')  }}</th>
+                            <td>{{ tontine.type.cotisation | money_format()  }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('total') }} {{ __('amount') }}</th>
+                            <td>{{ tontine.cotisation | money_format() }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('total') }} {{ __('parts') }}</th>
+                            <td>{{ tontine.count }} {{ tontine.count > 1 ? __('unities') : __('unity') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('total') }} {{ __('half.part') }}</th>
+                            <td>{{ tontine.countDeminNom }} {{ tontine.countDeminNom > 1 ? __('unities') : __('unity') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('total') }} {{ __('benefit.parts') }}</th>
+                            <td>{{ tontine.won }} {{ tontine.won > 1 ? __('unities') : __('unity') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('tontine.add.member') }}</th>
+                            <td>{{ tontine.addMember ? __u('yes') : __('no') }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer text-center bg-grey">
+                    {{ create_link('app_backend_tontine_show', '<i class="fa fa-eye"></i> ' ~ __('show'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-primary mb-2', style:"font-size: 0.8rem"} ) }}
+                    {{ create_link('app_backend_tontine_update_data', '<i class="fa fa-edit"></i> ' ~ __('update.data'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-info mb-2', style:"font-size: 0.8rem", valid: tontine.isCurrent } ) }}
+                    {{ create_link('app_backend_tontine_delete', '<i class="fa fa-trash"></i> ' ~ __('delete'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-danger mb-2', style:"font-size: 0.8rem", valid: (tontine.isCurrent and tontine.won == 0)} ) }}
+                </div>     
+            </div> 
+        </div>
+        {% if loop.index is divisible by(2) %}
+                </div><div class="row">
+        {% endif %}
+    
+        {% endfor %}
+    </div>
+   
+    {% else %}
+    <table>
+        <tr>
+            <td colspan="3">{{ __('not.record.found') }}</td>
+        </tr>
+    </table>
+    {% endfor %} 
+</div>
+  </div>
+{% endblock %}
+

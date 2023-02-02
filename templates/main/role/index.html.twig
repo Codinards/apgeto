@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('user.all.action.index') }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __t('user.all.action.index') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+    <div style="font-size: 1.2em;">
+        <div class="row">
+            <div class="col-12 text-right">
+                {{ create_link('app_backend_user_action_new', __t('create.new.role'), {_locale: locales.locale}, {class: 'btn btn-success mb-3'}) }}
+            </div>
+        </div>
+        
+        {% for items in roles|batch(3) %}
+            <div class="row">
+        {% for role in items %}
+        <div class="col-md-4" style="height: inherit;">
+            <div class="card mb-4" style="height: 99%;">
+                <div class="card-header bg-edit">
+                    <h2>{#{   __u('role')  }}} #}<span class="text-show">{{ __U(role.title) }}</span></h2>
+                <hr>
+                <h3 class="card-title">
+                    <div class="row">
+                        <div class="col-12 mx-auto">
+                            {% if create_link('app_backend_user_action_edit', '', {}, {}, {boolean: true}) %}
+                            <span class="text-info">{{ __u('actions') }} : </span>
+                            {{ create_link('app_backend_user_action_edit', __('edit'), {'id': role.id, _locale: locales.locale}, {class: 'btn btn-success'} ) }}
+                                {% if role.isDeletable %}
+                                {{ include( viewPath ~ '_delete_form.html.twig') }}
+                                {% endif %}
+                            {% endif %}
+                            {#{ create_link('app_backend_user_action_show', __('show'), {'id': role.id, _locale: locales.locale}, {class: 'btn btn-info'} ) }#}
+                        </div>
+                    </div>
+                    </h3> 
+            </div>
+                <div class="card-body bg-save" style="height: 100%;">
+                    <div class="card-text text-primary"><span class="text-show">{{ __u(role.title) }}</span> {{ __('can') }} : </div>              
+                    <hr>
+                    <ol class="card-text pb-3 text-dark" style="font-size: 0.7rem;" >
+                    {% for action in role.sortedActions %}
+                        <li >{{ __u(action.title) }}</li>
+                        <hr>
+                    {% endfor %}
+                    </ol>
+                </div>      
+            </div>
+            {% if loop.index is divisible by(3) %}
+                </div><div class="col-md-4">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+        {% else %}
+        <table>
+            <tr>
+                <td colspan="3">{{ ('no.found.record') }}</td>
+            </tr>
+        </table>
+        {% endfor %} 
+  
+    </div>
+
+{% endblock %}

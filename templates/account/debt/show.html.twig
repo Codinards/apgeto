@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('debt.show') }}{% endblock %}
+
+{% block pageTitle %}
+     <h1>
+         {{ __t('debt.show') }} | <span class="text-success">{{ user.name | format_name }}</span>
+    </h1>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12 text-right">
+        {{ create_link('app_backend_account_index', __('account.index'), {_locale: locales.locale}, {class: 'btn btn-primary'} ) }}
+        <span style="min-width:3%;display:inline-block;"></span>
+        {{ create_link('app_frontend_user_profil', __('profil'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-show'} ) }}
+        {{ create_link('app_frontend_user_index', __('fund.show'), {_locale: locales.locale, id: user.id}, {class: 'btn btn-save'} ) }}
+        <span style="min-width:3%;display:inline-block;"></span>
+        {{ create_link('app_backend_debt_loaninflows', __('loan_in_flow'), {'id': account.id, _locale: locales.locale}, {class: 'btn btn-success', 'valid' : is_true(account.canLoan(false))} ) }}
+        {{ create_link('app_backend_debt_loanoutflows', __('loan_out_flow'), {'id': account.id, _locale: locales.locale}, {class: 'btn btn-warning', 'valid' : is_true(account.hasLoan())} ) }}
+        
+        {% if currentDebt != false and currentDebt.isRenewable %}
+        {{ create_link('app_backend_debt_renewal_new', __('Reconduire le prêt'), {id: currentDebt.id, _locale: locales.locale}, {class: 'btn btn-danger', title: currentDebt.renewalDate | in_locale} ) }}
+        {% endif %}
+
+        {% if previous %}
+        <span style="min-width:3%;display:inline-block;"></span>
+        <div class="my-dropdown" style="display: inline-block;">
+            <span class="dropbtn btn btn-primary" style="height: inherit;">{{ __u('old.states') }}</span>
+            <div class="dropdown-content">
+                {% if called == false %}
+                    {% for previous_debt in previous %}
+                    {{ create_link('app_backend_debt_show_previous', previous_debt.createdAt | in_locale('ll'), {'id': account.id, parent: previous_debt.id, _locale: locales.locale}, {class: 'text-left border-top'} ) }}
+                    {% endfor %}
+                {% else %}
+                    {% for previous_debt in previous %}
+                    {{ create_link('app_frontend_user_show_previous', previous_debt.createdAt | in_locale('ll'), {id: previous_debt.id, _locale: locales.locale}, {class: 'text-left border-top'} ) }}
+                    {% endfor %}
+                {% endif %}
+               
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped bg-save">
+    <thead class="bg-secondary">
+        <tr>
+            <th>{{ __u('id') }}</th>
+            <th>{{ __u('wording') }}</th>
+            <th>{{ __u('loan_in_flows') }}</th>
+            <th>{{ __u('interests') }}</th>
+            <th>{{ __u('loan_out_flows') }}</th>
+            <th>{{ __u('balances') }}</th>
+            <th>{{ __u('created_at') }}</th>
+            <th>{{ __u('avalistes') }}</th>
+            <th>{{ __u('observations') }}</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        
+    {% for debt in debts %}
+        <tr>
+            <td class="bg-show" title="{{ __u("admin" )}} : {{ debt.admin.name }}">{{ loop.index }}</td> 
+            <td class="bg-save my-flex-around" style="display: flex;align-items:center;justify-content:space-between;">
+                <span>
+                {% if create_link("app_backend_debt_update", debt.wording, {id: debt.id}, {boolean:true}) %}
+                    {{ create_link("app_backend_debt_update", debt.wording, {id: debt.id}, {class: "text-white"}) }}
+                {% else %}
+                    debt.wording
+                {% endif %}
+                </span>
+                {% if debt.isDeletable %}
+                {{ create_link('app_backend_debt_delete', '<i class="fa fa-trash-alt"></i>', {'id': debt.id, _locale: locales.locale}, {class: 'text-edit', title: __('delete')} ) }}
+                 {% endif %}
+            </td>
+            <td class="bg-success text-right">{{ debt.loanInFlows == 0 ? '' : debt.loanInFlows | money_format }}</td>
+            <td class="bg-success text-right">{{ empty(debt.interests) == true ? '' : debt.interests | money_format }}</td>
+            <td class="bg-success text-right">{{ debt.loanOutFlows == 0 ? '' : debt.loanOutFlows | money_format }}</td>
+            <td class="bg-edit text-right">{{ debt.loanBalances | money_format }}</td>
+            <td class="bg-update" title="{{ debt.createdAt | in_locale("lll") }}">{{ debt.createdAt | in_locale("ll") }}</td>
+            <td class="bg-save">
+                {% if debt.parent == null %}
+                <div class="my-dropdown" >
+                    <span class="dropbtn">{{ __('voir details') }}</span>
+                    <ul class="dropdown-content bg-info" style="right: 15px;list-style-type: none;">
+                        {% for avaliste in debt.avalistes %}
+                            <li class="border-top" style="min-width: 20vw;min-height:25px;">
+                                {{ create_link('app_backend_debt_show', loop.index ~ ' - ' ~ avaliste.user.username | format_name, {'id': avaliste.user.account.id, _locale: locales.locale}, {style: 'text-decoration:none;' } ) }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+            </td>
+            <td class="bg-save">
+                {% if empty(debt.observations) != true or debt.parent == null %}
+                    <div class="my-dropdown">
+                    <span class="dropbtn">{{ __('voir details') }}</span>
+                    <ul class="dropdown-content bg-info" style="right: 15px;list-style-type: none;">
+                        {% if empty(debt.observations) != true %}
+                        <li class="border-top" style="min-width: 20vw;min-height:25px;">
+                            {{ debt.observations }}
+                        </li>
+                        {% endif %}
+                        {% for avaliste in debt.avalistes %}
+                            <li class="border-top" style="min-width: 20vw;min-height:25px;">
+                                {{ avaliste.user.name }}: {{ avaliste.observation }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="7" class="text-center">{{ __('not.record.found') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot class="bg-secondary">
+        {% if count != 0 %}
+            <tr class="">
+                <th colspan="2">Totals</th>
+                <th class="text-right">{{ totals.loanInFlows | money_format }}</th>
+                <th class="text-right">{{ totals.interests | money_format }}</th>
+                <th class="text-right">{{ totals.loanOutFlows | money_format }}</th>
+                <th class="text-right">{{ totals.loanBalances | money_format }}</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        {% endif %}
+        
+    </tfoot>
+</table>
+    </div>
+</div>
+
+{% endblock %}

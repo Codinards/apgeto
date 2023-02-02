@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+{{  __t('Multiple Bénéficiation de la tontine') }}
+{% endblock %}
+
+{% block pageTitle %}
+<h1>{{  __t('Multiple Bénéficiation de la tontine') }}</h1>  
+{% endblock pageTitle %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <div class="text-right">
+            {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-edit'} ) }}
+            {{ create_link('app_backend_tontine_show', __('tontine'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-save'} ) }}
+            {# {{ create_link('app_backend_unity_show', __('show'), {_locale: locales.locale, id:unity.id}, {class: 'btn bg-chocolate'} ) }} #}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+        <div class="card bg-edit">
+        <div class="card-header"></div>
+        <div class="card-body">
+        {{ include(viewPath ~ '/_form.html.twig', {
+            button_label: 'register',
+            onSubmit: null
+        }) }}
+        </div>
+
+        </div>
+            
+        </div>
+        {# <div class="col-md-6">
+            {{ include(viewPath ~ '/_tontineur.html.twig', {footer: false, fund: true}) }}
+        </div> #}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script>
+    window.addEventListener("load", () => {
+        const form = document.querySelector('form[name="multi_winners_selection"]')
+        //form.querySelector("legend").classList.add("")
+        form.querySelector("legend").setAttribute("class", "border-bottom text-center text-bold")
+        const selects = form.querySelectorAll('input[type="checkbox"]')
+        selects.forEach(function(elt){
+        elt.parentNode.classList.add("border-bottom")
+        elt.parentNode.classList.add("bg-save")
+        //elt.classList.add("ml-1")
+        elt.removeAttribute("checked")
+        elt.addEventListener("click", function(){
+            if(this.checked){
+                this.parentNode.classList.add("bg-show")
+                this.parentNode.classList.remove("bg-save")
+            }else{
+                this.parentNode.classList.add("bg-save")
+                this.parentNode.classList.remove("bg-show")
+            }
+        })
+    })
+        //for(let i = 0; i < selects.length; i++){
+        //    selects[i]
+        //    console.log(selects[i])
+        //}
+    });
+    </script>
+{% endblock javascripts %}

@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Echecs de {{ tontiner.tontineur.name }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>Echecs de <span class="text-success">{{ tontiner.tontineur.name }}</span></h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row">
+    <div class="col-12 text-right">
+        {{ create_link('app_backend_tontine_cotisation_index', 'Listing des échec par date', {type:'day'}, {class: 'btn bg-chocolate'}) }}
+        {{ create_link('app_backend_tontine_cotisation_index', 'Listing des échec par membre', {type:'tontiner'}, {class: 'btn btn-edit'}) }}
+        {{ create_link('app_backend_tontine_cotisation_create_failure', 'Enregistrer les echecs', {}, {class: 'btn btn-update'}) }}
+    </div>
+</div>
+<hr>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date Cotisation</th>
+            <th>Tontine</th>
+            <th>Montant échec</th>
+            <th>Amende correspondante</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for failure in failures %}
+        <tr>
+            <td>{{ failure.cotisationDay.createdAt | in_locale }}</td>
+            <td>{{ failure.tontine.type }}</td>
+            <td>{{ failure.unity.amount }}</td>
+            <td>
+                {% if failure.unity.isWon %}
+                    {% if failure.createdAt < failure.unity.benefitAt %}
+                        {{ failure.tontine.type.amend }}
+                    {% else %}
+                        {{ failure.tontine.type.minAmend }}
+                    {% endif %}
+                {% else %}
+                {{ failure.tontine.type.minAmend }}
+                {% endif %}
+            </td>
+        </tr>            
+        {% endfor %}
+
+    </tbody>
+</table>
+{% endblock body %}

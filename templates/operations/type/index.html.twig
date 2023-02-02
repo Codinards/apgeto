@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('operation_type.index') }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __t('operation_type.index') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row mb-2">
+    <div class="col-12 mb-2 text-right">
+        {{ create_link('app_backend_operation_type_new', '<i class="fa fa-plus"></i> ' ~  __('create'), {_locale: locales.locale}, {class: 'btn btn-success'} ) }}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <table class="table">
+            <thead class="bg-edit">
+                <tr>
+                    <th>{{ __u('name') }}</th>
+                    <th>{{ __u('admin') }}</th>
+                    <th>{{ __u('balance') }}</th>
+                    <th>{{ __u('actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for type in types %}
+                    <tr>
+                        <td>{{ type.name }}</td>
+                        <td>{{ type.admin.name | format_name }}</td>
+                        <td>{{ type.balance | money_format }}</td>
+                        <td>
+                        {{ create_link('app_backend_operation_type_show', '<i class="fa fa-eye"></i> ' ~  __('show'), {_locale: locales.locale, id:type.id}, {class: 'btn btn-edit'} ) }}
+                        {{ create_link('app_backend_operation_type_update', '<i class="fa fa-edit"></i> ' ~  __('edit'), {_locale: locales.locale, id:type.id}, {class: 'btn btn-update'}, {valid:type.isUpdatable}  ) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

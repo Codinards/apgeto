@@ -1,0 +1,47 @@
+<div class="card bg-edit">
+    <div class="card-header bg-save">
+        <h2>{{ title }}</h2>
+    </div>
+    <div class="card-body">
+        {{ form_start(form, {'attr' :{id: 'loan_in_flows'} }) }}
+                {{ form_row(form.wording) }}
+
+                {% if isInflow == true %}
+                    {{ form_row(form.loanInFlows) }}
+                    {{ form_row(form.interests) }}
+                {% else %}
+                    {{ form_row(form.loanOutFlows) }}              
+                {% endif %}
+
+                {{ form_row(form.createdAt) }}
+
+                {% if isInflow == true %}
+                   {{ form_row(form.renewalPeriod) }}                    
+                {% endif %}
+
+                {{ form_row(form.observations) }}
+
+                {% if isInflow == true %}
+                    <div class="avalistes mb-2" data-index="{{ form.avalistes|length > 0 ? form.avalistes|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.avalistes.vars.prototype)|e('html_attr') }}">
+                        {% for avalist in form.avalistes %}
+                        <div class="row bg-purple mb-2" id="avaliste_{{ loop.index - 1 }}">
+                            <div class="col-md-5">{{ form_row(avalist.user) }}</div>
+                            <div class="col-md-6">{{ form_row(avalist.observation) }}</div>
+                            <div class="col-md-1"><button data-collection-holder-class="avalistes" id="btn_remove_avaliste_{{ loop.index - 1 }}" class="btn_remove_avaliste btn bg-purple" data-index="{{ loop.index - 1 }}" style="display: {{ ( loop.last and loop.index > 1) ? 'inline' : 'none' }};"> <i class="fa fa-trash text-danger"></i></button></div>
+                        </div>
+                        {% endfor %}
+                    </div>                    
+                {% endif %}
+
+            <button class="btn btn-primary">{{ __u(button_label|default('Save')) }}</button>
+        {{ form_end(form) }}
+
+        {% if isInflow == true %}
+            <div class="row text-right">
+                <div class="col-12">
+                    <button id="btn_add_avaliste" data-collection-holder-class="avalistes" class="btn bg-save">{{ __u('add more avaliste') }}</button>
+                </div>
+            </div>                    
+        {% endif %}
+    </div>
+</div>

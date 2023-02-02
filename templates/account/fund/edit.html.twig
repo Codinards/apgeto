@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('edit') }} {{ fund.wording }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ __t('edit') }} {{ fund.wording }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        {{ include(viewPath ~ '_form.html.twig') }}
+    </div>
+</div>
+    
+{% endblock body %}

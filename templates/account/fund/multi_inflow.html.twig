@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+   {{ title }}
+{% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ title }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+
+<div class="row font-size-8">
+    <div class="col-md-12 text-right">
+        {{ create_link('app_backend_account_index', __('account.index'), {_locale: locales.locale}, {class: 'btn btn-primary'} ) }}
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-11 mx-auto">
+    {{ form_start(form) }}
+    {% for target in form.targets  %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card bg-save mx-auto">
+                    <div class="card-header">
+                        <h3 class="card-title"> {{ type == "inflow" ? "Entrée" : "Sortie" }} Fond No: {{ loop.index }} </h3>
+                    </div>
+                    <div class="card-body bg-edit">
+                        <div class="row">
+                            <div class="col-6">{{ form_row(target.user) }}</div>
+                            <div class="col-6"> {{ form_row(target.wording) }} </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">{{ form_row(target.observations) }}</div>
+                            {% if type == "inflow" %}
+                                <div class="col-6">{{ form_row(target.cashInFlows) }}</div>
+                            {% else %}
+                                <div class="col-6">{{ form_row(target.cashOutFlows) }}</div>
+                            {% endif %}
+                            
+                        </div>
+                        {{ form_row(target.createdAt) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+    <div class="row">
+        <div class="col-12 text-right">
+        <button class="btn btn-primary">{{ __u(button_label|default('Save')) }}</button>
+        </div>
+    <div>
+    
+    {{ form_end(form) }}
+    </div>
+</div>
+    
+{% endblock body %}
+
+{% block javascripts %}
+<script src="/assets/js/several_inflow.js"></script>
+{% endblock javascripts %}

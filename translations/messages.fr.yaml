@@ -1,0 +1,386 @@
+first admin registration: configuration de l'application
+first.admin.data: données de l'administrateur
+app.configuration.data: données de configuration
+app_name: nom de l'application
+debt.update: édition prêt
+home page: page d'accueil
+default_language: langue de l'application
+money_devise: monnaie utilisée
+base_amount_to_loan: montant de base pour obtenir un prêt
+interest_rate_to_loan: taux d'interêt pour prêt
+user_can_get_multiple_loan: un membre peut obtenir plusieurs prêt á la fois
+account_base_amount: montant de base pout intégrer le fond
+fund_can_be_negative: el solde du compte peut être négatif
+insurrance_amount: montant de base pour intégrer l'assurance
+unity_max_count: nombre maximal d'unité d'un membre pour une tontine
+other.data: autres données de configuration
+user.loggedin.action: "se connecter"
+user.loggedout.action: se déconnecter
+user.loggedin: "se connecter"
+user.loggedout: se déconnecter
+user.index: "index"
+user.new: "ajouter un membre"
+user.new.action: "ajouter un membre"
+user.see: "voir le profil d'un membre"
+user.see.action: "voir le profil d'un membre"
+user.edit: "éditer un membre"
+user.edit.action: "éditer un membre"
+role.edition: edition du rôle
+user.action.see: "voir les autorisations associées à un rôle"
+user.action.add: "ajouter un nouveau rôle"
+user.action.edit: "éditer les autorisations associées a un rôle"
+user.action.delete: "supprimer les autorisations associées à un rôle"
+user.image.edit.action: éditer sa page de profil
+user.profile.see.action: voir sa page de profil
+user.action.see.action: "voir les autorisations associées à un rôle"
+user.action.add.action: "ajouter un nouveau rôle"
+user.action.edit.action: "éditer les autorisations associées a un rôle"
+user.action.delete.action: "supprimer les autorisations associées à un rôle"
+user.all.index: "index des utilisateurs"
+user.all.see: "voir la liste de tous les membres"
+user.all.see.action: "voir la liste de tous les membres"
+user.all.action.index: "les autorisations utilisateurs"
+user.all.action.see: "voir la liste de toutes les autorisations associées aux rôles"
+user.all.action.see.action: "voir la liste de toutes les autorisations associées aux rôles"
+user.role.edit: editer le rôle d'un membre
+user.password.edit: editer le mot de passe d'un membre
+user.password.edit.action: editer le mot de passe d'un membre
+user.create: création membre
+user.lock.action: bloquer le membre
+user.unlock.action: debloquer le membre
+user.lock: bloquer le membre
+user.unlock: debloquer le membre
+admin.index.see: se connecter a la administration
+admin.index.see.action: se connecter a la administration
+edition.password: édition du mot de passe
+not.found.record: "Aucun enregistrement trouvé"
+not.record.found: "Ningun dato encontrados"
+operation.success: l'opération a été réalisée avec succès
+operation.fail: l'opération a échouée
+operation.unauthorize: opération non autorisée
+administration: administration
+administrator: administrateur
+action: action
+edit: Editer
+see: voir
+create: créer
+add: ajouter
+created_at: date creation
+fond: fond
+pret: pret
+profil: profil
+member: membre
+create.new.role: creer un nouveau rôle
+role.creation: creation rôle
+yes: oui
+no: non
+see.home: ouvrir la page d'accueil
+see.home.action: ouvrir la page d'accueil
+show: voir details
+choice: selectionner
+can: peut
+amount: montant
+index: index
+number: numéro
+logout: se déconnecter
+observation: observation
+observations: observations
+detail: detail
+details: details
+languages: langages
+connected as: 'connecté :'
+users: utilisateurs
+user: utilisateur
+name: nom
+title: titre
+address: adresse
+username: noms et prenoms
+pseudo: pseudo
+account: compte
+fund: fond
+funds: fonds
+profile: profil
+role: rôle
+roles: rôles
+password: mot de passe
+parrain: parrain
+none: aucun
+nona: aucune
+members: membres
+accounts: comptes
+authorizations: autorisations
+dashboard: tableau de bord
+by: par
+from_1e: a partir d'une
+from_1: a partir d'un
+new: nouveau(elle)
+year: année
+filter: filtrer
+delete: suppimer
+cancel: annuler
+cancelling: annulation
+parameter: paramètre
+ended: achevé
+ongoing: en developpement
+waiting: en attente
+functionalities: fonctionalités
+image.upload: Uploader votre image
+password.confirmation: Retaper le mot de passe
+password field must match.: les deux champs doivent être identiques
+member name need to get an password before changing role: le membre %name% n'a pas de mot de passe Veuillez Lui affecter un mot de passe
+member name password has been successfully edited: le mot de passe de %name% a été modifié avec succès
+you are already connected as: Vous êtes déjà connecté entant que %name%
+are you sure to want delete this: êtes-vous sûr(e) de vouloir suprimer ce(cette)
+are you sure to lock this member: êtes-vous sûr(e) de vouloir bloquer ce membre?
+are you sure to unlock this member: êtes-vous sûr(e) de vouloir débloquer ce membre?
+if you want to delete, press: si c'est le cas, clique sur
+if you do not want to delete, press: si ce n'est pas le cas, clique sur
+functionality.no.yet.developed: cette fonctionalité n'a pas encore été développée
+# form label
+
+user.actions: actions correspondantes
+is.deletable: peut être supprimé
+half.and.name: et demi
+half.name: demi unité
+form: formulaire
+actions: actions
+
+# --------------------- Tontine ---------------------------------#
+
+type: type
+types: types
+tontinetype: "type de tontine"
+tontinetype.new.action: ajouter un nouveau type de tontine
+tontineur.unity.add.action: ajouter des unités de tontine a un membre
+tontinetype.new: nouveau type de tontine
+tontinetype.create: "création : type de tontine"
+tontinetype.update: "édition: type de tontine"
+tontinetype.update.action: "éditer les types de tontine"
+tontinetype.index: "index : types de tontines"
+tontinetype.index.see: voir la liste des types de tontines
+tontinetype.index.see.action: voir la liste des types de tontines
+tontinetype.already.has.tontine: ce type de tontine possède déjà une tontine en cours
+has.multiple.tontine: accepte plusieurs tontines courantes en même temps
+has_multiple_tontine: accepte plusieurs tontine
+tontinetype.tontine.current.exists: "le type de tontine %type% n'accepte pas plus d'une tontine courante"
+tontine.index: "index des tontines"
+tontine.count: nombre de tontines
+tontine: tontine
+tontines: tontines
+tontine.name: nom de la tontine
+tontine.new: "creation nouvelle tontine"
+tontine.new.action: "créer une nouvelle tontine"
+tontine.winner.action: voir les bénéficiaires des tontines
+tontine.info: informations achat
+tontine.details: details tontine
+tontine.details.action: voir les details d'une tontine
+tontine.info.action: voir les informations des tontines
+tontine.index.see: "voir la liste des tontines"
+tontine.index.see.action: "voir la liste des tontines"
+tontine.stop.add.member.action: stopper l'ajout de nouveaux membres à une tontine
+tontine.add.member: ajouter des membres
+tontineur.add.unity: ajouter des unités
+add_unity.invalid.data: des données invalides ont été envoyé dans ce lien
+can not add new member in this tontine: vous ne pouvez plus ajouter des membres a cette tontines
+tontineur.already.have.won.half_unity: ce membre a déjà bénéficié d'une demi unité, vous ne pouvez plus lui ajouter une autre demi unité
+totals.members: Total membres
+number.cotisation: nombre des unités
+half.part: demi unité
+half.parts: demi unités
+part.numbers: nombre des unités
+unity.see.action: voir les informations d'une unité
+unity.won: beneficier
+unity.won.action: enregistrer l'achat d'une tontine
+unity.show: details
+unity.lock: bloquer
+unity.unlock: debloquer
+locked.unities: unités bloquées
+unity.lock.action: bloquer une unité
+unity.unlock.action: debloquer une unité
+unity.benefit: beneficier d'une unité
+amount.to.benefit: montant à recevoir par chaque bénéficiaire
+unity.price: Prix d'achat
+unity.details: details d'une unité
+tontine.see.action: voir les données d'une tontine
+tontine.member.add.action: ajouter un nouveau member à une tontine
+date: date
+is_won: acheté
+benefit.parts: unités bénéficiées
+unity: unité
+unities: unités
+unity.benefit.successful: L'unité a été mise a jour avec success
+no.observation: aucune observation
+unity.already.won: désolé! cette unité a déjà été bénéficiée
+tontine.not.current: désolé! cette tontine n'est plus en cours
+unity.not.locked: désolé! cette unité n'est pas bloquée
+unity.already.locked: désolé! cette unité est déjà bloquée
+unity.lock.success: l'unité a été bloquée avec success
+unity.lock.unsuccess: désolé! cette unité n'a pu être bloquée
+unity.unlock.success: l'unité a été débloquée avec success
+unity.unlock.unsuccess: désolé! cette unité n'a pu être débloquée
+unity.update.checkbox: modifier les données
+unity.update.action: modifier les données d'une unité
+unity.cancel.benefit.action: annuler l'achat d'une unité
+unity.cancel.benefit: annuler l'achat
+unity.update.successful: l'unité a été mis á jour avec succès
+are you sure you want to lock this unity?: êtes-vous sûr(e) de vouloir bloquer cette unité?
+are you sure you want to unlock this unity?: êtes-vous sûr(e) de vouloir débloquer cette unité?
+are you sure to stop adding new member on this tontine?: vous êtes sûr de ne plus vouloir augmenter de nouveaux membres à cette tontine?
+are you sure you want to cancel the benefit of this unity?: vous êtes sûr de vouloir annuler la venta de cette unité?
+any unity specify for this tontineur: aucune unité n'a été spécifiée
+stop adding new member: stopper l'ajout d'unités
+total.amount: montant total
+benifit.amount: montant á bénéficier
+total.parts: total unités
+cotisation.amount: contribution total
+cotisation: cotisation
+min.amend: amende minimal en cas d'échec
+has.amend: contient une amende en cas d'échec
+amend: amende maximal
+min.achat: montant minimal d'achat
+has.avaliste: nécessite un avaliste pour bénéficier d'une unité
+has.achat: les unités sont acquis par achat
+is.current: est un type courant
+unity.edition: édition d'une unité
+benefit.amount: montant bénéficié
+benefit: bénéficier
+update: mettre á jour
+tontine.update.data.action: mettre à jour les informations d'une tontine
+tontine.update.data: actualisation des informations d'une tontine
+update.data: modifier les données
+an admin can not edit his own role: '%name% ne peut éditer son propre rôle'
+an super admin can not lock or unlock himself: un administrateur ne peut s'autobloquer
+
+#---------------------------------- FUND -----------------------------------------#
+
+my_account: mon compte
+cash_in_flows: entrées de fond
+cash_in_flow: entrée de fond
+cashinflows: sorties de fond
+cashinflow: sortie de fond
+cash_in_flow.amount: montant entrée
+cashoutflows: sorties de fond
+cashoutflow: sortie de fond
+cash_out_flows: sorties de fond
+cash_out_flow: sortie de fond
+cash_out_flow.amount: montant de sortie
+loan_in_flows: prêt
+loan_in_flow: prêt
+loan_in_flow.amount: montant prêt
+loan_out_flows: remboursement
+loan_out_flow: remboursement
+loan_out_flow.amount: montant remboursement
+cash_balances: soldes fond
+cash_balance: solde fond
+balance: solde
+balances: soldes
+min.cash_balance: solde minimum
+max.cash_balance: solde maximum
+loan_balance: solde prêt
+wording: libelé
+general.observations: observation générale
+account.index: index des comptes
+fund.show: etat fond
+debt.show: emprunts
+debt: prêt
+debt.delete: supression prêt
+old.balance: solde antérieur
+old.states: états antérieurs
+account.data: données de compte
+balance at: solde au
+payback_at: date de remboursement
+reimbursement: remboursement
+debt.interests: interêts prêt
+interests: interêts
+interest: interêt
+avalised.debts: prêt avalisés
+this.member.cannot.loan: ce membre ne réunit pas les conditions nécessaire pour un prêt
+user.already.has.loan: ce membre detient encore une dette de %balance%
+user.no.has.loan.base.fund: le solde du compte (%balance%) de ce membre est inferieur au solde nécessaire pour prêter (%withdrawal%)
+no.negative.fund: le solde de compte ne peut pas etre negative
+fund.no.less.than: le montant de retrait(%withdrawal%) est supérieur au solde(%balance%)
+user.no.has.current.debt: ce membre ne détient aucun prêt en cours
+loan.out.flows.more.than.balance: le montant du remboursement (%withdrawal%) est supérieur au solde de prêt (%balance%)
+loan.in.flows.more.than.balance: le montant du prêt (%withdrawal%) est supérieur au solde de compte (%balance%)
+payback_at.must.great.than.created_at: la date de remboursement(%payback_at%) du prêt ne peut être inferieur ou égale à sa date de création(%created_at%)
+
+
+#---------------------------------------- Assistances ----------------------------------------------
+
+contributors: contribuables
+contributor: contribuable
+assistance: aide
+assistances: aides
+assistance.new: 'création %type%'
+assistance.index: 'index des aides'
+assistance.delete: suppression aide
+assistance.benefit: aides bénéficiées
+assistance_type.index: index des types d'aide
+assistance_type.new: nouvelle type d'aide
+assistance_type.edition: édition type d'aide
+assistance.not.get.contributors: aucun contributeur n'a été sélectionné pour cette aide (%type%)
+assistance.out.flows.more.than.balance: le montant d'aide(%withdrawal%) es supérieur au solde du compte(%balance%) de %user%
+contribution.type: type de contribution
+is_unity_amount: montant par membre
+is_contribution_amount: montant total
+
+account.index.action: voir la page index de comptes
+assistance.delete.action: suppimer une aide
+assistance.index.action: voir la page index des aides
+assistance.show.action: voir les details d'une assistance
+assistance.new.action: créer une nouvelle aide
+assistance.type.index.action: voir la page d'index de types d'assistance
+assistance.type.edit.action: éditer un type d'aide
+assistance.type.new.action: créer un nouveau type d'aide
+debt.delete.action: suppimer une dette
+debt.loaninflows.action: enregistrer une nouvelle dette
+debt.loanoutflows.action: enregistrer les remboursement d'une dette
+debt.show.action: voir le details d'une dette
+debt.show.previous.action: voir le details des dettes antérieures
+debt.update.action: editer les données d'une dette
+fund.cashoutflows.action: enregistrer les sorties de fond
+fund.cashinflows.action: enregistrer les entrées de fond
+fund.show.action: voir les details(entrées et sorties) d'un fond
+user.account.debt.index.action: voir les données de ses dettes
+user.account.index.action: voir les données de son fond personnel
+user.account.debt.previous.action: voir les données de ses dettes entérieures
+
+register: enregistrer
+locked.member: membre bloqué
+locked.members: membres bloqués
+previous_balance: solde antérieur
+low_cash_balance: compte inférieur ou égal à <br/> %balance%
+low_cash_balances: comptes inférieur ou égal à <br/> %balance%
+upper_cash_balance: compte supérieur ou égal à <br/> %balance%
+upper_cash_balances: comptes supérieur ou égal à <br/> %balance%
+base_cash_balance: compte inférieur ou égal à <br/> %balance%
+base_cash_balances: comptes inférieur ou égal à <br/> %balance%
+upper_base_cash_balance: compte supérieur ou égal à<br/>  %balance%
+upper_base_cash_balances: comptes supérieur ou égal à <br/> %balance%
+base_loan_balances: compte inférieur ou égal à <br/> %balance%
+upper_base_loan_balances: compte supérieur ou égal à <br/> %balance%
+has_debt: empreinteur
+has_debts: empreinteurs
+has_debts.index: index des empreinteurs
+operation_type: types d'opérations
+operation_types: types d'opérations
+operation_type.index: index des types d'opérations
+operation_type.index.action: voir la page index des types d'opérations
+operation_type.new: créer un nouveau type d'opérations
+operation_type.new.action: créer un nouveau type d'opérations
+operation.index: index des d'opérations
+operation.index.action: index des d'opérations
+operation.new: créer une nouvelle opération
+operation.new.action: créer une nouvelle opération
+operation.type.creation: creation type d'opération
+operation.type.edition: édition typo d'opération
+inflow: entrée
+inflows: entrées
+outflow: sortie
+outflows: sorties
+loanoutflow.delete: supression remboursement
+inflow operation: operation de entrée
+outflow operation: operation de sortie
+user fund balance is less than operation inflow amount: "le solde du fond(%balance%) de %user% es inferieur au montant de l'operation(%inflow%)"
+Debt Operations: bilan prêt
+Account Operations: bilan fond

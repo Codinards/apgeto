@@ -1,0 +1,152 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ __t('assistance.new', {'%type%': type}) }} : {{ member.name | format_name }}
+ {% endblock title %}
+
+{% block pageTitle %}
+    <h1>{{ __t('assistance.new', {'%type%': type}) }} : <span class="text-success">{{ member.name | format_name }}</span> </h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<style>
+    .unchecked{
+        background-color: #e9ecef /*rgba(255, 50, 10, 0.5);*/
+        /*color: red;
+        font-size: 1.3rem;*/
+    }
+
+    #top_left_div{
+        position: fixed;
+        right: 0vw;
+        bottom: 2vh;
+        z-index: 1000;
+    }
+
+    .topLeft { 
+        border-radius : 7px 0px 0px 0px;
+    }
+    .topRight {
+        border-radius : 0px 7px 0px 0px;
+    }
+    .botRight {
+        border-radius : 0px 0px 0px 7px;
+    }
+    .botLeft {
+        border-radius : 0px 0px 7px 0px;
+    }
+
+    .borderRaduis7{
+        border-radius: 7px;
+    }
+</style>
+    <div class="row">
+        <div class="col-12 text-right">
+            {{ create_link('app_backend_assistance_index', __u('assistance.index'), {}, {'class': 'btn btn-info'}) }}
+        </div>
+    </div>
+    <hr>
+    <div class="row" id="root" >
+        <div class="col-md-8">
+            {{ form_start(form, {attr: {id:'assistance_form'}}) }}
+            {{ form_row(form.wording, {attr: { value: type ~ ' ' ~ member.name}}) }}
+            {{ form_row(form.createdAt) }}
+            <div id="react_app" 
+            app-type="assistance"
+            data-assistance-info="{{ '{ "amount":"' ~ (type.amount  ?? 'null') ~ '", "is_amount":"' ~ type.amountType ~ '", "devise":"' ~ constants.devise ~ '", "amount_label" : "' ~ __('amount') ~ '", "balance_label":"' ~ __('cash_balance') ~ '", "member_label":"' ~ __('members') ~ '"}' }}" 
+            data-users="{{ data }}">
+                {% for contributor in form.contributors %}
+            <div class="row" style="border-bottom: 2px solid grey;">
+                <div class="col-md-4">{{ form_row(contributor.select) }}</div>
+                <div class="col-md-4">{{ form_row(contributor.amount) }}</div>
+                <div class="col-md-4">
+                    <div class="bg-update mt-2">{{ __('cash_balance') }} : {{ contributor.vars.data.account.cashBalances | money_format }}</div>
+                </div>
+                {{ form_row(contributor.index) }}
+            </div>
+                {% endfor %}
+            </div>
+            <div class="form-group mt-2">
+                <button class="btn btn-primary" id="assistance_form_submit_btn">{{ __u('create') }}</button>
+            </div>
+            {{ form_end(form) }}
+              
+        </div>
+        <div class="col-md-4" id="top_left_div">
+            <div class="row mb-2" id="total_div">
+                <div class="col-12">
+                    <div class="bg-save mb-2 borderRaduis7 p-2">
+                        <h3>{{ __t('filter contibutors') }}</h3>
+                        <hr>
+                        {{ form_start(filterForm, {'attr': {class:'bg-save', id: 'filter_assistance_form'}}) }}
+                        
+                        <div id="filter_div">
+                            {{ form_row(filterForm.minCashBalance) }}
+                            {{ form_row(filterForm.maxCashBalance) }}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" id="filter_form_btn">{{ __('filter') }}</button>
+                        {{ form_end(filterForm) }}
+                    </div>
+                    <table class="table bg-save" style="font-size : 1.2rem; font-family : Georgia, Verdana, 'Times New Roman', 'Courier New', Courier, monospace">
+                        <tbody class="borderRaduis7">
+                            <tr>
+                                <td class="bg-save" >
+                                    <span>{{ __('amount') }} </span>
+                                </td>
+                                <td class="bg-edit" > 
+                                    <span id="assistance_total_contribution">0</span><span> {{ constants.devise }}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="bg-save">
+                                    <span>{{ __('contributors') }} </span>
+                                </td>
+                                <td class="bg-edit">
+                                    <span id="assistance_total_contributors">0</span><span > {{  __('members')  }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>    
+{% endblock body %}
+
+{% block javascripts %}
+    <script src="/assets/js/app.js"></script>
+    <script>
+       /* const min = document.querySelector('#minCashBalance');
+        const max = document.querySelector('#maxCashBalance');
+        const btn = document.querySelector('#filter_form_btn');
+        max.addEventListener('change', function(e) {
+            let maxVal = parseInt(this.value, 10)
+            let minVal = parseInt(min.value, 10);
+            console.log(minVal, maxVal)
+            if(!isNaN(minVal) && !isNaN(maxVal)){
+                if(minVal >= maxVal){
+                    btn.setAttribute('disabled', 'true')
+                }else{
+                    btn.removeAttribute('disabled')
+                }
+            }else{
+                if(btn.hasAttribute('disabled')){
+                    btn.removeAttribute('disabled')
+                }
+            }
+        })
+        min.addEventListener('change', function(e) {
+            let maxVal = parseInt(max.value, 10)
+            let minVal = parseInt(this.value, 10);
+            console.log(minVal, maxVal)
+            if(isNaN(minVal) || isNaN(maxVal) || minVal < maxVal){
+                if(btn.hasAttribute('disabled')){
+                    btn.removeAttribute('disabled')
+                }
+            }else if(minVal > maxVal){
+                if(!btn.hasAttribute('disabled')) btn.setAttribute('disabled', 'true')
+            }
+        })*/
+    </script>
+{% endblock javascripts %}

@@ -1,0 +1,99 @@
+<div class="row">
+    <div class="col-12 mx-auto text-dark">
+        {{ form_start(form) }}
+        {% if button_label ?? null %}
+            {{ form_widget(form) }}
+        {% else %}
+        <div class="row text-dark">
+            <div class="col-12 border-bottom">
+                <div class="row">
+                    <div class="col-md-6 ">
+                            {{ form_row(form.name) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form.title) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 pt-1 pm-0 text-center border-bottom">
+                {{ form_row(form.isDeletable) }}
+            </div>
+    
+            <div class="col-12">
+                {{ form_rest(form) }}
+            </div>
+        </div>
+
+        {% endif %}
+                
+            <button class="btn btn-primary">{{ __u(button_label|default('Save')) }}</button>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% block javascripts %}
+<script>
+    let userRolesActions = document.querySelector("#role_userActions") || document.querySelector('#role_update_userActions');
+    let actions = userRolesActions.querySelectorAll('.form-check')
+    userRolesActions.innerHTML = '<div class="row"><div class="col" id="action_items"></div></div>';
+    let container = {
+        contains : [[]],
+        add(element){
+            if(this.last().length < 2){
+                this.last().push(element);
+                if(this.last().length == 2){
+                    this.contains.push([]);
+                }
+            }
+        },
+        last(){
+            return this.contains[this.contains.length - 1];
+        }
+    };
+    actions.forEach((action, index)=> {
+        container.add(action);
+        /*action.classList.add('col-md-6');
+        action.style.fontSize = '0.7rem';
+        let hr = document.createElement('hr')        
+        hr.style.paddingLeft = 0
+        hr.style.margin = '3px'
+        hr.style.backgroundColor = 'white'
+        action.appendChild(hr)
+        if(index % 2 === 0 && index % 3 !== 0){
+            action.style.opacity = "0.5"
+        }
+        userRolesActions.firstChild.appendChild(action)*/
+    })
+    container.contains.forEach((item, index) => {
+        let row = document.createElement('div')
+        row.classList.add('row')
+        item[0].classList.add('col-md-6')
+        item[0].style.fontSize = '0.7rem'
+        if(index % 2 != 0){
+            item[0].style.backgroundColor = "#78667c";
+        }
+        row.appendChild(item[0])
+        if(item[1]){
+            item[1].classList.add('col-md-6')
+            item[1].style.fontSize = '0.7rem'
+            row.appendChild(item[1])
+            if(index % 2 == 0){
+                item[1].style.backgroundColor = "#78667c";
+                //#67556b
+            }         
+        }
+        let hr = document.createElement('hr')        
+        hr.style.paddingLeft = 0
+        hr.style.margin = '1px'
+        hr.style.backgroundColor = 'white'
+        let rowCh = document.createElement('div')
+        rowCh.classList.add('col')
+        rowCh.appendChild(hr)
+        row.appendChild(rowCh)
+
+        userRolesActions.querySelector('#action_items').appendChild(row);
+    })
+</script>
+
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __("Profil ") }}{{ user.username }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ __("Profil ") }}{{ user.username }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row m-2 font-size-8">
+    <div class="col-12 text-center">
+        {% set locked = user.locked %}
+        {{ create_link('app_backend_user_edit', '<i class="fa fa-edit"></i> ' ~ __('profile'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-edit  mb-2'} ) }}
+        {{ create_link('app_backend_user_role_edit', '<i class="fa fa-edit"></i> ' ~ __u('role'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-show  mb-2'}) }}
+        {{ create_link('app_backend_user_password_edit', '<i class="fa fa-edit"></i> ' ~ __u('password'), {'id': user.id, _locale: locales.locale}, {class: 'btn btn-success  mb-2'}) }}
+        {{ create_link('app_frontend_user_index', __('fund.show'), {'id': user.account.id, _locale: locales.locale}, {class: 'btn btn-update mb-2'} ) }}
+        {{ create_link('app_frontend_user_debt_index', __('debt.show'), {'id': user.account.id, _locale: locales.locale}, {class: 'btn bg-indigo mb-2'} ) }}
+        
+        {% if create_link('app_backend_assistance_new', '', {}, {class: 'border-top'}, {boolean: true} ) %}
+            <div class="my-dropdown">
+            <button class="btn btn-primary dropbtn mb-2" style="font-size: 1rem;">{{ __('assistances') }}</button>
+            <div class="dropdown-content text-left bg-chocolate">
+            {% for type in assistances_types %}
+            {{ create_link('app_backend_assistance_new', type.name, {'id': user.id, type: type.id, _locale: locales.locale}, {class: 'border-top'} ) }}
+            {% endfor %}
+            </div>
+            
+        </div>
+        {% endif %}
+
+
+        {% if user.assistances.isEmpty != true %}
+        <div class="my-dropdown">
+            <button class="btn btn-primary dropbtn mb-2" style="font-size: 1rem;">{{ __('assistance.benefit') }}</button>
+            <div class="dropdown-content text-left bg-chocolate" style="right: 0px;">
+                <table class="table" style="width: max-content;">
+                    <thead class="bg-edit">
+                        <tr>
+                            <th>{{__u('date')}}</th>
+                            <th>{{ __u('type') }}</th>
+                            <th>{{ __u('amount') }}</th>
+                            <th>{{__u('actions')}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for assistance in user.assistances %}
+                            <th>{{ assistance.createdAt | in_locale('ll') }}</th>
+                            <th>{{ assistance.type }}</th>
+                            <th>{{ assistance.totalContributions }}</th>
+                            <th>
+                            {{ create_link('app_backend_assistance_show', __u('see'), {id: assistance.id}, {'class': 'btn btn-update'}) }}
+                            </th>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>        
+        </div>
+        {% endif %}
+
+        {{ create_form(
+            path('app_backend_user_lock',
+            {'id': user.id, _locale: locales.locale, action: (locked ? 'unlock' : 'lock')}), ( locked ? '<i class="fa fa-lock-open"></i> ' : '<i class="fa fa-lock"></i> '),
+            {
+                class: (locked ? 'btn btn-warning ' : 'btn btn-danger ') ~ 'mb-2',
+                style: 'display:inline-block;',
+                confirm: __u('are you sure to ' ~ (locked ? 'unlock' : 'lock') ~ ' this member'),
+                csrf_name: 'user_' ~ (locked ? 'unlock' : 'lock'),
+                valid: app.user().hasAction('app.backend_user_lock')
+            },
+            ) 
+        }}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <table class="table table-striped">
+            <tbody>
+                        <tr>
+                            <th>{{ _u("Identifiant") }}</th>
+                            <td>{{ user.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u("Noms") }}</th>
+                            <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u('Role') }}</th>
+                            <td>{{ __u(user.role) }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u("Pseudo") }}</th>
+                            <td>{{ user.pseudo }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u("Adresse") }}</th>
+                            <td>{{ user.address }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u('Telephone') }}</th>
+                            <td>{{ user.telephone | telephone_format(0, ',', ' ') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ _u('Parrain') }}</th>
+                            <td>{{ user.parrain }}</td>
+                        </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <table class="table table-striped">
+            <tbody>
+                    <tr>
+                        <th>{{ __('profile') }}</th>
+                        <td id="user_profil_image">
+                            {{  create_link(
+                                'app_frontend_user_image_edit',
+                                user.image ? ('<img src="' ~  user.imageFile   ~' " alt="' ~ user.pseudo ~ '" title="' ~ __('edit') ~ '" style="border-radius:40%;width:18vw;height:30vh;"/>') : '<i class="fa fa-user-circle" style="font-size: 5rem;"></i>' ,
+                                {id: user.id},
+                                {class: 'user_profil_image'}
+                                ) }} 
+                            
+                        </td>
+                    </tr>
+                        <tr>
+                            <th>{{ _u("locked.member") }}</th>
+                            <td>{{ _u(user.locked ? 'Yes' : 'No') }}</td>
+                        </tr>
+                        {% if user.locked %}
+                            <tr>
+                                <th>{{ _U("locked_at") }}</th>
+                                <td>{{ user.lockedAt ? user.lockedAt| in_locale : '' }}</td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <th>{{ _u("created_at") }}</th>
+                            <td>{{ user.createdAt ? user.createdAt| in_locale : '' }}</td>
+                        </tr>
+            </tbody>
+        </table>
+    </div>
+</div>    
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const tr_profile = document.querySelector('#user_profil_image');
+        
+        if(tr_profile.innerHTML.trim() === '')
+            tr_profile.innerHTML = '<i class="fa fa-user-circle" style="color:#007bff;background-color:transparent;font-size: 5rem;"></i>';
+    </script>
+{% endblock javascripts %}

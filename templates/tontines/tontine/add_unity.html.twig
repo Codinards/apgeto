@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ __t('tontineur.add.unity') }} | {{ tontineur.name }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>
+        {{ __t('tontineur.add.unity') }} | <span class="text-info">{{ tontineur.name }}</span>
+    </h1>
+
+{% endblock %}
+{% block body %}
+    <div class="row mb-2">
+        <div class="col-12 text-right">
+        {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-info'} ) }}
+        {{ create_link('app_backend_tontine_show', __('details'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-primary'} ) }}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card bg-edit">
+                <div class="card-header text-center">
+                    <h2>{{ tontineur.name }}</h2>
+                </div> 
+                <div class="card-body bg-save">
+                    {{ form_start(form) }}
+                    {{ form_row(form.count) }}
+                    <hr>
+                    {{ form_row(form.demiNom) }}
+                    {{ form_row(form.name) }}
+                    <hr>
+                    <div class="form-group">
+                        <button class="btn btn-primary">{{ __('save') }}</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+            <div class="col-md-5">
+                {{ include('tontines/unity/_tontineur.html.twig', {class: 'text-white', tontineData: data, unity: data.unities.first, footer:false}) }}
+            </div>
+    </div>
+{% endblock %}

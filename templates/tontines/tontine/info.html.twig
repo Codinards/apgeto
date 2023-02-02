@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tontine.name }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ tontine.name }} {{ __u('tontine.info') }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<style>
+    ul{
+        list-style-type: none;
+    }
+</style>
+<div class="row">
+    <div class="col-md-8">
+        {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-info'} ) }}
+        {{ create_link('app_backend_tontine_show', __('show'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-primary'} ) }}
+        {{ create_link('app_backend_tontine_details', __('tontine.details'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-success'} ) }}
+        {{ create_link('app_backend_multi_won_selection', __('Plusieurs bénéficiaire'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-save'} ) }}
+    </div>
+    <div class="col-md-4 text-right">
+       {{ include(viewPath ~ '/_add_tontineur.html.twig') }}
+    </div>
+</div>
+<hr>
+<div class="row">
+ 
+    <div class="col-md-12">
+       
+    <table class="table bg-grey table-bordered" style="font-size: 0.7em;">
+    <thead class="bg-edit">
+        <tr>
+            <th>Dates</th>
+            <th>Beneficiaires</th>
+            <th>Avalistes</th>
+            <th>Achats</th>
+            <th>Montants</th>
+            <th>Cotisations</th>
+            <th>Relicats</th>
+            <th>Restes</th>
+        </tr>
+    </thead>
+    <tbody class="font-size-6">
+        {% set totalCotisation = 0 %}
+        {% for groups in unities %}
+            <tr class="bg-{{ (loop.index % 2 == 0) ? 'grey' : 'save' }}">
+                <td class="text-white">{{ groups[0].benefitAt | in_locale("ll") }}</td>
+                <td>
+                    <ul>
+                    {% for unity in groups %}
+                         <li class="text-white mb-2" style="font-weight: bold;">{{ unity.tontineur | format_name}}</li>
+                             
+                    {% endfor %}
+                        <hr>
+                        <li class="text-edit" style="font-size: 1.1em;font-weight:bold;">Totals</li>
+                    </ul>
+                </td>
+                <td>
+                 <ul>
+                 {% for unity in groups %}
+                      <li class="text-white mb-2" style="font-weight: bold;">{{ unity.avaliste | format_name }}</li>
+                 {% endfor %}
+                      
+                 </ul>
+             </td>
+                <td>
+                     <ul>
+                         {% set total = 0 %}
+                     {% for unity in groups %}
+                          <li class="text-white mb-2" style="font-weight: bold;">{{ unity.achat | number_format() }}</li>
+                              {% set total = total + unity.achat %}
+                             
+                     {% endfor %}
+                        <hr/>
+                         <li class="text-edit" style="font-size: 1.1em;font-weight:bold;">{{ total | money_format() }}</li>
+                     </ul>
+                </td>
+                <td>
+                     <ul>
+                         {% set total = 0 %}
+                     {% for unity in groups %}
+                          <li class="text-white mb-2" style="font-weight: bold;">{{ (unity.isDemiNom? unity.tontine.amount/2 : unity.tontine.amount) | money_format()  }}</li>
+                          {% set total = total + (unity.isDemiNom? unity.tontine.amount/2 : unity.tontine.amount) %}
+                              
+                     {% endfor %}
+                     <hr/>
+                     <li class="text-edit" style="font-size: 1.1em;font-weight:bold;">{{ total | money_format()  }}</li>
+                     </ul>
+                </td>
+                <td class="text-edit"  style="font-weight: bold;font-size: 1.1em;">
+                    {% set  totalCotisation = totalCotisation + resolver.cotisation(tontine) %}
+                    {{ resolver.cotisation(tontine) | money_format()  }} 
+                </td>
+                <td>
+                     <ul>
+                         {% set relicat = resolver.relicat(groups.toArray) %}
+                         <li class="{{ resolver.relicatNegatif ? 'text-danger' : 'text-edit' }}"  style="font-weight: bold;font-size: 1.1em;">{{ relicat | money_format()  }}</li>
+                     </ul>
+                </td>
+                <td>
+                    <ul>
+                        {% set relicat = resolver.reste %}
+                        <li class="{{ resolver.isTotalNegatif ? 'text-danger' : 'text-edit' }}" style="font-weight: bold;font-size: 1.1em;">{{ relicat | money_format()  }}</li>
+                    </ul>
+               </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr class="bg-edit text-right">
+            <th colspan="3" class="text-center">{{ __u('totals') }}</th>
+            <th>{{ resolver.totalAchat | money_format }}</th>
+            <th>{{ resolver.cotisationTotal | money_format }}</th>
+            <th>{{ totalCotisation | money_format }}</th>
+            <th colspan="2" class="text-center">INT : {{ int(resolver.totalAchat / ((tontine.count - tontine.countDeminNom) + (tontine.countDeminNom * 0.5))) | money_format }}</th>
+        </tr>
+    </tfoot>
+        </table>
+    </div>
+</div>    
+
+{% endblock %}

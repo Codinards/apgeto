@@ -1,0 +1,48 @@
+<div class="card" style="width: inherit;">
+    <div class="card-header bg-edit">
+        <h4 class="text-center">{{ unity.tontineur }}</h4>
+    </div>
+    <div class="card-body bg-save">
+        <table class="table">
+            <tr>
+                <th>{{ __U('tontine') }}</th>
+                <td>{{ unity.tontine.type }}</td>
+            </tr>
+            <tr>
+                <th>{{ __u('member')}}</th>
+                <td>{{ unity.tontineur }}</td>
+            </tr>
+            <tr>
+                <th>{{ __u('unities') }}</th>
+                <td>{{ unity.tontineurData.count }} {{ unity.tontineurData.count > 1 ? __('parts') : __('part') }} </td>
+            </tr>
+            <tr>
+                <th>{{ __u('benefit.parts') }}</th>
+                <td>{{ unity.tontineurData.won }} {{ unity.tontineurData.won > 1 ? __('parts') : __('part') }} </td>
+            </tr>
+            {% if unity.tontineurData.countDemiNom != 0 %}
+            <tr>
+                <th>{{ __u('half.part') }}</th>
+                <td>{{ __('yes') }} </td>
+            </tr>
+            {% endif %}
+            {% if unity.tontineur.user.account.currentDebt %}
+            <tr class="bg-purple">
+                <th>{{ __u('Solde Prêt') }}</th>
+                <td>{{ unity.tontineur.user.account.currentDebt.loanBalances | money_format }} </td>
+            </tr>
+            {% endif %}
+            {% if fund ?? false %}
+            <tr class="bg-purple">
+                <th>{{ __u('Solde Fond') }}</th>
+                <td>{{ unity.tontineur.user.account.cashBalances | money_format }} </td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+    {% if footer == true %}
+        <div class="card-footer text-center {{ footer_class ?? '' }}">
+            {{ create_link('app_backend_tontineur_unity_add', '<i class="fa fa-edit"></i> ' ~ __('tontineur.add.unity') , {_locale: locales.locale, id:unity.tontine.id, tontineur:unity.tontineur.id, data:unity.tontineurData.id}, {class: 'btn btn-success'}, {'valid': _and(is_valid, unity.tontine.addMember)}  ) }}
+        </div>
+    {% endif %}
+</div>

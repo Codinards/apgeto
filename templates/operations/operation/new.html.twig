@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title | title  }}{% endblock %}
+
+{% block pageTitle %}
+    <h1>{{ type.name | title }}</h1>
+{% endblock pageTitle %}
+
+{% block body %}
+<div class="row mb-2">
+    <div class="col-8">
+        {{ create_link('app_backend_operation_type_show', __('operation.index'), {_locale: locales.locale, id: type.id }, {class: 'btn btn-info'} ) }} 
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        {{ form_start(form) }}
+        <div class="card">
+            <div class="card-header bg-edit text-center">
+                <h2 class="card-title">{{ type.name | title }}</h2> 
+                {{ __u(title) | title }}
+            </div>
+            <div class="card-body">
+                {{ form_widget(form) }}
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">{{ __('save') }}</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    const formCheck = document.querySelectorAll('.form-check')
+    const matcher = function(match, p1, p2){
+        console.log(p1, p2)
+        return p1; 
+    }
+
+    for(let elt of formCheck){
+        if(elt.querySelector('input').addEventListener('change', function(e){
+            e.stopPropagation();
+            if(this.checked){
+                elt.classList.add('bg-edit')
+            }else{
+                elt.classList.remove('bg-edit')
+            }
+        }));
+        const label = elt.querySelector('label')
+        const labelText = label.innerHTML.split('---');
+
+        /*const span = document.createElement('span')
+        span.style.fontWeight = 'bold';
+        span.innerHTML = labelText[1];*/
+        const amount = labelText[1].split(':');
+        label.innerHTML = `${labelText[0]} ---- <span style="font-weight:bold;">${amount[0]}<span class="text-save">${amount[1]}</span></span>`;
+    }
+</script>
+{% endblock %}

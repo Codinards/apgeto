@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Gestions des cotisations et échecs
+{% endblock %}
+
+{% block pageTitle %}
+    <h1>Gestions des Cotisations et Echecs</h1>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-12 text-right">
+        {{ create_link('app_backend_tontine_cotisation_index', 'Listing des échec par date', {type:'day'}, {class: 'btn bg-chocolate'}) }}
+        {{ create_link('app_backend_tontine_cotisation_index', 'Listing des échec par membre', {type:'tontiner'}, {class: 'btn btn-edit'}) }}
+        {{ create_link('app_backend_tontine_cotisation_create_failure', 'Enregistrer les echecs', {}, {class: 'btn btn-update'}) }}
+    </div>
+</div>
+<hr>
+<div class="row">
+      <div class="col-12">
+        {% for items in cotisationData | batch(3) %}
+            <div class="row pb-2 pt-2 m-2 cotisation_item_row" data-length="{{ count(items) }}">
+            {% if type == 'day' %}
+                {% for day in items %}
+                    <div class="col-md-4 col-sm-6 cotisation_item_col" style="max-width: 33.3vw;">
+                        <div class="bg-save m-2 text-center">
+                        {{ create_link('app_backend_tontine_cotisation_day_show', day.createdAt | in_locale('ll'), {day: day.id}, {class: 'text-white'}) }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% for tontiner in items %}
+                <div class="col-md-4 col-sm-6 cotisation_item_col" style="max-width: 33vw;">
+                    <div class="bg-save m-2 text-center">
+                        {{ create_link('app_backend_tontine_cotisation_tontiner_show', tontiner.tontineur.name, {tontiner: tontiner.id}, {class: 'text-white'}) }}
+                    </div>
+                </div>                         
+                {% endfor %}
+            {% endif %}
+
+            </div>
+            <hr>
+        {% endfor %}
+      </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        let rows = document.getElementsByClassName('cotisation_item_row')
+        rows.forEach((elt, index) => {
+            let rowLength = parseInt(elt.getAttribute('data-length'), 10)
+            let divs = elt.querySelectorAll('.cotisation_item_col')
+            if(rowLength === 1){
+                let div = divs[0]
+                div.classList.remove('col-md-4')
+                div.classList.remove('col-sm-6')
+                div.classList.add('col-12')
+            }else if(rowLength == 2){
+                divs.forEach((subElt) => {
+                    subElt.classList.remove('col-md-4')
+                    subElt.classList.remove('col-sm-6')
+                    subElt.classList.add('col-sm-6')
+                })
+            }
+        })
+    </script>
+{% endblock javascripts %}

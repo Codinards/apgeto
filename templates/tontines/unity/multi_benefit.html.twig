@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+{{  __t('Multiple Bénéficiation de la tontine') }}
+{% endblock %}
+
+{% block pageTitle %}
+<h1>{{  __t('Multiple Bénéficiation de la tontine') }}</h1>  
+{% endblock pageTitle %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-12">
+            <div class="text-right">
+            {{ create_link('app_backend_tontine_index', __('tontine.index'), {_locale: locales.locale}, {class: 'btn btn-edit'} ) }}
+            {{ create_link('app_backend_tontine_show', __('tontine'), {_locale: locales.locale, id:tontine.id}, {class: 'btn btn-save'} ) }}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            {# <div class="card bg-edit">
+                <div class="card-header"></div>
+                <div class="card-body"> #}
+                    {{ form_start(form) }}
+                        {% for unity in form.winners %}
+                        <div class="m-2 p-2 bg-save card">
+                            <h3 class="border-bottom text-center text-edit text-bold">{{ unity.vars.value.tontineur.name }}</h3>
+                            {{ form_widget(unity) }}
+                        </div>
+                        <hr/>
+                        {% endfor %}
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary radius-15">{{ __u(button_label ?? 'register') }}</button>
+                        </div>
+                    {{ form_end(form) }}
+                {# </div>
+
+            </div>  #}
+        </div>
+    </div>
+{% endblock %}
